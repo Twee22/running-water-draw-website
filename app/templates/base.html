@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - Running Water Draw Festival</title>
+      {% else %}
+      <title>Running Water Draw Festival</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Home Page: <a href="/index">Home</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
