@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Vendor Application</h1>
+
+    <div class="application">
+        <form>
+            <fieldset class="businessInfo">
+                <label for="name">Name</label>
+                <input name="name" type="text" id="name" required>
+                <label for="business">Business Name</label>
+                <input name="business" type="text" id="business" required>
+                <label for="address">Address</label>
+                <input name="address" type="text" id="address" required>
+                <label for="email">Email Address</label>
+                <input name="email" type="email" id="email" required>
+                <label for="phoneNum">Cell Phone Number</label>
+                <input name="phoneNum" type="text" id="phoneNum" required>
+                <label for="description">Description of Sales Items</label>
+                <input name="description" type="text" id="description" required>
+            </fieldset>
+            <fieldset class="boothPrice">
+                <label for="boothNum">Number of Booths*</label>
+                <input name="boothNum" type="number" id="boothNum" min="1" max="4" required>
+                <label for="tableNum">Number of Tables ($10 per table)</label>
+                <input name="tableNum" type="number" id="tableNum" min="0" max="20">   
+                
+                <div class="boothPay"><p>*For Payments received prior to August 1st:(1 booth $150, 2 booths $200)
+                    For Payments received after July 31st:(1 booth $175, 2 booths $225)</p></div>
+            </fieldset>
+            <div class="note">
+                <h4>Please Note:</h4>
+                <list>
+                    <ul>All booths are indoor with electricity. Chairs are provided. Exhibitors provide display equipment and
+                        extension cords. We suggest the use of spotlights in your booth because lighting in the facility is dim.</ul>
+                    <ul>EXHIBITORS ARE NOT PERMITTED TO CLOSE THEIR BOOTHS PRIOR TO 5PM SUNDAY</ul>
+                    <ul>Exhibitor drive in access may be limited due to congestion. Limited loading/unloading assistance will
+                        again be provided by the Plainview Rotary Club</ul>
+                    <ul>All sales and display materials must not exceed "PG-13". (Defined as no nudity or sexual situations,
+                        no extreme violence, no gore, no coarse language). Violating this rule is cause for immediate
+                        dismissal from the show with no refund, and being banned from any future events hosted by the
+                        show's management.</ul>
+                    <ul>No sales on site or promotion for online or off-site sales of any guns real or replica.
+                    </ul>
+                    <ul>Booth size is 10' x 12', Please call us if your booth will have a trailer.</ul>
+                    <ul>Exhibitors are responsible for collecting and reporting Sales Tax
+                    </ul>
+                    <ul>Cancellation deadline for refund is October 1st.</ul>
+                </list>
+            </div>
+            <div class="datestimes">
+                <h4>Show Dates and Times</h4>
+                <list>
+                    <!--[Put Date variable where dates are]-->
+                    <ul>Load in(Th.): 8:00 am - 8:00 pm</ul>
+                    <ul>Fri.: 10:00 am - 6:00 pm</ul>
+                    <ul>Sat.: 10:00 am - 6:00 pm</ul>
+                    <ul>Sun.:Noon - 5:00 pm</ul>
+                    <ul>Load out(Sun.): 5:00 pm - 8:00 pm</ul>
+                </list>
+            </div>
+            <div>
+                <label for="terms">By signing this application, I hereby release and forever discharge the Plainview Rotary Club and
+                    the Hale County Ollie Liner Center from any responsibility, personal liability, loss, claims or damage
+                    arising out of or in connection with this festival. Applicant acknowledges that he or she is
+                    responsible for the safety of all displays, booths & vehicles and that sale items can be legally sold. </label>
+                <input type="checkbox" name="terms" id="terms" required>
+                <label for="sign">Signed</label>
+                <input name="sign" type="text" id="sign" required>
+                <input type="submit" name="submit" id="submit">
+            </div>
+        </form>
+    </div>
+{% endblock %}
