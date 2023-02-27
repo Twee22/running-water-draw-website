@@ -1,5 +1,6 @@
 from flask import render_template, request
 from app import app
+from app.forms import ApplicationForm
 
 @app.route('/')
 @app.route('/index')
@@ -8,4 +9,5 @@ def index():
 
 @app.route('/application')
 def application():
-    return render_template('application.html')
+    form = ApplicationForm()
+    return render_template('application.html', form=form)

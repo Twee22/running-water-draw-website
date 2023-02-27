@@ -9,8 +9,8 @@
     </head>
     <body>
         <div>
-          <a href="/index">Home</a>
-          <a href="/application">Application</a>
+          <a href="{{url_for('index')}}">Home</a>
+          <a href="{{url_for('application')}}">Application</a>
         </div>
         <hr>
         {% block content %}{% endblock %}

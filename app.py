@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request
-
+from app.forms import ApplicationForm
 app = Flask(__name__)
 
 @app.route('/')
@@ -9,7 +9,8 @@ def index():
 
 @app.route('/application')
 def application():
-    return render_template('application.html')
+    form = ApplicationForm()
+    return render_template('application.html', form=form)
 
 if __name__ == "__main__":
     app.run(debug=True)

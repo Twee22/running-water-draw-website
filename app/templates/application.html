@@ -4,26 +4,19 @@
     <h1>Vendor Application</h1>
 
     <div class="application">
-        <form>
+        <form method="POST" action="/">
             <fieldset class="businessInfo">
-                <label for="name">Name</label>
-                <input name="name" type="text" id="name" required>
-                <label for="business">Business Name</label>
-                <input name="business" type="text" id="business" required>
-                <label for="address">Address</label>
-                <input name="address" type="text" id="address" required>
-                <label for="email">Email Address</label>
-                <input name="email" type="email" id="email" required>
-                <label for="phoneNum">Cell Phone Number</label>
-                <input name="phoneNum" type="text" id="phoneNum" required>
-                <label for="description">Description of Sales Items</label>
-                <input name="description" type="text" id="description" required>
+                <div>{{form.name.label}}{{form.name()}}</div>
+                <div>{{form.business.label}}{{form.business()}}</div>
+                <div>{{form.address.label}}{{form.address()}}</div>
+                <div>{{form.citystatezip.label}}{{form.citystatezip()}}</div>
+                <div>{{form.email.label}}{{form.email()}}</div>
+                <div>{{form.phoneNum.label}}{{form.phoneNum()}}</div>
+                <div>{{form.desc.label}}{{form.desc()}}</div>
             </fieldset>
             <fieldset class="boothPrice">
-                <label for="boothNum">Number of Booths*</label>
-                <input name="boothNum" type="number" id="boothNum" min="1" max="4" required>
-                <label for="tableNum">Number of Tables ($10 per table)</label>
-                <input name="tableNum" type="number" id="tableNum" min="0" max="20">   
+                <div>{{form.boothNum.label}}{{form.boothNum()}}</div>
+                <div>{{form.tableNum.label}}{{form.tableNum()}}</div>   
                 
                 <div class="boothPay"><p>*For Payments received prior to August 1st:(1 booth $150, 2 booths $200)
                     For Payments received after July 31st:(1 booth $175, 2 booths $225)</p></div>
@@ -60,14 +53,13 @@
                 </list>
             </div>
             <div>
-                <label for="terms">By signing this application, I hereby release and forever discharge the Plainview Rotary Club and
+                <div>By signing this application, I hereby release and forever discharge the Plainview Rotary Club and
                     the Hale County Ollie Liner Center from any responsibility, personal liability, loss, claims or damage
                     arising out of or in connection with this festival. Applicant acknowledges that he or she is
-                    responsible for the safety of all displays, booths & vehicles and that sale items can be legally sold. </label>
-                <input type="checkbox" name="terms" id="terms" required>
-                <label for="sign">Signed</label>
-                <input name="sign" type="text" id="sign" required>
-                <input type="submit" name="submit" id="submit">
+                    responsible for the safety of all displays, booths & vehicles and that sale items can be legally sold. </div>
+                <div>{{form.terms.label}}{{form.terms()}}</div>
+                <div>{{form.sign.label}}{{form.sign()}}</div>
+                <div>{{form.submit()}}</div>
             </div>
         </form>
     </div>
