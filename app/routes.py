@@ -7,7 +7,10 @@ from app.forms import ApplicationForm
 def index():
     return render_template('index.html')
 
-@app.route('/application')
+@app.route('/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
+    if form.is_submitted():
+        result = request.form
+        return render_template('index.html', result=result)
     return render_template('application.html', form=form)
