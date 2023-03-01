@@ -1,5 +1,5 @@
 from flask import render_template, request
-from app import app
+from app import app, db
 from app.forms import ApplicationForm
 from app.models import Vendor
 
@@ -23,6 +23,7 @@ def application():
     
     if form.is_submitted():
         v = Vendor(name=name, business=business, email=email, address=address, citystatezip=citystatezip, phoneNum=phoneNum, desc=desc, boothNum=boothNum, tableNum=tableNum, )
-        result = request.form
-        return render_template('index.html', result=result)
+        db.session.add(v)
+        db.session.commit()
+        return render_template('index.html')
     return render_template('application.html', form=form)

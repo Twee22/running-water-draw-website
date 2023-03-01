@@ -4,7 +4,7 @@
     <h1>Vendor Application</h1>
 
     <div class="application">
-        <form method="POST" action="/">
+        <form method="POST" action="/index">
             {% if form.errors %}
                 <ul class="errors">
                 {% for field_name, field_errors in form.errors|dictsort if field_errors %}
