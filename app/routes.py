@@ -4,25 +4,18 @@ from app.forms import ApplicationForm
 from app.models import Vendor
 
 @app.route('/')
-@app.route('/index')
+@app.route('/index', methods=['POST'])
 def index():
     return render_template('index.html')
 
 @app.route('/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
-    name = form.name
-    business = form.business
-    address = form.address
-    citystatezip = form.citystatezip
-    email = form.email
-    phoneNum = form.phoneNum
-    desc = form.desc
-    boothNum = form.boothNum
-    tableNum = form.tableNum
-    
-    if form.is_submitted():
-        v = Vendor(name=name, business=business, email=email, address=address, citystatezip=citystatezip, phoneNum=phoneNum, desc=desc, boothNum=boothNum, tableNum=tableNum, )
+        
+    print("Gets here")
+    if form.validate_on_submit():
+        print("Gets here 2")
+        v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, boothNum = form.boothNum.data, tableNum = form.tableNum.data)
         db.session.add(v)
         db.session.commit()
         return render_template('index.html')

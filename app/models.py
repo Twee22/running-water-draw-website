@@ -1,17 +1,22 @@
 from app import db
 
+user_vendor = db.Table('user_vendor',
+        db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+        db.Column('vendor_id', db.Integer, db.ForeignKey('vendor.id'))
+)
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    following = db.relationship('Vendor', secondary=user_vendor, backref='followers')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
     
 class Vendor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     name = db.Column(db.String(50), nullable=False)
     business = db.Column(db.String(200), nullable=False)
     address = db.Column(db.String(200), nullable=False)
