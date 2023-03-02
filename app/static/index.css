@@ -34,10 +34,13 @@ div {
     width: 100vw;
     height: 100vh;
 }
-
+/*
+nav bar width, size, and position
+*/
 .nav-bar {
     position: fixed;
     width: 100%;
+    top: 0;
     height: auto;
     padding: px 24px;
 }
