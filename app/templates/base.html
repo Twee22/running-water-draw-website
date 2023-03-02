@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <head>
-      <link rel="stylesheet" href="{{url_for('static', filename='css/index.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='./index.css') }}">
       {% if title %}
       <title>{{ title }} - Running Water Draw Festival</title>
       {% else %}
@@ -12,9 +12,6 @@
       {% endif %}
     </head>
     <body>
-        <div>Home Page: 
-          <a href="/index">Home</a>
-        </div>
         <hr>
         {% block content %}{% endblock %}
     </body>
