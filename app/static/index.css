@@ -8,16 +8,17 @@ body,h1,h2,h3,h4,h5,h6 {
 }
 
 h5 {
-    font-size: large;
+    font-size: 20px;
 }
 
 h1 {
     margin: 16px;
     font-size: 64px;
+    text-align: center;
 }
 
 a {
-    color: black;
+    color: rgb(27, 99, 206);
 }
 
 .page_header {
@@ -26,7 +27,6 @@ a {
     vertical-align: middle;
     border: 0;
     box-sizing: border-box;
-    overflow-clip-margin: content-box;
     overflow: clip;
     
 }
@@ -68,7 +68,7 @@ nav bar width, size, and position
 
 nav ul {
     list-style: none;
-    background-color: black ;
+    background-color: #091753;
     overflow: hidden;
     padding: 0;
     text-align: center;
@@ -84,7 +84,7 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     color: white;
-    font-size: 18px;
+    font-size: 20px;
     font-family: sans-serif;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -94,7 +94,40 @@ nav ul li a {
 header {
     background-color: #ffffff;
     text-align: center;
-    padding:128px 16px;
+    padding: 128px 16px;
+}
+
+
+.top_button1 {
+    color: rgb(255, 255, 255);
+    background-color: #091753;
+    font-size: 24px;
+    margin-top: 16px;
+    display: inline-block;
+    padding: 12px 24px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.top_button {
+    color: rgb(255, 255, 255);
+    background-color: #091753;
+    font-size: 18px;
+    margin-top: 16px;
+    display: inline-block;
+    padding: 12px 24px;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.top_button1:hover, .top_button:hover {
+    background: #091753ab;
+    transition: .5s;
+}
+
+#spaces_booking {
+    padding-right:80px;
+    padding-left:80px;
 }
 
 iframe {
@@ -106,50 +139,25 @@ iframe {
 th, td {
     padding: 30px;
     text-align: left;
-    font-size: 15px;
-    background-color: rgba(187, 198, 199, 0.534);
+    font-size: 18px;
+    background-color: #09175341;
     color: rgb(0, 0, 0);
-}
-
-#spaces_booking {
-    padding-right:123px;
-    padding-left:123px;
 }
 
 footer {
     display: block;
-    color: rgb(0, 0, 0);
-    background-color: rgba(144, 150, 153, 0.849);
-    margin-top: 200px;
+    color: rgb(255, 255, 255);
+    background-color: #091753;
+    margin-top: 250px;
     padding: 10px 20px;
     padding-top: 64px;
     padding-bottom: 64px;
     text-align: center;
 }
 
-.description {
-    font-size: 26px;
-}
-
-.top_button{
-    color: rgb(255, 255, 255);
-    background-color: black;
-    font-size: 18px;
-    margin-top: 16px;
-    display: inline-block;
-    padding: 12px 24px;
-    vertical-align: middle;
-    cursor: pointer;
-}
-
-.top_button:hover {
-    background: rgba(29, 30, 31, 0.849);
-    transition: .5s;
-}
-
 
 .grid1 {
-    padding-top: 75px!important;
+    padding-top: 30px!important;
     padding-bottom: 500px!important;
     padding: 16px;
     background-color: #ffffff;
