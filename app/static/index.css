@@ -4,7 +4,7 @@
 }
 
 body,h1,h2,h3,h4,h5,h6 {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 h5 {
@@ -34,13 +34,10 @@ div {
     width: 100vw;
     height: 100vh;
 }
-/*
-nav bar width, size, and position
-*/
+
 .nav-bar {
     position: fixed;
     width: 100%;
-    top: 0;
     height: auto;
     padding: px 24px;
 }
@@ -50,8 +47,8 @@ nav bar width, size, and position
 }
 
 .sign-in {
-    float: right;
-    padding-right: 35px;
+    float: left;
+    padding-left: 35px;
     font-size: 35px;
 }
 

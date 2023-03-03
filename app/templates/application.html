@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!--<link rel="stylesheet" href="{{url_for('static', filename='styles.css') }}">-->
+    <h1>Vendor Application</h1>
+
+    <div class="application">
+        <form method="POST" action="/application">
+            {{ form.csrf_token() }}
+            {% if form.errors %}
+                <ul class="errors">
+                {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                    {% for error in field_errors %}
+                    <li>{{ form[field_name].label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                </ul>
+            {% endif %}
+            <fieldset class="businessInfo">
+                <div>{{form.name.label}}{{form.name()}}</div>
+                <div>{{form.business.label}}{{form.business()}}</div>
+                <div>{{form.address.label}}{{form.address()}}</div>
+                <div>{{form.citystatezip.label}}{{form.citystatezip()}}</div>
+                <div>{{form.email.label}}{{form.email()}}</div>
+                <div>{{form.phoneNum.label}}{{form.phoneNum()}}</div>
+                <div>{{form.desc.label}}{{form.desc()}}</div>
+            </fieldset>
+            <fieldset class="boothPrice">
+                <div>{{form.boothNum.label}}{{form.boothNum()}}</div>
+                <div>{{form.tableNum.label}}{{form.tableNum()}}</div>   
+                
+                <div class="boothPay"><p>*For Payments received prior to August 1st:(1 booth $150, 2 booths $200)
+                    For Payments received after July 31st:(1 booth $175, 2 booths $225)</p></div>
+            </fieldset>
+            <div class="note">
+                <h4>Please Note:</h4>
+                <list>
+                    <ul>All booths are indoor with electricity. Chairs are provided. Exhibitors provide display equipment and
+                        extension cords. We suggest the use of spotlights in your booth because lighting in the facility is dim.</ul>
+                    <ul>EXHIBITORS ARE NOT PERMITTED TO CLOSE THEIR BOOTHS PRIOR TO 5PM SUNDAY</ul>
+                    <ul>Exhibitor drive in access may be limited due to congestion. Limited loading/unloading assistance will
+                        again be provided by the Plainview Rotary Club</ul>
+                    <ul>All sales and display materials must not exceed "PG-13". (Defined as no nudity or sexual situations,
+                        no extreme violence, no gore, no coarse language). Violating this rule is cause for immediate
+                        dismissal from the show with no refund, and being banned from any future events hosted by the
+                        show's management.</ul>
+                    <ul>No sales on site or promotion for online or off-site sales of any guns real or replica.
+                    </ul>
+                    <ul>Booth size is 10' x 12', Please call us if your booth will have a trailer.</ul>
+                    <ul>Exhibitors are responsible for collecting and reporting Sales Tax
+                    </ul>
+                    <ul>Cancellation deadline for refund is October 1st.</ul>
+                </list>
+            </div>
+            <div class="datestimes">
+                <h4>Show Dates and Times</h4>
+                <list>
+                    <!--[Put Date variable where dates are]-->
+                    <ul>Load in(Th.): 8:00 am - 8:00 pm</ul>
+                    <ul>Fri.: 10:00 am - 6:00 pm</ul>
+                    <ul>Sat.: 10:00 am - 6:00 pm</ul>
+                    <ul>Sun.:Noon - 5:00 pm</ul>
+                    <ul>Load out(Sun.): 5:00 pm - 8:00 pm</ul>
+                </list>
+            </div>
+            <div>
+                <div>By signing this application, I hereby release and forever discharge the Plainview Rotary Club and
+                    the Hale County Ollie Liner Center from any responsibility, personal liability, loss, claims or damage
+                    arising out of or in connection with this festival. Applicant acknowledges that he or she is
+                    responsible for the safety of all displays, booths & vehicles and that sale items can be legally sold. </div>
+                <div>{{form.terms.label}}{{form.terms()}}</div>
+                <div>{{form.sign.label}}{{form.sign()}}</div>
+                <div>{{form.submit()}}</div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
