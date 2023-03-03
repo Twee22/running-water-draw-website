@@ -4,9 +4,9 @@
 <div class="nav-bar">
     <nav>
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="./static/vendor_app/2023RWDApplication.pdf" target="blank">PDF</a></li>
-            <li><a href="application.html">Vendor</a></li>
+            <li><a href="{{ url_for('application') }}">Vendor</a></li>
             <li><a href="#">Photos</a></li>
             <li><a href="#">Contact Us</a></li>
         </ul>
@@ -15,10 +15,10 @@
 </div>
 <!-- Header -->
 <header>
-<h1>HEADER</h1>
-<p class="description">Description of event</p>
-<a href ="application.html"><button class="top_button">Online Vendor Application</button> </a>
-<a href ="./static/vendor_app/2023RWDApplication.pdf" target="blank"><button class="top_button">PDF Vendor Application</button> </a>
+<img src="./static/header/Header.png" alt="RDWD Header" height="468" width="800" class="page_header"> <br><br>
+
+<a href ="{{ url_for('application') }}"><button class="top_button1">Online Vendor Application</button> </a>
+<a href ="./static/vendor_app/2023RWDApplication.pdf" target="blank"><button class="top_button1">PDF Vendor Application</button> </a>
 
 </header>
 
