@@ -126,8 +126,8 @@ header {
 }
 
 #spaces_booking {
-    padding-right:80px;
-    padding-left:80px;
+    padding-right:60px;
+    padding-left:60px;
 }
 
 iframe {
@@ -138,8 +138,8 @@ iframe {
 
 th, td {
     padding: 30px;
-    text-align: left;
-    font-size: 18px;
+    text-align: center;
+    font-size: 17px;
     background-color: #09175341;
     color: rgb(0, 0, 0);
 }
