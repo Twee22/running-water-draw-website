@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <!-- Navbar -->
+<link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+<script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+
 <div class="nav-bar">
     <nav>
         <ul>
@@ -84,8 +87,6 @@
                 </tr>
             </table>
             <h2>Pictures of the Festival</h2>
-            <img src="https://clubrunner.blob.core.windows.net/00000009094/Carousels/dynamic-carousel/IMG_0217.jpeg" alt="temp image" class="center"> <br> <br>
-        
         </div>
 
 
@@ -101,6 +102,27 @@
         </center>
         </div>
     </div>
+</div>
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="{{url_for('static',filename='./carousel/IMG_0217.jpeg')}}" class="d-block" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{url_for('static',filename='./carousel/IMG_0218.jpeg')}}" class="d-block" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="{{url_for('static',filename='./carousel/IMG_0219.jpeg')}}" class="d-block" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
 </div>
 
 
