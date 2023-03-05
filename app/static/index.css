@@ -218,8 +218,8 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 700px;
-    height: 700px;
+    width: 800px;
+    height: 650px;
     border: 5px solid #091753;
 }
 
@@ -234,11 +234,11 @@ classes that style the carousel
 controls location of next and previous arrows
 */
 .carousel-control-next-icon {
-    margin-left: -380px;
-    margin-bottom: 250px;
+    margin-left: -340px;
+    margin-bottom: 270px;
 }
 
 .carousel-control-prev-icon {
-    margin-right: -380px;
-    margin-bottom: 250px;
+    margin-right: -340px;
+    margin-bottom: 270px;
 }

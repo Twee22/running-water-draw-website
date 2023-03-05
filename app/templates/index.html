@@ -1,41 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
-<!-- Navbar -->
+
+<!-- Boostrap link -->
 <link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
 <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
 
+<!-- Nav bar with links to Home, PDF, Vendor, Photos, and Contact Us-->
 <div class="nav-bar">
     <nav>
         <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="./static/vendor_app/2023RWDApplication.pdf" target="blank">PDF</a></li>
             <li><a href="{{ url_for('application') }}">Vendor</a></li>
-            <li><a href="#">Photos</a></li>
+            <li><a href="#carousel">Photos</a></li>
             <li><a href="#">Contact Us</a></li>
         </ul>
+        <!-- Link to login page -->
         <a class="sign-in" href="#">LOGIN</a>
     </nav>
 </div>
 <!-- Header -->
 <header>
+<!-- Header image -->
 <img src="./static/header/Header.png" alt="RDWD Header" height="468" width="800" class="page_header"> <br><br>
-
+<!-- Linkts to application, both PDF and online versions -->
 <a href ="{{ url_for('application') }}"><button class="top_button1">Online Vendor Application</button> </a>
 <a href ="./static/vendor_app/2023RWDApplication.pdf" target="blank"><button class="top_button1">PDF Vendor Application</button> </a>
 
 </header>
 
-<!-- First Grid -->
+<!-- First grid -->
 <div class="grid1">
     <div class="grid_content">
         <div class="two_third">
+        <!-- displays name of festival -->
         <h1>Running Water Festival</h1>
         <h5 
             class="h5_padding">The Plainview Rotary Club's 49th Annual Running Water Draw Festival will be held at the Ollie Liner Center (2000 S. Columbia St.) on Friday, Saturday and Sunday, October 20th, 21st & 22nd.
- 
         </h5>
+
+        <!-- button that switch between the list and map views -->
         <button class="top_button" id="spaces_booking">List View</button>
         <button class="top_button" id="spaces_booking">Map View</button>
+             <!-- Table of verifed vendors -->
             <table class="list">
                 <tr>
                     <th>Name</th>
@@ -87,6 +94,7 @@
                     <td></td>
                 </tr>
             </table> <br><br>
+            <!-- Header before carousel -->
             <h2>Pictures of the Festival</h2>
         </div>
 
@@ -106,7 +114,7 @@
 </div>
 
 <!-- Carousel taken from https://getbootstrap.com/docs/5.0/components/carousel/  -->
-<div class = "carouselContainer">
+<div class = "carouselContainer" id="carousel">
     <div id="carouselExampleFade" class="carousel carousel-dark carousel-fade slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -119,6 +127,7 @@
             </div>
             {% endfor %}
         </div>
+        <!--buttons that control next and previous image on carousel-->
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -129,10 +138,19 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+</div> <br> <br>
 
+<!-- Email contact
+<div class="grid1">
+    <div class="grid_content">
+        <div class="two_third">
+            <h2>Send Us an Email: </h2>
+        </div>
+    </div>
 </div>
-
+-->
+<!-- Footer -->
 <footer>
-    <h2>Add footer</h2>
+    <h2>Running Water Draw Festival 2023</h2>
 </footer>
 {% endblock %}
