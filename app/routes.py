@@ -2,6 +2,7 @@ from flask import render_template, request
 from app import app, db
 from app.forms import ApplicationForm
 from app.models import Vendor
+
 import os
 
 @app.route('/')
