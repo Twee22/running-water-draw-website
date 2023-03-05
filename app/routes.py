@@ -7,6 +7,7 @@ import os
 @app.route('/')
 @app.route('/index', methods=['POST'])
 def index():
+    # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
     return render_template('index.html', image_name = image_names)
 
