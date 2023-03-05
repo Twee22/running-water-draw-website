@@ -1,8 +1,4 @@
 
-.facebook {
-    margin-left: 100px;
-}
-
 body,p,h1,h2,h3,h4,h5,h6 {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
@@ -18,6 +14,17 @@ h1 {
     text-align: center;
 }
 
+/*
+class styling description of the event located above the list
+*/
+.h5_padding {
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+/*
+change color of all links to blue
+*/ 
 a {
     color: rgb(27, 99, 206);
 }
@@ -46,11 +53,11 @@ div {
     width: 100vw;
     height: 100vh;
 }
+
 /*
 nav bar width, size, and position
 inspired from https://www.youtube.com/watch?v=e6SMonsnM9Q
 */
-
 .nav-bar, h1, button {
     font-family:'Times New Roman', Times, serif
 }
@@ -91,16 +98,19 @@ nav ul li a {
     font-family: sans-serif;
     text-transform: uppercase;
     letter-spacing: 2px;
-
 }
-
+/*
+header color and alignment
+*/
 header {
     background-color: #ffffff;
     text-align: center;
     padding: 128px 16px;
 }
 
-
+/*
+PDF and Vendor application buttons 
+*/
 .top_button1 {
     color: rgb(255, 255, 255);
     background-color: #091753;
@@ -127,7 +137,9 @@ header {
     background: #091753ab;
     transition: .5s;
 }
-
+/*
+padding for List and Map view buttons located above the list
+*/
 #spaces_booking {
     padding-right:60px;
     padding-left:60px;
@@ -138,7 +150,9 @@ iframe {
     height: 300px;
     margin-left: 100px;
 }
-
+/*
+styling and sizing of table headers and data
+*/
 th, td {
     padding: 30px;
     text-align: center;
@@ -146,13 +160,18 @@ th, td {
     background-color: #09175341;
     color: rgb(0, 0, 0);
 }
-
+/*
+style table
+*/
 .list {
     border-collapse: separate;
     text-indent: initial;
     border-spacing: 2px;
 }
 
+/*
+footer color and location
+*/
 footer {
     display: block;
     color: rgb(255, 255, 255);
@@ -164,13 +183,13 @@ footer {
     text-align: center;
 }
 
-
+/*
+grid layout
+*/
 .grid1 {
     padding-top: 30px!important;
     padding-bottom: 200px!important;
-    padding: 16px;
-
-    
+    padding: 16px; 
 }
 
 .grid_content {
@@ -178,7 +197,6 @@ footer {
     margin-left: auto;
     margin-right: auto;
     box-sizing: inherit;
-
 }
 
 .two_third {
@@ -186,16 +204,14 @@ footer {
     float: left;
 }
 
-.h5_padding {
-    padding-top: 32px;
-    padding-bottom: 32px;
-}
-
 .third {
     width: 33%;
     float: right;
 }
 
+/*
+styling of images held in the carousel
+*/
 img {
     position: relative;
     z-index: 1;
@@ -204,13 +220,19 @@ img {
     margin-right: auto;
     width: 700px;
     height: 700px;
-    border: 3px solid #091753;
+    border: 5px solid #091753;
 }
 
+/*
+classes that style the carousel
+*/
 .carouselContainer {
     padding-top: 230px;
 }
 
+/*
+controls location of next and previous arrows
+*/
 .carousel-control-next-icon {
     margin-left: -380px;
     margin-bottom: 250px;
