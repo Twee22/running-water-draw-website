@@ -15,8 +15,11 @@
             <li><a href="#carousel">Photos</a></li>
             <li><a href="#">Contact Us</a></li>
         </ul>
-        <!-- Link to login page -->
-        <a class="sign-in" href="#">LOGIN</a>
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
     </nav>
 </div>
 <!-- Header -->
