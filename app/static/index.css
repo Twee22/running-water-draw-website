@@ -176,7 +176,7 @@ footer {
     display: block;
     color: rgb(255, 255, 255);
     background-color: #091753;
-    margin-top: 100px;
+    margin-top: 200px;
     padding: 10px 20px;
     padding-top: 64px;
     padding-bottom: 64px;
@@ -228,7 +228,7 @@ img {
 classes that style the carousel
 */
 .carouselContainer {
-    padding-top: 230px;
+    padding-top: 450px;
 }
 
 /*
