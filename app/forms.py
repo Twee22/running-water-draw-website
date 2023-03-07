@@ -3,13 +3,13 @@ from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanF
 from wtforms.validators import InputRequired, Length, NumberRange, DataRequired
 
 class ApplicationForm(FlaskForm):
-    name = StringField('Name', validators=[InputRequired()])
-    business = StringField('Business Name', validators=[InputRequired()])
-    address = StringField('Address', validators=[InputRequired()])
-    citystatezip = StringField('City, State, Zip', validators=[InputRequired()])
-    email = EmailField('Email Address', validators=[InputRequired()])
-    phoneNum = StringField('Phone Number', validators=[InputRequired()])
-    desc = StringField('Description of Sales Items', validators=[InputRequired()])
+    name = StringField('Name', validators=[InputRequired()], render_kw={"placeholder": "Your Name Here"})
+    business = StringField('Business Name', validators=[InputRequired()], render_kw={"placeholder": "Business Name Here"})
+    address = StringField('Address', validators=[InputRequired()], render_kw={"placeholder": "Address Here"})
+    citystatezip = StringField('City, State, Zip', validators=[InputRequired()], render_kw={"placeholder": "City, State, and Zip"})
+    email = EmailField('Email Address', validators=[InputRequired()], render_kw={"placeholder": "Email Here"})
+    phoneNum = StringField('Phone Number', validators=[InputRequired()], render_kw={"placeholder": "Phone Number Here"})
+    desc = StringField('Description of Sales Items', validators=[InputRequired()], render_kw={"placeholder": "Write a Description of What Your Business Does Here"})
     boothNum = IntegerField('Number of Booths', validators=[InputRequired(), NumberRange(min=1,max=4)])
     tableNum = IntegerField('Number of Tables', validators=[InputRequired(), NumberRange(min=0, max=20)])
     terms = BooleanField('I have read and agree to this', validators=[InputRequired()])
@@ -17,7 +17,7 @@ class ApplicationForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "username"})
+    password = PasswordField('Password', validators=[DataRequired()], render_kw={"placeholder": "password"})
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
