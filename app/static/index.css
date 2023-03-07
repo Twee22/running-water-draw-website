@@ -146,8 +146,8 @@ padding for List and Map view buttons located above the list
 }
 
 iframe {
-    width: 350px;
-    height: 300px;
+    height: 1000px;
+    width: 500px;
     margin-left: 100px;
 }
 /*
@@ -176,7 +176,7 @@ footer {
     display: block;
     color: rgb(255, 255, 255);
     background-color: #091753;
-    margin-top: 100px;
+    margin-top: 200px;
     padding: 10px 20px;
     padding-top: 64px;
     padding-bottom: 64px;
@@ -207,6 +207,7 @@ grid layout
 .third {
     width: 33%;
     float: right;
+    margin-top: 100px;
 }
 
 /*
@@ -227,7 +228,7 @@ img {
 classes that style the carousel
 */
 .carouselContainer {
-    padding-top: 230px;
+    padding-top: 450px;
 }
 
 /*
