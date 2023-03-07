@@ -29,6 +29,22 @@ class styling description of the event located above the list
 }
 
 /*
+styling for login link 
+*/
+.login {
+    float: right;
+    background-color: #09175341;
+    padding: 10px;
+    font-size: 22px;
+}
+
+.login:hover {
+    background: #091753;
+    color: white;
+    transition: .5s;
+}
+
+/*
 change color of all links to blue
 */ 
 a {
@@ -226,13 +242,14 @@ classes that style the carousel
 controls location of next and previous arrows
 */
 .carousel-control-next-icon {
-    margin-left: -340px;
-    margin-bottom: 270px;
+    margin-left: -280px;
+    margin-top: 680px;
 }
 
 .carousel-control-prev-icon {
-    margin-right: -340px;
-    margin-bottom: 270px;
+    margin-right: -280px;
+    margin-top: 680px
+
 }
 
 .application{

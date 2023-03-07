@@ -12,11 +12,11 @@
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="./static/vendor_app/2023RWDApplication.pdf" target="blank">PDF</a></li>
             <li><a href="{{ url_for('application') }}">Vendor</a></li>
-            <li><a href="#carousel">Photos</a></li>
+            <li><a href="#footer">Photos</a></li>
             <li><a href="#">Contact Us</a></li>
         </ul>
         {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
+        <a class="login" href="{{ url_for('login') }}">Login</a>
         {% else %}
         <a href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
@@ -98,7 +98,7 @@
                 </tr>
             </table> <br><br>
             <!-- Header before carousel -->
-            <h2>Pictures of the Festival</h2>
+            <h2>Pictures of the Festival</h2> <br><br>
         </div>
 
 
@@ -138,7 +138,7 @@
     </div>
 </div> <br> <br>
 
-<!-- Email contact
+<!--
 <div class="grid1">
     <div class="grid_content">
         <div class="two_third">
@@ -147,8 +147,9 @@
     </div>
 </div>
 -->
+
 <!-- Footer -->
-<footer>
+<footer id = "footer">
     <h2>Running Water Draw Festival 2023</h2>
 </footer>
 {% endblock %}
