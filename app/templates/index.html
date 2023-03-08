@@ -5,25 +5,6 @@
 <link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
 <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
 
-<!-- Nav bar with links to Home, PDF, Vendor, Photos, and Contact Us-->
-<div class="nav-bar">
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="./static/vendor_app/2023RWDApplication.pdf" target="blank">PDF</a></li>
-            <li><a href="{{ url_for('application') }}">Vendor</a></li>
-            <li><a href="#footer">Photos</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-        <!-- Link to for user login  
-        {% if current_user.is_anonymous %}
-        <a class="login" href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-        -->
-    </nav>
-</div>
 <!-- Header -->
 <header>
 <!-- Header image -->
@@ -48,7 +29,7 @@
         <button class="top_button" id="spaces_booking">List View</button>
         <button class="top_button" id="spaces_booking">Map View</button>
              <!-- Table of verifed vendors -->
-             <!-- scroll bar taken from https://stackoverflow.com/questions/17450861/add-scroll-bar-to-table-body-->
+             <!-- scroll bar taken from https://stackoverflow.com/questions/8232713/how-to-display-scroll-bar-onto-a-html-table-->
              <div id="table-wrapper">
                 <div id="table-scroll">
                     <table class="list">
