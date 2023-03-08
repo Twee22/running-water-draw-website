@@ -7,6 +7,8 @@ body {
     width: 100vw;
     height: 100vh;
     background-color: #b0c4de;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 p {
@@ -151,15 +153,37 @@ padding for List and Map view buttons located above the list
     padding-right:60px;
     padding-left:60px;
 }
-
+/*
+stlying for facebook feed plugin
+*/
 iframe {
     height: 1000px;
     width: 500px;
     margin-left: 100px;
 }
 /*
-styling and sizing of table headers and data
+styling and sizing of table headers and data, inspired from https://stackoverflow.com/questions/8232713/how-to-display-scroll-bar-onto-a-html-table
 */
+
+#table-wrapper{
+    position: relative;
+}
+
+#table-scroll {
+    height: 750px;
+    width: 720px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+#table-wrapper table thead th .text {
+    position: absolute;
+    top: 20px;
+    z-index: 2;
+    height: 20px;
+}
+
 th, td {
     padding: 30px;
     text-align: center;
@@ -167,9 +191,7 @@ th, td {
     background-color: #09175341;
     color: rgb(0, 0, 0);
 }
-/*
-style table
-*/
+
 .list {
     border-collapse: separate;
     text-indent: initial;

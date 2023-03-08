@@ -15,11 +15,13 @@
             <li><a href="#footer">Photos</a></li>
             <li><a href="#">Contact Us</a></li>
         </ul>
+        <!-- Link to for user login  
         {% if current_user.is_anonymous %}
         <a class="login" href="{{ url_for('login') }}">Login</a>
         {% else %}
         <a href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
+        -->
     </nav>
 </div>
 <!-- Header -->
@@ -46,67 +48,77 @@
         <button class="top_button" id="spaces_booking">List View</button>
         <button class="top_button" id="spaces_booking">Map View</button>
              <!-- Table of verifed vendors -->
-            <table class="list">
-                <tr>
-                    <th>Name</th>
-                    <th>Business</th>
-                    <th>Description</th>
-                    <th>Assigned 1</th>
-                    <th>Assigned 2</th>
-                </tr>
-                <tr>
-                    <td>Melanie Kohn</td>
-                    <td>Celebrity</td>
-                    <td>Voice of Lucy Van Pelt</td>
-                    <td>41</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Duncan Watson</td>
-                    <td>Celebrity</td>
-                    <td>Voice of Charlie Brown</td>
-                    <td>42</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Steve Garcia</td>
-                    <td>Celebrity</td>
-                    <td>Animator of Iron Giant, The Simpsons</td>
-                    <td>43</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Matthew Brown</td>
-                    <td>BlazNart</td>
-                    <td>Anime</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Ed Morales</td>
-                    <td>GoldMine collectables</td>
-                    <td>comics & anime figures</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Tracy Reed</td>
-                    <td>Scentsy</td>
-                    <td>warmes, wax, diffusers</td>
-                    <td>19</td>
-                    <td>20</td>
-                </tr>
-            </table> <br><br>
+             <!-- scroll bar taken from https://stackoverflow.com/questions/17450861/add-scroll-bar-to-table-body-->
+             <div id="table-wrapper">
+                <div id="table-scroll">
+                    <table class="list">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Business</th>
+                                <th>Description</th>
+                                <th>Assigned 1</th>
+                                <th>Assigned 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Melanie Kohn</td>
+                                <td>Celebrity</td>
+                                <td>Voice of Lucy Van Pelt</td>
+                                <td>41</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Duncan Watson</td>
+                                <td>Celebrity</td>
+                                <td>Voice of Charlie Brown</td>
+                                <td>42</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Steve Garcia</td>
+                                <td>Celebrity</td>
+                                <td>Animator of Iron Giant, The Simpsons</td>
+                                <td>43</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Matthew Brown</td>
+                                <td>BlazNart</td>
+                                <td>Anime</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Ed Morales</td>
+                                <td>GoldMine collectables</td>
+                                <td>comics & anime figures</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Tracy Reed</td>
+                                <td>Scentsy</td>
+                                <td>warmes, wax, diffusers</td>
+                                <td>19</td>
+                                <td>20</td>
+                            </tr>
+                        </tbody>
+                    </table> <br><br>
+                </div>
+             </div>
+            
             <!-- Header before carousel -->
             <h2>Pictures of the Festival</h2> <br><br>
         </div>
 
 
         <div class="third">
+        <!-- Facebook feed plugin and link -->
         <rounded mx-auto d-block>
-            <p><a href="https://www.facebook.com/rotaryplainview">Our Facebook Page</a></p>
-            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frotaryplainview&tabs=timeline&width=340&height=865&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-        </rounded mx-auto d-block>
+            <p><a href="https://www.facebook.com/runningwaterdrawartsandcraftsfestival/" target="_blank" >Our Facebook Page</a></p>
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frunningwaterdrawartsandcraftsfestival%2F&tabs=timeline&width=340&height=865&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>        </rounded mx-auto d-block>
         </div>
     </div>
 </div>
