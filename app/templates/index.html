@@ -43,10 +43,10 @@
         </h5>
 
         <!-- button that switch between the list and map views -->
-        <button class="top_button" id="spaces_booking">List View</button>
-        <button class="top_button" id="spaces_booking">Map View</button>
+        <button class="top_button" id="spaces_booking" onclick="showList()">List View</button>
+        <button class="top_button" id="spaces_booking" onclick="showMap()">Map View</button>
              <!-- Table of verifed vendors -->
-            <table class="list">
+            <table id="list-view" class="list">
                 <tr>
                     <th>Name</th>
                     <th>Business</th>
@@ -97,6 +97,9 @@
                     <td>20</td>
                 </tr>
             </table> <br><br>
+            <table id="map-view" class="list" style="display: none;">
+                <td>Test Map view</td>
+            </table>
             <!-- Header before carousel -->
             <h2>Pictures of the Festival</h2> <br><br>
         </div>
@@ -138,6 +141,20 @@
     </div>
 </div> <br> <br>
 
+<script>
+    function showList() {
+        var x = document.getElementById("list-view");
+        var y = document.getElementById("map-view");
+        x.style.display = "block";
+        y.style.display = "none";
+    }
+    function showMap() {
+        var x = document.getElementById("map-view");
+        var y = document.getElementById("list-view");
+        x.style.display = "block";
+        y.style.display = "none";
+    }
+</script>
 <!--
 <div class="grid1">
     <div class="grid_content">
