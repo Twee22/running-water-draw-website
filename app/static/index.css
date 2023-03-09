@@ -177,14 +177,25 @@ styling and sizing of table headers and data, inspired from https://stackoverflo
     margin-top: 20px;
 }
 
-#table-wrapper table thead th .text {
+#table-wrapper table thead.text {
     position: absolute;
-    top: 20px;
     z-index: 2;
     height: 20px;
 }
 
-th, td {
+th {
+    color: black;
+    padding: 30px;
+    text-align: center;
+    font-size: 17px;
+    position: sticky;
+    top: 0;
+    background-color: #c0c3d3;
+    box-shadow: 0px 4px #091753;
+
+}
+
+td {
     padding: 30px;
     text-align: center;
     font-size: 17px;
@@ -193,6 +204,7 @@ th, td {
 }
 
 .list {
+    table-layout: fixed;
     border-collapse: separate;
     text-indent: initial;
     border-spacing: 2px;
