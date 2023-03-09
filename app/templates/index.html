@@ -26,70 +26,63 @@
         </h5>
 
         <!-- button that switch between the list and map views -->
-        <button class="top_button" id="spaces_booking">List View</button>
-        <button class="top_button" id="spaces_booking">Map View</button>
+        <button class="top_button" id="spaces_booking" onclick="showList()">List View</button>
+        <button class="top_button" id="spaces_booking" onclick="showMap()">Map View</button>
              <!-- Table of verifed vendors -->
-             <!-- scroll bar taken from https://stackoverflow.com/questions/8232713/how-to-display-scroll-bar-onto-a-html-table-->
-             <div id="table-wrapper">
-                <div id="table-scroll">
-                    <table class="list">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Business</th>
-                                <th>Description</th>
-                                <th>Assigned 1</th>
-                                <th>Assigned 2</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Melanie Kohn</td>
-                                <td>Celebrity</td>
-                                <td>Voice of Lucy Van Pelt</td>
-                                <td>41</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Duncan Watson</td>
-                                <td>Celebrity</td>
-                                <td>Voice of Charlie Brown</td>
-                                <td>42</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Steve Garcia</td>
-                                <td>Celebrity</td>
-                                <td>Animator of Iron Giant, The Simpsons</td>
-                                <td>43</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Matthew Brown</td>
-                                <td>BlazNart</td>
-                                <td>Anime</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Ed Morales</td>
-                                <td>GoldMine collectables</td>
-                                <td>comics & anime figures</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Tracy Reed</td>
-                                <td>Scentsy</td>
-                                <td>warmers, wax, diffusers</td>
-                                <td>19</td>
-                                <td>20</td>
-                            </tr>
-                        </tbody>
-                    </table> <br><br>
-                </div>
-             </div>
-            
+            <table id="list-view" class="list">
+                <tr>
+                    <th>Name</th>
+                    <th>Business</th>
+                    <th>Description</th>
+                    <th>Assigned 1</th>
+                    <th>Assigned 2</th>
+                </tr>
+                <tr>
+                    <td>Melanie Kohn</td>
+                    <td>Celebrity</td>
+                    <td>Voice of Lucy Van Pelt</td>
+                    <td>41</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Duncan Watson</td>
+                    <td>Celebrity</td>
+                    <td>Voice of Charlie Brown</td>
+                    <td>42</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Steve Garcia</td>
+                    <td>Celebrity</td>
+                    <td>Animator of Iron Giant, The Simpsons</td>
+                    <td>43</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Matthew Brown</td>
+                    <td>BlazNart</td>
+                    <td>Anime</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Ed Morales</td>
+                    <td>GoldMine collectables</td>
+                    <td>comics & anime figures</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Tracy Reed</td>
+                    <td>Scentsy</td>
+                    <td>warmes, wax, diffusers</td>
+                    <td>19</td>
+                    <td>20</td>
+                </tr>
+            </table> <br><br>
+            <table id="map-view" class="list" style="display: none;">
+                <td>Test Map view</td>
+            </table>
             <!-- Header before carousel -->
             <br><br> <h2>Pictures of the Festival</h2> <br><br>
         </div>
@@ -131,6 +124,20 @@
     </div>
 </div> <br> <br>
 
+<script>
+    function showList() {
+        var x = document.getElementById("list-view");
+        var y = document.getElementById("map-view");
+        x.style.display = "block";
+        y.style.display = "none";
+    }
+    function showMap() {
+        var x = document.getElementById("map-view");
+        var y = document.getElementById("list-view");
+        x.style.display = "block";
+        y.style.display = "none";
+    }
+</script>
 <!--
 <div class="grid1">
     <div class="grid_content">
