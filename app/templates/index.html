@@ -5,23 +5,6 @@
 <link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
 <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
 
-<!-- Nav bar with links to Home, PDF, Vendor, Photos, and Contact Us-->
-<div class="nav-bar">
-    <nav>
-        <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="./static/vendor_app/2023RWDApplication.pdf" target="blank">PDF</a></li>
-            <li><a href="{{ url_for('application') }}">Vendor</a></li>
-            <li><a href="#footer">Photos</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-        {% if current_user.is_anonymous %}
-        <a class="login" href="{{ url_for('login') }}">Login</a>
-        {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
-    </nav>
-</div>
 <!-- Header -->
 <header>
 <!-- Header image -->
@@ -101,15 +84,15 @@
                 <td>Test Map view</td>
             </table>
             <!-- Header before carousel -->
-            <h2>Pictures of the Festival</h2> <br><br>
+            <br><br> <h2>Pictures of the Festival</h2> <br><br>
         </div>
 
 
         <div class="third">
+        <!-- Facebook feed plugin and link -->
         <rounded mx-auto d-block>
-            <p><a href="https://www.facebook.com/rotaryplainview">Our Facebook Page</a></p>
-            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frotaryplainview&tabs=timeline&width=340&height=865&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-        </rounded mx-auto d-block>
+            <p><a href="https://www.facebook.com/runningwaterdrawartsandcraftsfestival/" target="_blank" >Our Facebook Page</a></p>
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frunningwaterdrawartsandcraftsfestival%2F&tabs=timeline&width=340&height=865&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>        </rounded mx-auto d-block>
         </div>
     </div>
 </div>
