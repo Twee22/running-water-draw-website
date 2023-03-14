@@ -11,7 +11,12 @@ import os
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
-    return render_template('index.html', image_name = image_names)
+    #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
+    #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
+    #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
+    #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
+    vendors = Vendor.query.order_by(Vendor.boothNum)
+    return render_template('index.html', image_name = image_names, vendors = vendors)
 
 @app.route('/application', methods=['GET', 'POST'])
 def application():
