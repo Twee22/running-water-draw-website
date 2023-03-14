@@ -44,47 +44,21 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Melanie Kohn</td>
-                            <td>Celebrity</td>
-                            <td>Voice of Lucy Van Pelt</td>
-                            <td>41</td>
-                            <td></td>
+                            <td>TEST1</td>
+                            <td>TEST2</td>
+                            <td>TEST3</td>
+                            <td>TEST4</td>
+                            <td>{{ 1 + 1 }}</td>
                         </tr>
+                        {% for vendor in vendors %}
                         <tr>
-                            <td>Duncan Watson</td>
-                            <td>Celebrity</td>
-                            <td>Voice of Charlie Brown</td>
-                            <td>42</td>
+                            <td>{{ vendor.name }}</td>
+                            <td>{{ vendor.business }}</td>
+                            <td>{{ vendor.desc }}</td>
+                            <td>{{ vendor.boothNum }}</td>
                             <td></td>
                         </tr>
-                        <tr>
-                            <td>Steve Garcia</td>
-                            <td>Celebrity</td>
-                            <td>Animator of Iron Giant, The Simpsons</td>
-                            <td>43</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Matthew Brown</td>
-                            <td>BlazNart</td>
-                            <td>Anime</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Ed Morales</td>
-                            <td>GoldMine collectables</td>
-                            <td>comics & anime figures</td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Tracy Reed</td>
-                            <td>Scentsy</td>
-                            <td>warmers, wax, diffusers</td>
-                            <td>19</td>
-                            <td>20</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table> <br><br>
             </div>
