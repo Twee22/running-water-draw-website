@@ -43,3 +43,8 @@ def login():
 def logout():
     logout_user()
     return render_template('index.html')
+
+@app.route('/adminapp', methods=['POST', 'GET'])
+def adminapp():
+    vendors = Vendor.query.order_by(Vendor.id)
+    return render_template('AdminApp.html', vendors=vendors)

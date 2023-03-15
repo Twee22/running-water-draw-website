@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="application">
+<form method="POST" action="/adminapp">
+    
+    <h1 class="appTitle">Vendor Applications</h1>
+    <fieldset class="businessInfo">
+        {% for item in vendors %}
+        <div>{{item.name}}
+            {{item.business}}
+            {{item.address}}
+            {{item.citystatezip}}
+            {{item.email}}
+            {{item.phoneNum}}
+            {{item.desc}}</div>
+            <button class="button button1">Confirm</button>
+            <button class="button button3">Deny</button>
+        {% endfor %}
+    </fieldset>
+
+</form>
+</div>
+
+{% endblock %}

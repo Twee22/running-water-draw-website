@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <!--<link rel="stylesheet" href="{{url_for('static', filename='styles.css') }}">-->
-    <h1 class="appTitle">Vendor Application</h1>
-
     <div class="application">
         <form method="POST" action="/application">
             {{ form.csrf_token() }}
@@ -16,6 +13,8 @@
                 {% endfor %}
                 </ul>
             {% endif %}
+
+            <h1 class="appTitle">Vendor Application</h1>
             <fieldset class="businessInfo">
                 <div>{{form.name.label}}{{form.name()}}</div>
                 <div>{{form.business.label}}{{form.business()}}</div>
