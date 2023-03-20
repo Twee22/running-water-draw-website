@@ -211,6 +211,25 @@ td {
 }
 
 /*
+grid inspired from https://www.w3schools.com/css/css_grid_item.asp
+*/
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(28, 1fr);
+    background-color: #091753;
+    padding: 10px;
+  }
+
+.grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+}
+
+/*
 footer color and location
 */
 footer {
