@@ -217,18 +217,21 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(28, 1fr);
+    gap: 5px;
     background-color: #091753;
-    padding: 10px;
+    padding: 5px;
   }
-
-.grid-item {
+  
+.grid-container > div {
     background-color: rgba(255, 255, 255, 0.8);
-    border: 1px solid rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    font-size: 30px;
     text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
 }
-
+  
+.item:hover {
+      background-color: white
+}
 /*
 footer color and location
 */
@@ -288,7 +291,7 @@ img {
 classes that style the carousel
 */
 .carouselContainer {
-    padding-top: 450px;
+    padding-top: 1900px;
 }
 
 /*
@@ -303,6 +306,14 @@ controls location of next and previous arrows
     margin-right: -280px;
     margin-top: 550px
 
+}
+
+/*
+taken from https://stackoverflow.com/questions/37027615/remove-the-clickable-area-near-arrows-carousel-bootstrap
+*/
+#carousel  .carousel-control-prev, #carousel  .carousel-control-next {
+    top: 50%;
+    bottom: 50%;
 }
 
 .application{
