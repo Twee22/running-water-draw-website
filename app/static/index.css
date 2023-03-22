@@ -210,6 +210,10 @@ td {
     border-spacing: 2px;
 }
 
+.hide {
+    display: none;
+}
+
 /*
 grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 */
@@ -231,7 +235,6 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 
 .item {
     background-color: #c0c3d3;
-
 }
 
 .filler, .reserved, .available {
@@ -239,7 +242,9 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 }
 
 .item:hover {
-    background-color: white
+    background-color: white;
+    transform: scale(2);
+    transition-duration: .5s;
 }
 
 .reserved {
@@ -261,6 +266,7 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 .cell_46, .cell_45, .cell_44, .cell_43, .cell_42, .cell_41, .cell_52, .cell_50, .cell_49 ,.cell_48, .cell_31, .cell_35, .cell_36, .cell_38, .cell_15, .cell_14, .cell_13, .cell_12, .cell_25, .cell_26, .cell_21, .cell_6, .cell_5, .cell_19, .cell_20, .cell_22 {
     background-color: rgb(120, 117, 117);
 }
+
 /*
 footer color and location
 */
