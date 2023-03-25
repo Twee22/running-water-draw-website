@@ -247,6 +247,33 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     transition-duration: .5s;
 }
 
+.item:hover{
+    display: none;
+}
+
+.item:hover:before {
+    font-size: 9px;
+    content: "Don Julio";
+}
+/*
+.cell_52:hover span{
+    display: none;
+}
+
+.cell_52:hover:before {
+    font-size: 9px;
+    content: "Don Julio";
+}
+
+.cell_35:hover span{
+    display: none;
+}
+
+.cell_35:hover:before {
+    font-size: 9px;
+    content: "Cheese";
+}
+*/
 .reserved {
     grid-column: 1/3;
 }
