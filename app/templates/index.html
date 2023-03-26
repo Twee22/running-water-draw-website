@@ -68,8 +68,6 @@
                     <div class="item">{{x}}</div>
                     {% endfor %}
                     -->
-                {% for vendor in vendors %}
-                    {% if vendor is vendor.boothNum %}
                         <div class="reserved">Reserved</div>
                         <div class="item_legend">#</div>
                         <div class="available">Available</div>
@@ -196,12 +194,12 @@
                         <div class="filler"></div>
                         <div class="filler"></div>
 
-                        <div class="item cell_46"><span>46</span></div>
+                        <div class="item cell_46" onmouseover="content('.cell_46','Mali')" onmouseout="content('.cell_46', '46')">46</div>
                         {% for cell in range(11) %}
                         <div class="filler"></div>
                         {% endfor %}
 
-                        <div class="item cell_45">45</div>
+                        <div class="item cell_45" onmouseover="content('.cell_45','Mali')" onmouseout="content('.cell_45', '45')">45</div>
                         <div class="filler"></div>
                         <div class="item cell_65">65</div>
                         <div class="item cell_66">66</div>
@@ -214,7 +212,7 @@
                         <div class="filler"></div>
                         <div class="filler"></div>
 
-                        <div class="item cell_44">44</div>
+                        <div class="item cell_44" onmouseover="content('.cell_44','Mali')" onmouseout="content('.cell_44', '44')">44</div>
                         <div class="filler"></div>
                         <div class="item cell_63">63</div>
                         <div class="item cell_64">64</div>
@@ -225,15 +223,15 @@
                         <div class="item cell_71">71</div>
                         <div class="item cell_72">72</div>
                         <div class="filler"></div>
-                        <div class="item cell_50">50</div>
+                        <div class="item cell_50" onmouseover="content('.cell_50','Mali')" onmouseout="content('.cell_50', '50')">50</div>
 
-                        <div class="item cell_43">43</div>
+                        <div class="item cell_43" onmouseover="content('.cell_43','Mali')" onmouseout="content('.cell_43', '43')">43</div>
                         {% for cell in range(10) %}
                         <div class="filler"></div>
                         {% endfor %}
-                        <div class="item cell_43">49</div>
+                        <div class="item cell_49" onmouseover="content('.cell_49','Mali')" onmouseout="content('.cell_49', '49')">49</div>
                         
-                        <div class="item cell_42">42</div>
+                        <div class="item cell_42" onmouseover="content('.cell_42','Mali')" onmouseout="content('.cell_42', '42')">42</div>
                         <div class="filler"></div>
                         <div class="item cell_53">53</div>
                         <div class="item cell_54">54</div>
@@ -246,10 +244,10 @@
                         <div class="filler"></div>
                         <div class="item cell_48">48</div>
 
-                        <div class="item cell_41">41</div>
+                        <div class="item cell_41" onmouseover="content('.cell_41','Mali')" onmouseout="content('.cell_41', '41')">41</div>
                         <div class="filler"></div>
                         <div class="item cell_51">51</div>
-                        <div class="item cell_52"><span>52</span></div>
+                        <div class="item cell_52" onmouseover="content('.cell_52','Mali')" onmouseout="content('.cell_52', '52')">52</div>
                         <div class="filler"></div>
                         <div class="item cell_55">55</div>
                         <div class="item cell_56">56</div>
@@ -271,7 +269,7 @@
                         <div class="item cell_39">39</div>
                         <div class="item cell_40">40</div>
                         <div class="filler"></div>
-                        <div class="item cell_15">15</div>
+                        <div class="item cell_15" onmouseover="content('.cell_15','Mali')" onmouseout="content('.cell_15', '15')">15</div>
 
                         <div class="item cell_10">10</div>
                         <div class="filler"></div>
@@ -282,20 +280,20 @@
                         <div class="item cell_34">34</div>
                         <div class="filler"></div>
                         <div class="item cell_37">37</div>
-                        <div class="item cell_38"><span>38</span></div>
+                        <div class="item cell_38" onmouseover="content('.cell_38','Mali')" onmouseout="content('.cell_38', '38')">38</div>
                         <div class="filler"></div>
-                        <div class="item cell_14">14</div>
+                        <div class="item cell_14" onmouseover="content('.cell_14','Mali')" onmouseout="content('.cell_14', '14')">14</div>
 
                         <div class="item cell_9">9</div>
                         {% for cell in range(10) %}
                         <div class="filler"></div>
                         {% endfor %}
-                        <div class="item cell_13">13</div>
+                        <div class="item cell_13" onmouseover="content('.cell_13','Mali')" onmouseout="content('.cell_13', '13')">13</div>
 
                         <div class="item cell_8">8</div>
                         <div class="filler"></div>
-                        <div class="item cell_19">19</div>
-                        <div class="item cell_20">20</div>
+                        <div class="item cell_19" onmouseover="content('.cell_19','Mali')" onmouseout="content('.cell_19', '19')">19</div>
+                        <div class="item cell_20" onmouseover="content('.cell_20','Mali')" onmouseout="content('.cell_20', '20')">20</div>
                         <div class="filler"></div>
                         <div class="item cell_23">23</div>
                         <div class="item cell_24">24</div>
@@ -303,24 +301,24 @@
                         <div class="item cell_27">27</div>
                         <div class="item cell_28">28</div>
                         <div class="filler"></div>
-                        <div class="item cell_12">12</div>
+                        <div class="item cell_12" onmouseover="content('.cell_12','Mali')" onmouseout="content('.cell_12', '12')">12</div>
 
                         <div class="item cell_7">7</div>
                         <div class="filler"></div>
                         <div class="item cell_17">17</div>
                         <div class="item cell_18">18</div>
                         <div class="filler"></div>
-                        <div class="item cell_21">21</div>
-                        <div class="item cell_22">22</div>
+                        <div class="item cell_21" onmouseover="content('.cell_21','Mali')" onmouseout="content('.cell_21', '21')">21</div>
+                        <div class="item cell_22" onmouseover="content('.cell_22','Mali')" onmouseout="content('.cell_22', '22')">22</div>
                         <div class="filler"></div>
-                        <div class="item cell_25">25</div>
-                        <div class="item cell_26">26</div>
+                        <div class="item cell_25" onmouseover="content('.cell_25','Mali')" onmouseout="content('.cell_25', '25')">22</div>
+                        <div class="item cell_26" onmouseover="content('.cell_26','Mali')" onmouseout="content('.cell_26', '26')">26</div>
                         {% for cell in range(16) %}
                         <div class="filler"></div>
                         {% endfor %}
 
-                        <div class="item cell_6">6</div>
-                        <div class="item cell_5">5</div>
+                        <div class="item cell_6" onmouseover="content('.cell_6','Mali')" onmouseout="content('.cell_6', '6')">6</div>
+                        <div class="item cell_5" onmouseover="content('.cell_5','Mali')" onmouseout="content('.cell_5', '5')">5</div>
                         <div class="item cell_4">4</div>
                         <div class="item cell_3">3</div>
                         <div class="item cell_2">2</div>
@@ -329,26 +327,7 @@
                         {% for cell in range(16) %}
                         <div class="filler"></div>
                         {% endfor %}
-                    {% endif %}
-                {% endfor %}
 
-
-                    
-
-                    
-
-
-
-                    
-
-
-
-
-
-
-
-
-                    <!-- {% for x in range(336) %} {% endfor %} -->
                 </div>
             </div>
 
@@ -405,6 +384,10 @@
         var y = document.getElementById("list-view");
         x.style.display = "block";
         y.style.display = "none";
+    }
+    // taken from https://stackoverflow.com/questions/2554149/how-can-i-change-div-content-with-javascript
+    function content(divSelector, value) {
+        document.querySelector(divSelector).innerHTML = value;
     }
 </script>
 <!--
