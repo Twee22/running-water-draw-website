@@ -1,5 +1,6 @@
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.sql import func
 
 user_vendor = db.Table('user_vendor',
         db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -33,6 +34,8 @@ class Vendor(db.Model):
     desc = db.Column(db.Text)
     boothNum = db.Column(db.Integer, nullable=False)
     tableNum = db.Column(db.Integer)
+    date = db.Column(db.DateTime(timezone=True), server_default=func.now())
+
 
     def __repr__(self):
         return '<Vendor {}>'.format(self.business)
