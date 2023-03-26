@@ -48,5 +48,24 @@ def logout():
 
 @app.route('/adminapp', methods=['POST', 'GET'])
 def adminapp():
-    vendors = Vendor.query.order_by(Vendor.id)
-    return render_template('AdminApp.html', vendors=vendors)
+    
+    return render_template('AdminApp.html')
+
+@app.route('/adminapp/<int:id>', methods=['POST', 'GET'])
+def adminapp(id):
+    if request.method == 'POST':
+        vendor_status_update = Vendor.query.get_or_404(id)
+        if request.form.get('confirm') == 'confirm':
+            vendor_status_update.status = "pendingPayment"
+        elif  request.form.get('deny') == 'deny':
+            vendor_status_update.status = "denied"
+        else:
+            pass
+        try:
+            db.session.commit()
+            return render_template('AdminApp.html', vendor_status_update=vendor_status_update)
+        except:
+            return "There was a problem updating the status of the vendor"
+
+    elif request.method == 'GET':
+        return render_template('AdminApp.html')

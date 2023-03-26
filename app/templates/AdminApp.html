@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="application">
-<form method="POST" action="/adminapp">
+<form method="POST" action="/adminapp/{{vendor_status_update.id}}">
     
     <h1 class="appTitle">Vendor Applications</h1>
     <fieldset class="businessInfo">
@@ -13,8 +13,8 @@
             {{item.email}}
             {{item.phoneNum}}
             {{item.desc}}</div>
-            <button class="button button1">Confirm</button>
-            <button class="button button3">Deny</button>
+            <button href="/adminapp/{{item.id}}" class="button button1" name="confirm" value="confirm">Confirm</button>
+            <button href="/adminapp/{{item.id}}" class="button button3" name="deny" value="deny">Deny</button>
         {% endfor %}
     </fieldset>
 
