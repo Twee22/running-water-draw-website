@@ -244,7 +244,7 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 .item:hover {
     background-color: white;
     transform: scale(2);
-    transition-duration: .5s;
+    font-size: 10px;
 }
 /*
 .item:hover span{
@@ -255,7 +255,7 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     font-size: 9px;
     content: "Don Julio";
 }
-*/
+
 .cell_36:hover span{
     display: none;
 }
@@ -273,7 +273,7 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     font-size: 9px;
     content: "Scotch";
 }
-
+*/
 .reserved {
     grid-column: 1/3;
 }
