@@ -23,7 +23,9 @@ def application():
     form = ApplicationForm()
         
     if form.validate_on_submit():
-        v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, boothNum = form.boothNum.data, tableNum = form.tableNum.data)
+        v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
+                   citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
+                   boothNum = form.boothNum.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
         db.session.add(v)
         db.session.commit()
         return render_template('index.html')
