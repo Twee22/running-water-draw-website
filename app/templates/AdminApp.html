@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="application">
-<form method="POST" action="/adminapp">
     
     <h1 class="appTitle">Vendor Applications</h1>
     <fieldset class="businessInfo">
@@ -34,6 +33,7 @@
                 <td>{{ item.tableNum }}</td>
                 <td>{{ item.status }}</td>
               </tr>
+              {% if item.status == "pendingApproval" %}
               <form method="POST" action="/adminapp/{{ item.id }}">
                 <input type="hidden" name="action" value="confirm">
                 <button type="submit" class="button button1">Confirm</button>
@@ -42,12 +42,11 @@
                 <input type="hidden" name="action" value="deny">
                 <button type="submit" class="button button3">Deny</button>
               </form>
+              {% endif %}
               {% endfor %}
             </tbody>
           </table>
     </fieldset>
-
-</form>
 </div>
 
 {% endblock %}
