@@ -25,7 +25,7 @@ def application():
     if form.validate_on_submit():
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
-                   boothNum = form.boothNum.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
+                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
         db.session.add(v)
         db.session.commit()
         return render_template('index.html')
@@ -48,22 +48,22 @@ def logout():
 
 @app.route('/adminapp', methods=['POST', 'GET'])
 def adminapp():
-    
-    return render_template('AdminApp.html')
+    data = Vendor.query.all()
+    return render_template('AdminApp.html', data=data)
 
 @app.route('/adminapp/<int:id>', methods=['POST', 'GET'])
-def adminapp(id):
+def adminappupdate(id):
+    data = Vendor.query.all()
+    vendor_status_update = Vendor.query.get_or_404(id)
     if request.method == 'POST':
-        vendor_status_update = Vendor.query.get_or_404(id)
-        if request.form.get('confirm') == 'confirm':
-            vendor_status_update.status = "pendingPayment"
-        elif  request.form.get('deny') == 'deny':
-            vendor_status_update.status = "denied"
-        else:
-            pass
+        action = request.form['action']
+        if action == 'confirm':
+            vendor_status_update.status = 'pendingPayment'
+        elif action == 'deny':
+            vendor_status_update.status = 'denied'
         try:
             db.session.commit()
-            return render_template('AdminApp.html', vendor_status_update=vendor_status_update)
+            return render_template('AdminApp.html', data=Vendor.query.all())
         except:
             return "There was a problem updating the status of the vendor"
 

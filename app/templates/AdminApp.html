@@ -1,21 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="application">
-<form method="POST" action="/adminapp/{{vendor_status_update.id}}">
+<form method="POST" action="/adminapp">
     
     <h1 class="appTitle">Vendor Applications</h1>
     <fieldset class="businessInfo">
-        {% for item in vendors %}
-        <div>{{item.name}}
-            {{item.business}}
-            {{item.address}}
-            {{item.citystatezip}}
-            {{item.email}}
-            {{item.phoneNum}}
-            {{item.desc}}</div>
-            <button href="/adminapp/{{item.id}}" class="button button1" name="confirm" value="confirm">Confirm</button>
-            <button href="/adminapp/{{item.id}}" class="button button3" name="deny" value="deny">Deny</button>
-        {% endfor %}
+        <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Business</th>
+                <th>Address</th>
+                <th>City, State, Zip</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Description</th>
+                <th>Booth(s) Location</th>
+                <th>Number of Tables</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in data %}
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.business }}</td>
+                <td>{{ item.address }}</td>
+                <td>{{ item.citystatezip }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.phoneNum }}</td>
+                <td>{{ item.desc }}</td>
+                <td>{{ item.boothLoc }}</td>
+                <td>{{ item.tableNum }}</td>
+                <td>{{ item.status }}</td>
+              </tr>
+              <form method="POST" action="/adminapp/{{ item.id }}">
+                <input type="hidden" name="action" value="confirm">
+                <button type="submit" class="button button1">Confirm</button>
+              </form>
+              <form method="POST" action="/adminapp/{{ item.id }}">
+                <input type="hidden" name="action" value="deny">
+                <button type="submit" class="button button3">Deny</button>
+              </form>
+              {% endfor %}
+            </tbody>
+          </table>
     </fieldset>
 
 </form>
