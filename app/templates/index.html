@@ -40,19 +40,26 @@
                                     <th>Name</th>
                                     <th>Business</th>
                                     <th>Description</th>
-                                    <th>Assigned 1</th>
-                                    <th>Assigned 2</th>
+                                    <th>Booth Location</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for vendor in vendors %}
-                                <tr>
-                                    <td>{{ vendor.name }}</td>
-                                    <td>{{ vendor.business }}</td>
-                                    <td>{{ vendor.desc }}</td>
-                                    <td>{{ vendor.boothNum }}</td>
-                                    <td></td>
-                                </tr>
+                                    {% if vendor.status == "finalized" %}
+                                        <tr>
+                                            <td>{{ vendor.name }}</td>
+                                            <td>{{ vendor.business }}</td>
+                                            <td>{{ vendor.desc }}</td>
+                                            <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
+                                        </tr>
+                                    {% elif vendor.status == "pendingApproval" or vendor.status == "pendingPayment" %}
+                                        <tr>
+                                            <td>Pending</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             </tbody>
                         </table> <br><br>
