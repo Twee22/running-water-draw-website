@@ -43,14 +43,14 @@
                     </thead>
                     <tbody>
                         {% for vendor in vendors %}
-                            {% if vendor.status == "Accepted" %}
+                            {% if vendor.status == "finalized" %}
                                 <tr>
                                     <td>{{ vendor.name }}</td>
                                     <td>{{ vendor.business }}</td>
                                     <td>{{ vendor.desc }}</td>
                                     <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
                                 </tr>
-                            {% elif vendor.status == "pendingApproval" %}
+                            {% elif vendor.status == "pendingApproval" or vendor.status == "pendingPayment" %}
                                 <tr>
                                     <td>Pending Approval</td>
                                     <td></td>
