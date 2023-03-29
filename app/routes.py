@@ -3,6 +3,7 @@ from flask_login import current_user, login_user, logout_user
 from app import app, db
 from app.forms import ApplicationForm, LoginForm
 from app.models import Vendor, User
+from app import application_text
 
 import os
 
@@ -29,7 +30,7 @@ def application():
         db.session.add(v)
         db.session.commit()
         return render_template('index.html')
-    return render_template('application.html', form=form)
+    return render_template('application.html', form=form, application_text=application_text)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -45,3 +46,37 @@ def login():
 def logout():
     logout_user()
     return render_template('index.html')
+
+@app.route('/adminapp', methods=['POST', 'GET'])
+def adminapp():
+    data = Vendor.query.all()
+    if request.method == 'POST':
+        application_text.note_l1 = request.form['application_text.note_l1']
+        application_text.note_l2 = request.form['application_text.note_l2']
+        application_text.note_l3 = request.form['application_text.note_l3']
+        application_text.note_l4 = request.form['application_text.note_l4']
+        application_text.note_l5 = request.form['application_text.note_l5']
+        application_text.note_l6 = request.form['application_text.note_l6']
+        application_text.note_l7 = request.form['application_text.note_l7']
+        application_text.note_l8 = request.form['application_text.note_l8']
+        application_text.boothPay = request.form['application_text.boothPay']
+    return render_template('AdminApp.html', data=data, application_text=application_text)
+
+@app.route('/adminapp/<int:id>', methods=['POST', 'GET'])
+def adminappupdate(id):
+    data = Vendor.query.all()
+    vendor_status_update = Vendor.query.get_or_404(id)
+    if request.method == 'POST':
+        action = request.form['action']
+        if action == 'confirm':
+            vendor_status_update.status = 'pendingPayment'
+        elif action == 'deny':
+            vendor_status_update.status = 'denied'
+        try:
+            db.session.commit()
+            return render_template('AdminApp.html', data=Vendor.query.all())
+        except:
+            return "There was a problem updating the status of the vendor"
+
+    elif request.method == 'GET':
+        return render_template('AdminApp.html')
