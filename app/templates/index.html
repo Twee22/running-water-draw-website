@@ -31,38 +31,33 @@
         <button class="top_button" id="spaces_booking" onclick="showMap()">Map View</button>
              <!-- Table of verifed vendors -->
             <!-- scroll bar taken from https://stackoverflow.com/questions/8232713/how-to-display-scroll-bar-onto-a-html-table-->
-
-        <div id="table-wrapper">
-            <div id="table-scroll">
-                <table id="list-view" class="list">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Business</th>
-                            <th>Description</th>
-                            <th>Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for vendor in vendors %}
-                            {% if vendor.status == "finalized" %}
+            <div id="list-view">
+                <div id="table-wrapper">
+                    <div id="table-scroll">
+                        <table class="list">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Business</th>
+                                    <th>Description</th>
+                                    <th>Assigned 1</th>
+                                    <th>Assigned 2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for vendor in vendors %}
                                 <tr>
                                     <td>{{ vendor.name }}</td>
                                     <td>{{ vendor.business }}</td>
                                     <td>{{ vendor.desc }}</td>
-                                    <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
-                                </tr>
-                            {% elif vendor.status == "pendingApproval" or vendor.status == "pendingPayment" %}
-                                <tr>
-                                    <td>Pending Approval</td>
+                                    <td>{{ vendor.boothNum }}</td>
                                     <td></td>
-                                    <td></td>
-                                    <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
                                 </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </tbody>
-                </table> <br><br>
+                                {% endfor %}
+                            </tbody>
+                        </table> <br><br>
+                    </div>
+                </div>
             </div>
             <br><br>
 
