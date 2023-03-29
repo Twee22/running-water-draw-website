@@ -291,7 +291,7 @@ controls location of next and previous arrows
 }
 
 .application{
-    display: flex;
+    display: block;
     position: relative;
     padding: 50px 50px;
     overflow-x: auto;
@@ -410,4 +410,13 @@ input, select {
     align-items: center;
     padding-left: 5px;
     margin-top: 2%;
+  }
+
+  .notes {
+    all: initial;
+    display: block;
+  }
+
+  .notes input{
+    width: 100%;
   }
