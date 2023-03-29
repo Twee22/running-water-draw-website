@@ -237,8 +237,16 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     background-color: #c0c3d3;
 }
 
-.filler, .reserved, .available {
+.filler, .reserved, .available, .pend {
     background-color: #c0c3d3ea;
+}
+
+.pending {
+    background-color: #c0c3d396;
+}
+
+.approved {    
+    background-color: rgb(120, 117, 117);
 }
 
 .item:hover {
@@ -246,35 +254,9 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     transform: scale(2);
     font-size: 10px;
     transition-duration: 0.5s;
-}
-/*
-.item:hover span{
-    display: none;
+    cursor: pointer;
 }
 
-.item:hover:before {
-    font-size: 9px;
-    content: "Don Julio";
-}
-
-.cell_36:hover span{
-    display: none;
-}
-
-.cell_36:hover:before {
-    font-size: 9px;
-    content: "Don Julio";
-}
-
-.cell_35:hover span{
-    display: none;
-}
-
-.cell_35:hover:before {
-    font-size: 9px;
-    content: "Scotch";
-}
-*/
 .reserved {
     grid-column: 1/3;
 }
@@ -284,16 +266,21 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 }
 
 .available {
-    grid-column: 4/6;
+    grid-column: 7/9;
 }
 
 .available_legend {
     background-color: #c0c3d3;
 }
 
-.cell_46, .cell_45, .cell_44, .cell_43, .cell_42, .cell_41, .cell_52, .cell_50, .cell_49 ,.cell_48, .cell_31, .cell_35, .cell_36, .cell_38, .cell_15, .cell_14, .cell_13, .cell_12, .cell_25, .cell_26, .cell_21, .cell_6, .cell_5, .cell_19, .cell_20, .cell_22 {
-    background-color: rgb(120, 117, 117);
+.pend {
+    grid-column: 4/6;
 }
+
+.pend_legend {
+    background-color: #c0c3d396;
+}
+
 
 /*
 footer color and location
