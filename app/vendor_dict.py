@@ -539,7 +539,7 @@ vendor_dict = {
 	"booth_num": 0,"booth_name": "NOTINIT","status": "FILLER"
 	},
 	"booth_55":{
-	"booth_num": 55,"booth_name": "NOTINIT","status": "NOTINIT"
+	"booth_num": 55,"booth_name": "Bob","status": "APPROVED"
 	},
 	"booth_56":{
 	"booth_num": 56,"booth_name": "NOTINIT","status": "NOTINIT"
