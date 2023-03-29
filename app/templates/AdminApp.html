@@ -2,8 +2,8 @@
 {% block content %}
 <div class="application">
     
-    <h1 class="appTitle">Vendor Applications</h1>
-    <fieldset class="businessInfo">
+  <fieldset class="vendorInfo">
+      <h1 class="appTitle">Vendor Applications</h1>
         <table>
             <thead>
               <tr>
@@ -17,6 +17,7 @@
                 <th>Booth(s) Location</th>
                 <th>Number of Tables</th>
                 <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -32,17 +33,21 @@
                 <td>{{ item.boothLoc }}</td>
                 <td>{{ item.tableNum }}</td>
                 <td>{{ item.status }}</td>
+                <td>
+                {% if item.status == "pendingApproval" %}
+                <div style="display: inline-flex">
+                <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
+                  <input type="hidden" name="action" value="confirm">
+                  <button class="button confirm" type="submit">Confirm</button>
+                </form>
+                <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
+                  <input type="hidden" name="action" value="deny">
+                  <button class="button deny" type="submit">Deny</button>
+                </form>
+                </div>
+                {% endif %}
+                </td>
               </tr>
-              {% if item.status == "pendingApproval" %}
-              <form method="POST" action="/adminapp/{{ item.id }}">
-                <input type="hidden" name="action" value="confirm">
-                <button type="submit" class="button button1">Confirm</button>
-              </form>
-              <form method="POST" action="/adminapp/{{ item.id }}">
-                <input type="hidden" name="action" value="deny">
-                <button type="submit" class="button button3">Deny</button>
-              </form>
-              {% endif %}
               {% endfor %}
             </tbody>
           </table>
