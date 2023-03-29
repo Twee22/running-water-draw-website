@@ -210,6 +210,78 @@ td {
     border-spacing: 2px;
 }
 
+.hide {
+    display: none;
+}
+
+/*
+grid inspired from https://www.w3schools.com/css/css_grid_item.asp
+*/
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(28, 1fr);
+    gap: 1px;
+    background-color: #091753;
+    padding: 5px;
+  }
+  
+.grid-container > div {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.item {
+    background-color: #c0c3d3;
+}
+
+.filler, .reserved, .available, .pend {
+    background-color: #c0c3d3ea;
+}
+
+.pending {
+    background-color: #c0c3d396;
+}
+
+.approved {    
+    background-color: rgb(120, 117, 117);
+}
+
+.item:hover {
+    background-color: white;
+    transform: scale(2);
+    font-size: 10px;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.reserved {
+    grid-column: 1/3;
+}
+
+.item_legend {
+    background-color: rgb(120, 117, 117)!important;
+}
+
+.available {
+    grid-column: 7/9;
+}
+
+.available_legend {
+    background-color: #c0c3d3;
+}
+
+.pend {
+    grid-column: 4/6;
+}
+
+.pend_legend {
+    background-color: #c0c3d396;
+}
+
+
 /*
 footer color and location
 */
@@ -269,7 +341,7 @@ img {
 classes that style the carousel
 */
 .carouselContainer {
-    padding-top: 450px;
+    padding-top: 1900px;
 }
 
 /*
@@ -284,6 +356,14 @@ controls location of next and previous arrows
     margin-right: -280px;
     margin-top: 550px
 
+}
+
+/*
+taken from https://stackoverflow.com/questions/37027615/remove-the-clickable-area-near-arrows-carousel-bootstrap
+*/
+#carousel  .carousel-control-prev, #carousel  .carousel-control-next {
+    top: 50%;
+    bottom: 50%;
 }
 
 .application{

@@ -3,6 +3,7 @@ from flask_login import current_user, login_user, logout_user
 from app import app, db
 from app.forms import ApplicationForm, LoginForm
 from app.models import Vendor, User
+from app.vendor_dict import vendor_dict
 
 import os
 
@@ -16,7 +17,11 @@ def index():
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
     #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
     vendors = Vendor.query.order_by(Vendor.boothNum)
-    return render_template('index.html', image_name = image_names, vendors = vendors)
+    
+    # for vendor in vendors
+    #   Find booth_[booth_num]
+    #   Update booth_name and status
+    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict)
 
 @app.route('/application', methods=['GET', 'POST'])
 def application():
