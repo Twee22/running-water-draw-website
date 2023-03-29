@@ -17,7 +17,7 @@ class ApplicationForm(FlaskForm):
     date = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
     terms = BooleanField('I have read and agree to this', validators=[InputRequired()])
     sign = StringField('Signed', validators=[InputRequired()])
-    submit = SubmitField('Next')
+    submit = SubmitField('Submit')
 
 
 
