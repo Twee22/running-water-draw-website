@@ -294,6 +294,7 @@ controls location of next and previous arrows
     display: flex;
     position: relative;
     padding: 50px 50px;
+    overflow-x: auto;
 }
 
 form{
