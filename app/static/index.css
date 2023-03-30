@@ -22,10 +22,6 @@ h1 {
     text-align: center;
 }
 
-.reset{
-    all: initial;
-}
-
 /*
 class styling description of the event located above the list
 */
@@ -200,7 +196,7 @@ th {
 }
 
 td {
-    padding: 20px;
+    padding: 30px;
     text-align: center;
     font-size: 17px;
     background-color: #09175341;
@@ -213,6 +209,78 @@ td {
     text-indent: initial;
     border-spacing: 2px;
 }
+
+.hide {
+    display: none;
+}
+
+/*
+grid inspired from https://www.w3schools.com/css/css_grid_item.asp
+*/
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(28, 1fr);
+    gap: 1px;
+    background-color: #091753;
+    padding: 5px;
+  }
+  
+.grid-container > div {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.item {
+    background-color: #c0c3d3;
+}
+
+.filler, .reserved, .available, .pend {
+    background-color: #c0c3d3ea;
+}
+
+.pending {
+    background-color: #c0c3d396;
+}
+
+.approved {    
+    background-color: rgb(120, 117, 117);
+}
+
+.item:hover {
+    background-color: white;
+    transform: scale(2);
+    font-size: 10px;
+    transition-duration: 0.5s;
+    cursor: pointer;
+}
+
+.reserved {
+    grid-column: 1/3;
+}
+
+.item_legend {
+    background-color: rgb(120, 117, 117)!important;
+}
+
+.available {
+    grid-column: 7/9;
+}
+
+.available_legend {
+    background-color: #c0c3d3;
+}
+
+.pend {
+    grid-column: 4/6;
+}
+
+.pend_legend {
+    background-color: #c0c3d396;
+}
+
 
 /*
 footer color and location
@@ -273,7 +341,7 @@ img {
 classes that style the carousel
 */
 .carouselContainer {
-    padding-top: 450px;
+    padding-top: 1900px;
 }
 
 /*
@@ -290,11 +358,18 @@ controls location of next and previous arrows
 
 }
 
+/*
+taken from https://stackoverflow.com/questions/37027615/remove-the-clickable-area-near-arrows-carousel-bootstrap
+*/
+#carousel  .carousel-control-prev, #carousel  .carousel-control-next {
+    top: 50%;
+    bottom: 50%;
+}
+
 .application{
-    display: block;
+    display: flex;
     position: relative;
     padding: 50px 50px;
-    overflow-x: auto;
 }
 
 form{
@@ -305,7 +380,6 @@ form{
     padding-left: 5px;
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0,0,0,.6);
-    margin-top: 2%;
 }
 
 fieldset {
@@ -357,66 +431,11 @@ input, select {
   }
 
   .appTitle{
-    color: #091753;
-    margin: 1vw;
+    color:rgb(255, 255, 255);
+    background-color: #091753;
+    margin: 0px;
   }
 
   #sign{
     margin: 1vw;
-  }
-
-  .button {
-    display: inline-block;
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    margin: 5px;
-    right: 0;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    transition-duration: 0.2s;
-    cursor: pointer;
-  }
-
-  .confirm {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #4CAF50;
-    margin-right: 10px;
-  }
-  
-  .confirm:hover {
-    background-color: #4CAF50;
-    color: white;
-  }
-
-  .deny {
-    background-color: white; 
-    color: black; 
-    border: 2px solid #f44336;
-    margin-right: 10px;
-  }
-  
-  .deny:hover {
-    background-color: #f44336;
-    color: white;
-  }
-
-  .vendorInfo {
-    display: block;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-    padding-left: 5px;
-    margin-top: 2%;
-  }
-
-  .notes {
-    all: initial;
-    display: block;
-  }
-
-  .notes input{
-    width: 100%;
   }

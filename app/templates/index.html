@@ -4,6 +4,7 @@
 <!-- Boostrap link -->
 <link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
 <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+<!--{% set reserved_booths = [".cell_46", ".cell_45", ".cell_44", ".cell_43", ".cell_42", ".cell_41", ".cell_52", ".cell_50", ".cell_49" ,".cell_48", ".cell_31", ".cell_35", ".cell_36", ".cell_38", ".cell_15", ".cell_14", ".cell_13", ".cell_12", ".cell_25", ".cell_26", ".cell_21", ".cell_6", ".cell_5", ".cell_19", ".cell_20", ".cell_22"] %}-->
 
 <!-- Header -->
 <header>
@@ -30,35 +31,91 @@
         <button class="top_button" id="spaces_booking" onclick="showMap()">Map View</button>
              <!-- Table of verifed vendors -->
             <!-- scroll bar taken from https://stackoverflow.com/questions/8232713/how-to-display-scroll-bar-onto-a-html-table-->
-        <div id="table-wrapper">
-            <div id="table-scroll">
-                <table id="list-view" class="list">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Business</th>
-                            <th>Description</th>
-                            <th>Assigned 1</th>
-                            <th>Assigned 2</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for vendor in vendors %}
-                        <tr>
-                            <td>{{ vendor.name }}</td>
-                            <td>{{ vendor.business }}</td>
-                            <td>{{ vendor.desc }}</td>
-                            <td>{{ vendor.boothNum }}</td>
-                            <td></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table> <br><br>
+            <div id="list-view">
+                <div id="table-wrapper">
+                    <div id="table-scroll">
+                        <table class="list">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Business</th>
+                                    <th>Description</th>
+                                    <th>Booth Location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for vendor in vendors %}
+                                    {% if vendor.status == "finalized" %}
+                                        <tr>
+                                            <td>{{ vendor.name }}</td>
+                                            <td>{{ vendor.business }}</td>
+                                            <td>{{ vendor.desc }}</td>
+                                            <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
+                                        </tr>
+                                    {% elif vendor.status == "pendingApproval" or vendor.status == "pendingPayment" %}
+                                        <tr>
+                                            <td>Pending</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table> <br><br>
+                    </div>
+                </div>
             </div>
-        </div>
-            <table id="map-view" class="list" style="display: none;">
-                <td>Test Map view</td>
-            </table>
+            <br><br>
+
+            <div id="map-view" style="display: none">
+                <div class="grid-container">
+                    <!--
+                    add for loop (loop through dictionary)
+
+                            if statment  (if status is pending: if approve, elif pending, elif unit, else filler:  change color accordingly)
+                    if status
+                    elif pending
+                    elif un-it
+                    else filler
+                    -->
+                    
+                    
+                    <div class="reserved">Reserved</div>
+                    <div class="item_legend">#</div>
+                    <div class="pend">Pending</div>
+                    <div class="pend_legend">#</div>
+                    <div class="available">Available</div>
+                    <div class="available_legend">#</div>
+                    
+                    
+                    {% for cell in range(15) %}
+                    <div class="filler"></div>
+                    {% endfor %}
+
+                    <!-- for loops and if statements inspired/modified/taken from ChatGPT -->
+                    {% for key in vendor_dict %}
+                        {% if vendor_dict[key]['status'] == 'APPROVED' %}
+                            {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                            {% set booth_name_ = vendor_dict[key]['booth_name'] %}
+                            <div class="item approved booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', '{{booth_name_}}')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+
+                        {% elif vendor_dict[key]['status'] == 'PENDING' %}
+                            {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                            <div class="item pending booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', 'Pending')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+
+                        {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
+                            <div class="item">{{vendor_dict[key]['booth_num']}}</div>
+                            
+                        {% else %}
+                            <div class="filler"></div>
+
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            </div>
+
             <!-- Header before carousel -->
             <br><br> <h2>Pictures of the Festival</h2> <br><br>
         </div>
@@ -101,6 +158,7 @@
 </div> <br> <br>
 
 <script>
+
     function showList() {
         var x = document.getElementById("list-view");
         var y = document.getElementById("map-view");
@@ -113,6 +171,11 @@
         x.style.display = "block";
         y.style.display = "none";
     }
+    // inspired from https://stackoverflow.com/questions/2554149/how-can-i-change-div-content-with-javascript
+    function content(divSelector, value) {
+        document.querySelector(divSelector).innerHTML = value;
+    }
+    
 </script>
 <!--
 <div class="grid1">
@@ -126,6 +189,7 @@
 
 <!-- Footer -->
 <footer id = "footer">
-    <h2>Running Water Draw Festival 2023</h2>
+    <h2>© 2023  All rights reserved.<br>
+        Privacy Statement | Online Help | System Requirements</h2>
 </footer>
 {% endblock %}
