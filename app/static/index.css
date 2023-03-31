@@ -329,7 +329,7 @@ styling of images held in the carousel
 img {
     position: relative;
     z-index: 1;
-    display: block;
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
     width: 800px;
@@ -340,8 +340,9 @@ img {
 /*
 classes that style the carousel
 */
-.carouselContainer {
-    padding-top: 1900px;
+.carousel {
+    display: inline-block;
+    margin-left: 250px;
 }
 
 /*
@@ -349,21 +350,20 @@ controls location of next and previous arrows
 */
 .carousel-control-next-icon {
     margin-left: -280px;
-    margin-top: 550px;
+    margin-top: 700px;
 }
 
 .carousel-control-prev-icon {
     margin-right: -280px;
-    margin-top: 550px
-
+    margin-top: 700px
 }
 
 /*
 taken from https://stackoverflow.com/questions/37027615/remove-the-clickable-area-near-arrows-carousel-bootstrap
 */
-#carousel  .carousel-control-prev, #carousel  .carousel-control-next {
-    top: 50%;
-    bottom: 50%;
+.carousel-control-prev, .carousel-control-next {
+    top: 10%;
+    bottom: 10%;
 }
 
 .application{
