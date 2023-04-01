@@ -286,14 +286,16 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 footer color and location
 */
 footer {
-    display: block;
+    position: relative;
     color: rgb(255, 255, 255);
     background-color: #091753;
-    margin-top: 200px;
     padding: 10px 20px;
     padding-top: 64px;
     padding-bottom: 64px;
     text-align: center;
+    clear: both;
+    height: 200px;
+    margin-top: -200px;
 }
 
 /*
@@ -326,7 +328,7 @@ grid layout
 /*
 styling of images held in the carousel
 */
-img {
+.page_header {
     position: relative;
     z-index: 1;
     display: inline-block;
@@ -337,34 +339,38 @@ img {
     border: 5px solid #091753;
 }
 
+* {
+box-sizing: border-box;
+
+}
+
+.carousel-inner img {
+    width: 500px;
+    height: 500px;
+    border: 5px solid #091753;
+}
+/* side by side carousels inspired by https://www.w3schools.com/howto/howto_css_images_side_by_side.asp */
+.row {
+    display: flex;
+    float: left;
+    padding-left: 200px;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+    flex: 50%;
+    padding: 5px;
+    padding-bottom: 200px;
+}
+
+.carousel-control-prev, .carousel-control-next, .carousel-control-next-icon, .carousel-control-prev-con {
+    position: absolute;
+}
+
 /*
 classes that style the carousel
 */
-.carousel {
-    display: inline-block;
-    margin-left: 250px;
-}
 
-/*
-controls location of next and previous arrows
-*/
-.carousel-control-next-icon {
-    margin-left: -280px;
-    margin-top: 700px;
-}
-
-.carousel-control-prev-icon {
-    margin-right: -280px;
-    margin-top: 700px
-}
-
-/*
-taken from https://stackoverflow.com/questions/37027615/remove-the-clickable-area-near-arrows-carousel-bootstrap
-*/
-.carousel-control-prev, .carousel-control-next {
-    top: 10%;
-    bottom: 10%;
-}
 
 .application{
     display: flex;

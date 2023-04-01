@@ -12,6 +12,7 @@ import os
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
+    sponsor_images = os.listdir("./app/static/sponsor")
     #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
     #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
@@ -21,7 +22,7 @@ def index():
     # for vendor in vendors
     #   Find booth_[booth_num]
     #   Update booth_name and status
-    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict)
+    return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict)
 
 @app.route('/application', methods=['GET', 'POST'])
 def application():
