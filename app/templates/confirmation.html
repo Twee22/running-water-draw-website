@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<br><br><br><br><br>
+<body id="printable-area">
+    <h1>Thank you for your application!</h1>
+    <h3>If you would like to save this information for your records, please print this page.</h3>
+    <p>Name: {{ name }}</p>
+    <p>Business Name: {{ business }}</p>
+    <p>Address: {{ address }}</p>
+    <p>City, State, Zip: {{ citystatezip }}</p>
+    <p>Email Address: {{ email }}</p>
+    <p>Phone Number: {{ phoneNum }}</p>
+    <p>Business Description: {{ desc }}</p>
+    <p>Booth Location: {{ boothLoc.replace(",", ", ") }}</p>
+    <p>Number of Tables Required: {{ tableNum }}</p>
+    <p>Numbers of Booths Required: {{ boothNum }}</p>
+    <p>Application submitted on {{ date }}</p>
+    <button onclick="printContent()">Print</button>
+</body>
+<script>
+    function printContent() {
+        var printWindow = window.open('', '', 'height=500,width=800');
+        var printDocument = printWindow.document;
+        var contents = document.getElementById("printable-area").innerHTML;
+        printDocument.write('<html><head><title>Application summary</title></head><body>');
+        printDocument.write('<h1>Thank you for your application!</h1><h3>If you would like to save this information for your records, please print this page.</h3><p>Name: {{ name }}</p><p>Business Name: {{ business }}</p>    <p>Address: {{ address }}</p>');
+        printDocument.write('<p>City, State, Zip: {{ citystatezip }}</p><p>Email Address: {{ email }}</p><p>Phone Number: {{ phoneNum }}</p><p>Business Description: {{ desc }}</p><p>Booth Location: {{ boothLoc.replace(",", ", ") }}</p><p>Number of Tables Required: {{ tableNum }}</p>');
+        printDocument.write('<p>Numbers of Booths Required: {{ boothNum }}</p><p>Application submitted on {{ date }}</p>');
+        printDocument.write('</body></html>');
+        printDocument.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    }
+</script>
+{% endblock %}
