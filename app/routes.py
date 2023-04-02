@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from flask_login import current_user, login_user, logout_user
 from app import app, db
 from app.forms import ApplicationForm, LoginForm
@@ -34,8 +34,37 @@ def application():
                    boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
         db.session.add(v)
         db.session.commit()
-        return render_template('index.html')
+        session['name'] = str(v.name)
+        session['business'] = str(v.business)
+        session['address'] = str(v.address)
+        session['citystatezip'] = str(v.citystatezip)
+        session['email'] = str(v.email)
+        session['phoneNum'] = str(v.phoneNum)
+        session['desc'] = str(v.desc)
+        session['boothNum'] = str(v.boothNum)
+        session['boothLoc'] = str(v.boothLoc)
+        session['tableNum'] = str(v.tableNum)
+        session['date'] = str(v.date)
+        return redirect('/confirmation')
     return render_template('application.html', form=form)
+
+@app.route('/confirmation')
+def confirmation():
+    # Retrieve the data stored in the session variable
+    name = session.get('name')
+    business = session.get('business')
+    address = session.get('address')
+    citystatezip = session.get('citystatezip')
+    email = session.get('email')
+    phoneNum = session.get('phoneNum')
+    desc = session.get('desc')
+    boothNum = session.get('boothNum')
+    boothLoc = session.get('boothLoc')
+    tableNum = session.get('tableNum')
+    date = session.get('date')
+
+    return render_template('confirmation.html', name=name, business=business, address=address, citystatezip=citystatezip, email=email, phoneNum=phoneNum,
+                           desc=desc, boothNum=boothNum, boothLoc=boothLoc, tableNum=tableNum, date=date)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
