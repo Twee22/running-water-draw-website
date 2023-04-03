@@ -199,7 +199,7 @@
         document.querySelector(divSelector).innerHTML = value;
     }
     function appPage(boothLoc) {
-        window.open("{{ url_for('info', boothLoc = 'cheese')}}","_self"); 
+        window.open("{{ url_for('info', boothLoc = boothLoc)}}","_self"); 
     }
     
 </script>

@@ -25,15 +25,15 @@ def index():
     #   Update booth_name and status
     return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict)
 
-@app.route('/')
+@app.route('/info')
 def info():
-    session['name1'] = 'John'
+    session['boothLoc_'] = 'John'
     return redirect(url_for('application'))
 
 @app.route('/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
-    name1 = session.get('name1', None)
+    boothLoc_ = session.get('boothLoc_', None)
     
     if form.validate_on_submit():
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
@@ -53,7 +53,7 @@ def application():
         session['tableNum'] = str(v.tableNum)
         session['date'] = str(v.date)
         return redirect('/confirmation')
-    return render_template('application.html', form=form, name1 = name1)
+    return render_template('application.html', form=form, boothLoc_ = boothLoc_)
 
 @app.route('/confirmation')
 def confirmation():
