@@ -31,7 +31,9 @@
                 <div>
                     {{form.boothLoc.label}}
                     {{form.boothLoc()}}
-                    {{ boothLoc_ }}
+                    {% if boothLoc_ != None %}
+                        {{ boothLoc_ }}
+                    {% endif %}
                 </div>   
                 
                 <div class="boothPay"><p>*For Payments received prior to August 1st:(1 booth $150, 2 booths $200)
