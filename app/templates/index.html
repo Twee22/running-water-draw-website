@@ -136,7 +136,7 @@
 
 <!-- Carousel taken from https://getbootstrap.com/docs/5.0/components/carousel/  -->
 <!-- Festival carousel -->
-<div class="row">
+<div class="row" id="photos">
     <div class="column">
         <div id="carouselFestival" class="carousel carousel-dark carousel-fade slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -203,9 +203,10 @@
     
 </script>
 
-<h2 class="contactUs">Contact Us</h2>
 
-<div class="contact-container">
+
+<div class="contact-container" id="contactUs">
+    <h2 class="contactUs">Contact Us</h2>
     <form action="mailto:mia.arceneaux@wayland.wbu.edu" method="POST" class="contact-form">
     <label for="name">Name</label>
     <input type="text" id="name" name="fullName" required />

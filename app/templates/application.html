@@ -5,7 +5,7 @@
     <h1 class="appTitle">Vendor Application</h1>
 
     <div class="application">
-        <form method="POST" action="/application">
+        <form class="form" method="POST" action="/application">
             {{ form.csrf_token() }}
             {% if form.errors %}
                 <ul class="errors">

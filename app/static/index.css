@@ -378,7 +378,7 @@ classes that style the carousel
     padding: 50px 50px;
 }
 
-form{
+.form{
     background: #fff;
     justify-content: center;
     align-items: center;
@@ -449,6 +449,7 @@ input, select {
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
 .contact-container * {
+    display: block;
   box-sizing: border-box;
 	font-family: "Inter", sans-serif;
   --color-blue: #091753;
@@ -459,13 +460,13 @@ input, select {
 }
 
 .contact-container {
+    align-items: center;
   --c-width: 50%;
   --c-max-width: 500px;
-
   width: var(--c-width);
   max-width: var(--c-max-width);
-  display: block;
-  margin: 10vh auto 0 auto;
+  
+  margin: 10vh auto 250px auto;
 }
 
 .contact-form label {
