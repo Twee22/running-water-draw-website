@@ -286,14 +286,16 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
 footer color and location
 */
 footer {
-    display: block;
+    position: relative;
     color: rgb(255, 255, 255);
     background-color: #091753;
-    margin-top: 200px;
     padding: 10px 20px;
     padding-top: 64px;
     padding-bottom: 64px;
     text-align: center;
+    clear: both;
+    height: 200px;
+    margin-top: -200px;
 }
 
 /*
@@ -326,10 +328,10 @@ grid layout
 /*
 styling of images held in the carousel
 */
-img {
+.page_header {
     position: relative;
     z-index: 1;
-    display: block;
+    display: inline-block;
     margin-left: auto;
     margin-right: auto;
     width: 800px;
@@ -337,34 +339,38 @@ img {
     border: 5px solid #091753;
 }
 
+* {
+box-sizing: border-box;
+
+}
+
+.carousel-inner img {
+    width: 500px;
+    height: 500px;
+    border: 5px solid #091753;
+}
+/* side by side carousels inspired by https://www.w3schools.com/howto/howto_css_images_side_by_side.asp */
+.row {
+    display: flex;
+    float: left;
+    padding-left: 200px;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+    flex: 50%;
+    padding: 5px;
+    padding-bottom: 200px;
+}
+
+.carousel-control-prev, .carousel-control-next, .carousel-control-next-icon, .carousel-control-prev-con {
+    position: absolute;
+}
+
 /*
 classes that style the carousel
 */
-.carouselContainer {
-    padding-top: 1900px;
-}
 
-/*
-controls location of next and previous arrows
-*/
-.carousel-control-next-icon {
-    margin-left: -280px;
-    margin-top: 550px;
-}
-
-.carousel-control-prev-icon {
-    margin-right: -280px;
-    margin-top: 550px
-
-}
-
-/*
-taken from https://stackoverflow.com/questions/37027615/remove-the-clickable-area-near-arrows-carousel-bootstrap
-*/
-#carousel  .carousel-control-prev, #carousel  .carousel-control-next {
-    top: 50%;
-    bottom: 50%;
-}
 
 .application{
     display: flex;
@@ -372,7 +378,7 @@ taken from https://stackoverflow.com/questions/37027615/remove-the-clickable-are
     padding: 50px 50px;
 }
 
-form{
+.form{
     background: #fff;
     justify-content: center;
     align-items: center;
@@ -443,6 +449,7 @@ input, select {
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
 .contact-container * {
+    display: block;
   box-sizing: border-box;
 	font-family: "Inter", sans-serif;
   --color-blue: #091753;
@@ -453,13 +460,13 @@ input, select {
 }
 
 .contact-container {
+    align-items: center;
   --c-width: 50%;
   --c-max-width: 500px;
-
   width: var(--c-width);
   max-width: var(--c-max-width);
-  display: block;
-  margin: 10vh auto 0 auto;
+  
+  margin: 10vh auto 250px auto;
 }
 
 .contact-form label {

@@ -5,7 +5,7 @@
     <h1 class="appTitle">Vendor Application</h1>
 
     <div class="application">
-        <form method="POST" action="/application">
+        <form class="form" method="POST" action="/application">
             {{ form.csrf_token() }}
             {% if form.errors %}
                 <ul class="errors">
@@ -28,7 +28,15 @@
             <fieldset class="boothPrice">
                 <div>{{form.boothNum.label}}{{form.boothNum()}}</div>
                 <div>{{form.tableNum.label}}{{form.tableNum()}}</div>   
-                <div>{{form.boothLoc.label}}{{form.boothLoc()}}</div>   
+                <div>
+                    {{form.boothLoc.label}}
+                    
+                    {% if boothLoc_ is not none %}
+                        {{form.boothLoc(value=boothLoc_)}}
+                    {% else %}
+                        {{form.boothLoc()}}
+                    {% endif %}
+                </div>   
                 
                 <div class="boothPay"><p>*For Payments received prior to August 1st:(1 booth $150, 2 booths $200)
                     For Payments received after July 31st:(1 booth $175, 2 booths $225)</p></div>

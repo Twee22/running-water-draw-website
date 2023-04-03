@@ -13,17 +13,29 @@ import os
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
+    sponsor_images = os.listdir("./app/static/sponsor")
+    #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
+    #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
+    #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
+    #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
     vendors = Vendor.query.order_by(Vendor.boothNum)
     
     # for vendor in vendors
     #   Find booth_[booth_num]
     #   Update booth_name and status
-    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict)
+    return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict)
+
+@app.route('/info')
+def info():
+    boothLoc = request.args.get('booth_num')
+    session['boothLoc_'] = boothLoc
+    return redirect(url_for('application'))
 
 @app.route('/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
-        
+    boothLoc_ = session.get('boothLoc_', None)
+    
     if form.validate_on_submit():
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
@@ -42,7 +54,7 @@ def application():
         session['tableNum'] = str(v.tableNum)
         session['date'] = str(v.date)
         return redirect('/confirmation')
-    return render_template('application.html', form=form)
+    return render_template('application.html', form=form, boothLoc_ = boothLoc_)
 
 @app.route('/confirmation')
 def confirmation():
