@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="appTitle" style="margin-top: 5vw;">Vendor Applications</h1>
+<div class="application">
+    
+  <fieldset class="vendorInfo">
+        <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Business</th>
+                <th>Address</th>
+                <th>City, State, Zip</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Description</th>
+                <th>Booth(s) Location</th>
+                <th>Number of Tables</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in data %}
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.business }}</td>
+                <td>{{ item.address }}</td>
+                <td>{{ item.citystatezip }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.phoneNum }}</td>
+                <td>{{ item.desc }}</td>
+                <td>{{ item.boothLoc }}</td>
+                <td>{{ item.tableNum }}</td>
+                <td>{{ item.status }}</td>
+                <td>
+                {% if item.status == "pendingApproval" %}
+                <div style="display: inline-flex">
+                <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
+                  <input type="hidden" name="action" value="confirm">
+                  <button class="button confirm" type="submit">Confirm</button>
+                </form>
+                <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
+                  <input type="hidden" name="action" value="deny">
+                  <button class="button deny" type="submit">Deny</button>
+                </form>
+                </div>
+                {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+    </fieldset>
+
+    <fieldset>
+      <form class="notes" method="POST">
+        <label for="application_text.boothPay">Notes:</label>
+        <input type="application_text.boothPay" id="application_text.boothPay" name="application_text.boothPay" value="{{ application_text.boothPay }}">
+        <input type="application_text.note_l1" id="application_text.note_l1" name="application_text.note_l1" value="{{ application_text.note_l1 }}">
+        <input type="application_text.note_l2" id="application_text.note_l2" name="application_text.note_l2" value="{{ application_text.note_l2 }}">
+        <input type="application_text.note_l3" id="application_text.note_l3" name="application_text.note_l3" value="{{ application_text.note_l3 }}">
+        <input type="application_text.note_l4" id="application_text.note_l4" name="application_text.note_l4" value="{{ application_text.note_l4 }}">
+        <input type="application_text.note_l5" id="application_text.note_l5" name="application_text.note_l5" value="{{ application_text.note_l5 }}">
+        <input type="application_text.note_l6" id="application_text.note_l6" name="application_text.note_l6" value="{{ application_text.note_l6 }}">
+        <input type="application_text.note_l7" id="application_text.note_l7" name="application_text.note_l7" value="{{ application_text.note_l7 }}">
+        <input type="application_text.note_l8" id="application_text.note_l8" name="application_text.note_l8" value="{{ application_text.note_l8 }}">
+        <button class="button confirm" type="submit">Save</button>
+    </form>
+    </fieldset>
+</div>
+
+{% endblock %}
