@@ -106,7 +106,8 @@
 
                         {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
                         {% set booth_num_ = vendor_dict[key]['booth_num'] %}
-                            <div class="item" onclick="appPage('cheese')">{{vendor_dict[key]['booth_num']}}</div>
+                        <div class="item" onclick="location.href='{{ url_for('info', booth_num=booth_num_) }}'">{{vendor_dict[key]['booth_num']}}</div>
+
                             
                         {% else %}
                             <div class="filler"></div>
@@ -197,9 +198,6 @@
     // inspired from https://stackoverflow.com/questions/2554149/how-can-i-change-div-content-with-javascript
     function content(divSelector, value) {
         document.querySelector(divSelector).innerHTML = value;
-    }
-    function appPage(boothLoc) {
-        window.open("{{ url_for('info', boothLoc = boothLoc)}}","_self"); 
     }
     
 </script>

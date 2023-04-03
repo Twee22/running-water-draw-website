@@ -27,7 +27,8 @@ def index():
 
 @app.route('/info')
 def info():
-    session['boothLoc_'] = 'John'
+    boothLoc = request.args.get('booth_num')
+    session['boothLoc_'] = boothLoc
     return redirect(url_for('application'))
 
 @app.route('/application', methods=['GET', 'POST'])
