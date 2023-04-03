@@ -105,7 +105,8 @@
                             <div class="item pending booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', 'Pending')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
 
                         {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
-                            <div class="item" onclick="appPage()">{{vendor_dict[key]['booth_num']}}</div>
+                        {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                            <div class="item" onclick="appPage('cheese')">{{vendor_dict[key]['booth_num']}}</div>
                             
                         {% else %}
                             <div class="filler"></div>
@@ -197,8 +198,8 @@
     function content(divSelector, value) {
         document.querySelector(divSelector).innerHTML = value;
     }
-    function appPage() {
-        window.open("{{ url_for('application')}}","_self"); 
+    function appPage(boothLoc) {
+        window.open("{{ url_for('info', boothLoc = 'cheese')}}","_self"); 
     }
     
 </script>
