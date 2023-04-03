@@ -97,8 +97,8 @@
                     {% for key in vendor_dict %}
                         {% if vendor_dict[key]['status'] == 'APPROVED' %}
                             {% set booth_num_ = vendor_dict[key]['booth_num'] %}
-                            {% set booth_name_ = vendor_dict[key]['booth_name'] %}
-                            <div class="item approved booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', '{{booth_name_}}')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+                            {% set business_name_ = vendor_dict[key]['business_name'] %}
+                            <div class="item approved booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', '{{business_name_}}')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
 
                         {% elif vendor_dict[key]['status'] == 'PENDING' %}
                             {% set booth_num_ = vendor_dict[key]['booth_num'] %}
