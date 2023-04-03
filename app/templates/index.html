@@ -106,6 +106,7 @@
 
                         {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
                         {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                        <!-- link to function info code inspired and modified from ChatGPT-->
                         <div class="item" onclick="location.href='{{ url_for('info', booth_num=booth_num_) }}'">{{vendor_dict[key]['booth_num']}}</div>
 
                             

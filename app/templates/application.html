@@ -30,9 +30,11 @@
                 <div>{{form.tableNum.label}}{{form.tableNum()}}</div>   
                 <div>
                     {{form.boothLoc.label}}
-                    {{form.boothLoc()}}
-                    {% if boothLoc_ != None %}
-                        {{ boothLoc_ }}
+                    
+                    {% if boothLoc_ is not none %}
+                        {{form.boothLoc(value=boothLoc_)}}
+                    {% else %}
+                        {{form.boothLoc()}}
                     {% endif %}
                 </div>   
                 
