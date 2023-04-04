@@ -1,10 +1,9 @@
 from flask import render_template, request, redirect, url_for, session
 from flask_login import current_user, login_user, logout_user
-from app import app, db
-from app.forms import ApplicationForm, LoginForm
-from app.models import Vendor, User
+from app import app, db, ckeditor
+from app.forms import ApplicationForm, LoginForm, AdminForm
+from app.models import Vendor, User, AppText
 from app.vendor_dict import vendor_dict
-from app import application_text
 
 import os
 
@@ -34,6 +33,7 @@ def info():
 @app.route('/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
+    appText = AppText.query.all()
     boothLoc_ = session.get('boothLoc_', None)
     
     if form.validate_on_submit():
@@ -54,7 +54,7 @@ def application():
         session['tableNum'] = str(v.tableNum)
         session['date'] = str(v.date)
         return redirect('/confirmation')
-    return render_template('application.html', form=form, boothLoc_ = boothLoc_)
+    return render_template('application.html', form=form, appText=appText, boothLoc_ = boothLoc_)
 
 @app.route('/confirmation')
 def confirmation():
@@ -91,18 +91,16 @@ def logout():
 
 @app.route('/adminapp', methods=['POST', 'GET'])
 def adminapp():
+    form = AdminForm()
     data = Vendor.query.all()
-    if request.method == 'POST':
-        application_text.note_l1 = request.form['application_text.note_l1']
-        application_text.note_l2 = request.form['application_text.note_l2']
-        application_text.note_l3 = request.form['application_text.note_l3']
-        application_text.note_l4 = request.form['application_text.note_l4']
-        application_text.note_l5 = request.form['application_text.note_l5']
-        application_text.note_l6 = request.form['application_text.note_l6']
-        application_text.note_l7 = request.form['application_text.note_l7']
-        application_text.note_l8 = request.form['application_text.note_l8']
-        application_text.boothPay = request.form['application_text.boothPay']
-    return render_template('AdminApp.html', data=data, application_text=application_text)
+    appData = AppText.query.all()
+
+    if form.validate_on_submit():
+        a = AppText(notes=form.notes.data, datestimes=form.datestimes.data, conditions=form.conditions.data)
+        db.session.add(a)
+        db.session.commit()
+
+    return render_template('AdminApp.html', data=data, form=form, appData = appData)
 
 @app.route('/adminapp/<int:id>', methods=['POST', 'GET'])
 def adminappupdate(id):

@@ -42,6 +42,12 @@ class Vendor(db.Model):
     def __repr__(self):
         return '<Vendor {}>'.format(self.business)
     
+class AppText(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    notes = db.Column(db.String, nullable=False)
+    datestimes = db.Column(db.String, nullable=False)
+    conditions = db.Column(db.String, nullable=False)
+    
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
