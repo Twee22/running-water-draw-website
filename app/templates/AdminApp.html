@@ -56,16 +56,17 @@
     <fieldset>
       <form method="post">
         {{ form.csrf_token }}
-        {{ form.notes.label }} {{ form.notes(class_='form-control') }}
-        {{ form.datestimes.label }} {{ form.datestimes(class_='form-control') }}
-        {{ form.conditions.label }} {{ form.conditions(class_='form-control') }}
+        {{ form.notes.label }} {{ ckeditor.create(name='notes', value=appData.notes) }}  <!-- Set the value of CKEditor textarea -->
         {{ form.submit(class_='btn btn-primary') }}
       </form>
       {{ ckeditor.load() }}
-      {{ ckeditor.config(name='notes', value=appData.notes) }}
-      {{ ckeditor.config(name='datestimes', value=appData.datestimes) }}
-      {{ ckeditor.config(name='conditions', value=appData.conditions) }}
-      </fieldset>
+      {{ ckeditor.config(name='notes') }}
+    </fieldset>
+    
+    
+    
+    
+    
 </div>
 
 {% endblock %}

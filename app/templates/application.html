@@ -39,16 +39,10 @@
                 </div>
             </fieldset>
             <div class="note">
-                {{ appText.notes }}
+                {{ appText.notes|safe }}
             </div>
-            <div class="datestimes">
-                {{ appText.datestimes }}
-            </div>
-            <div>
-                {{ appText.conditions }}
-                <div>{{form.terms.label}}{{form.terms()}}</div>
-                <div>{{form.submit()}}</div>
-            </div>
+            <div>{{form.terms.label}}{{form.terms()}}</div>
+            <div>{{form.submit()}}</div>
         </form>
     </div>
 {% endblock %}

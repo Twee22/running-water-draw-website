@@ -7,8 +7,8 @@ from app.vendor_dict import vendor_dict
 
 import os
 
-@app.route('/')
-@app.route('/index', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
@@ -33,7 +33,7 @@ def info():
 @app.route('/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
-    appText = AppText.query.all()
+    appText = AppText.query.first()
     boothLoc_ = session.get('boothLoc_', None)
     
     if form.validate_on_submit():
@@ -89,20 +89,19 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-@app.route('/adminapp', methods=['POST', 'GET'])
+@app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
     form = AdminForm()
     data = Vendor.query.all()
-    appData = AppText.query.all()
+    appData = AppText.query.first()
 
     if form.validate_on_submit():
-        a = AppText(notes=form.notes.data, datestimes=form.datestimes.data, conditions=form.conditions.data)
-        db.session.add(a)
+        appData.notes = form.notes.data
         db.session.commit()
 
     return render_template('AdminApp.html', data=data, form=form, appData = appData)
 
-@app.route('/adminapp/<int:id>', methods=['POST', 'GET'])
+@app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
 def adminappupdate(id):
     data = Vendor.query.all()
     vendor_status_update = Vendor.query.get_or_404(id)

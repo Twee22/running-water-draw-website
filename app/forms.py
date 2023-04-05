@@ -21,8 +21,6 @@ class ApplicationForm(FlaskForm):
 
 class AdminForm(FlaskForm):
     notes = CKEditorField('Note Editor', validators=[InputRequired()])
-    datestimes = CKEditorField('Dates and Times Editor', validators=[InputRequired()])
-    conditions = CKEditorField('Terms Editor', validators=[InputRequired()])
     submit = SubmitField('Submit')
 
 
