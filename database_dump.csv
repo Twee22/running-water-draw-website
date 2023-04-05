@@ -1,3 +1,7 @@
 id,name,business,address,citystatezip,email,phoneNum,desc,boothNum,boothLoc,tableNum,date,status
-1,Test,TEst,TEst,Test,TEst@Test.com,Test,Test,1,1,1,2023-04-05 00:23:59,pendingApproval
-2,Test2,Test2,Test2,Test2,Test2@Test2.com,Test2,Test2,1,2,1,2023-04-05 00:24:55,pendingApproval
+1,John Doe,John Deer,123 St.,"City, State, 11111",email@email.com,1234567890,Tractors,2,52,2,2023-03-27 23:48:35,pendingApproval
+2,Test,Test,Test,Test,Test@test.com,Test,Test,1,1,1,2023-04-02 19:50:39,pendingApproval
+3,Test2,Test2,Test2,Test2,Test2@test.com,Test2,Test2,1,2,1,2023-04-02 19:59:46,pendingApproval
+4,Test3,Test3,Test3,Test3,Test3@Test3.com,Test3,Test3,1,4,1,2023-04-02 20:01:07,pendingApproval
+5,Test4,Test4,Test4,Test4,Test4@Test4.com,Test4,Test4,1,4,1,2023-04-02 20:05:04,pendingApproval
+6,test,test,testing,testing,adsflksaj@asdf.com,testing,test,1,80,1,2023-04-05 20:58:11,pendingApproval

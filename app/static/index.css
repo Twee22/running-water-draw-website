@@ -446,6 +446,20 @@ input, select {
     margin: 1vw;
   }
 
+.mt-5 {
+    padding-top: 50px;
+}
+
+.containerPrint {
+    padding-left: 100px;
+}
+
+.printButton {
+    display: inline-block;
+    padding-top: 800px;
+    padding-right: 280px;
+}
+
   @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
 
 .contact-container * {
