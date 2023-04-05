@@ -1,0 +1,3 @@
+id,name,business,address,citystatezip,email,phoneNum,desc,boothNum,boothLoc,tableNum,date,status
+1,Test,TEst,TEst,Test,TEst@Test.com,Test,Test,1,1,1,2023-04-05 00:23:59,pendingApproval
+2,Test2,Test2,Test2,Test2,Test2@Test2.com,Test2,Test2,1,2,1,2023-04-05 00:24:55,pendingApproval
