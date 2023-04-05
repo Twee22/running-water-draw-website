@@ -140,3 +140,19 @@ def admin_download_data():
         download_name='Vendor_List.csv',
         as_attachment=True
     )
+
+@app.route('/payment/<int:id>', methods=['POST', 'GET'])
+def payment(id):
+    data = Vendor.query.all()
+    vendor_status_update = Vendor.query.get_or_404(id)
+    if request.method == 'POST':
+        action = request.form['action']
+        if action == 'confirm':
+            vendor_status_update.status = 'finalized'
+        try:
+            db.session.commit()
+            return render_template('PaymentConfirmation.html')
+        except:
+            return "There was a problem updating the status of the vendor"
+    elif request.method == 'GET':
+        return render_template('PaymentConfirmation.html')
