@@ -42,6 +42,11 @@ class Vendor(db.Model):
     def __repr__(self):
         return '<Vendor {}>'.format(self.business)
     
+    def __iter__(self):
+        return iter([str(self.id), str(self.name), str(self.business), str(self.address), 
+                        str(self.citystatezip), str(self.email), str(self.phoneNum), str(self.desc), str(self.boothNum), 
+                        str(self.boothLoc), str(self.tableNum), str(self.date), str(self.status)])
+    
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

@@ -1,10 +1,11 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, send_file
 from flask_login import current_user, login_user, logout_user
 from app import app, db
 from app.forms import ApplicationForm, LoginForm
 from app.models import Vendor, User
 from app.vendor_dict import vendor_dict
 from app import application_text
+import csv
 
 import os
 
@@ -122,3 +123,20 @@ def adminappupdate(id):
 
     elif request.method == 'GET':
         return render_template('AdminApp.html')
+    
+@app.route('/adminapp/download_data')
+def admin_download_data():
+
+    with open('database_dump.csv', 'w') as csv_file:
+        wr = csv.writer(csv_file, delimiter=",")
+        records = Vendor.query.all()
+        wr.writerow(list(filter(None,[ i[0] if (not i[0].startswith('_') and not i[0] == "followers") else None for i in Vendor.__dict__.items()])))
+        for r in records:
+            wr.writerow(r)
+            
+    return send_file(
+        '../database_dump.csv',
+        mimetype='text/csv',
+        download_name='Vendor_List.csv',
+        as_attachment=True
+    )

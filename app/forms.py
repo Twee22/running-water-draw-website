@@ -16,7 +16,6 @@ class ApplicationForm(FlaskForm):
     tableNum = IntegerField('Number of Tables', validators=[InputRequired(), NumberRange(min=0, max=20)])
     date = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
     terms = BooleanField('I have read and agree to this', validators=[InputRequired()])
-    sign = StringField('Signed', validators=[InputRequired()])
     submit = SubmitField('Submit')
 
 

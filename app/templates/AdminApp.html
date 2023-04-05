@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1 class="appTitle" style="margin-top: 5vw;">Vendor Applications</h1>
+
+<div class="database-export">
+  <a href="/adminapp/download_data">Download Table</a>
+</div>
+
 <div class="application">
     
   <fieldset class="vendorInfo">
@@ -66,7 +71,7 @@
         <input type="application_text.note_l7" id="application_text.note_l7" name="application_text.note_l7" value="{{ application_text.note_l7 }}">
         <input type="application_text.note_l8" id="application_text.note_l8" name="application_text.note_l8" value="{{ application_text.note_l8 }}">
         <button class="button confirm" type="submit">Save</button>
-    </form>
+      </form>
     </fieldset>
 </div>
 
