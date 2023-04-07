@@ -3,6 +3,63 @@
 
     <!--<link rel="stylesheet" href="{{url_for('static', filename='styles.css') }}">-->
     <h1 class="appTitle">Vendor Application</h1>
+    <div class = "grid_content">
+        <div class="map_width">
+            <div class="grid-container-vendor">
+                <!--
+                add for loop (loop through dictionary)
+        
+                        if statment  (if status is pending: if approve, elif pending, elif unit, else filler:  change color accordingly)
+                if status
+                elif pending
+                elif un-it
+                else filler
+                -->
+                
+                
+                <div class="reserved">Reserved</div>
+                <div class="item_legend">#</div>
+                <div class="pend">Pending</div>
+                <div class="pend_legend">#</div>
+                <div class="available">Available</div>
+                <div class="available_legend">#</div>
+                
+                
+                {% for cell in range(15) %}
+                <div class="filler"></div>
+                {% endfor %}
+        
+                <!-- for loops and if statements inspired/modified/taken from ChatGPT -->
+                {% for key in vendor_dict %}
+                    {% if vendor_dict[key]['status'] == 'APPROVED' %}
+                        {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                        {% set business_name_ = vendor_dict[key]['business_name'] %}
+                        <div class="item approved booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', '{{business_name_}}')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+        
+                    {% elif vendor_dict[key]['status'] == 'PENDING' %}
+                        {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                        <div class="item pending booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', 'Pending')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+        
+                    {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
+                    {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                    <!-- link to function info code inspired and modified from ChatGPT-->
+                    <div class="item" onclick="setBoothLoc('{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+                        
+                    {% else %}
+                        <div class="filler"></div>
+        
+                    {% endif %}
+                {% endfor %}
+        
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function setBoothLoc(boothNum) {
+          document.getElementById("boothLoc").value += ' ' + boothNum;
+        }
+        </script>
 
     <div class="application">
         <form class="form" method="POST" action="/application">
@@ -16,7 +73,10 @@
                 {% endfor %}
                 </ul>
             {% endif %}
+            
             <fieldset class="businessInfo">
+                
+      
                 <div>{{form.name.label}}{{form.name()}}</div>
                 <div>{{form.business.label}}{{form.business()}}</div>
                 <div>{{form.address.label}}{{form.address()}}</div>
