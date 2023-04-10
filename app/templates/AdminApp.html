@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<h1 class="appTitle" style="margin-top: 5vw;">Vendor Applications</h1>
-<div class="application">
-    
-  <fieldset class="vendorInfo">
-        <table>
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+<script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+  <div class="container-fluid">
+    <h1 class="appTitle">Vendor Applications</h1>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>Name</th>
@@ -22,51 +26,49 @@
             </thead>
             <tbody>
               {% for item in data %}
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.business }}</td>
-                <td>{{ item.address }}</td>
-                <td>{{ item.citystatezip }}</td>
-                <td>{{ item.email }}</td>
-                <td>{{ item.phoneNum }}</td>
-                <td>{{ item.desc }}</td>
-                <td>{{ item.boothLoc }}</td>
-                <td>{{ item.tableNum }}</td>
-                <td>{{ item.status }}</td>
-                <td>
-                {% if item.status == "pendingApproval" %}
-                <div style="display: inline-flex">
-                <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
-                  <input type="hidden" name="action" value="confirm">
-                  <button class="button confirm" type="submit">Confirm</button>
-                </form>
-                <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
-                  <input type="hidden" name="action" value="deny">
-                  <button class="button deny" type="submit">Deny</button>
-                </form>
-                </div>
-                {% endif %}
-                </td>
-              </tr>
+                <tr>
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.business }}</td>
+                  <td>{{ item.address }}</td>
+                  <td>{{ item.citystatezip }}</td>
+                  <td>{{ item.email }}</td>
+                  <td>{{ item.phoneNum }}</td>
+                  <td>{{ item.desc }}</td>
+                  <td>{{ item.boothLoc }}</td>
+                  <td>{{ item.tableNum }}</td>
+                  <td>{{ item.status }}</td>
+                  <td>
+                    {% if item.status == "pendingApproval" %}
+                      <div style="display: inline-flex">
+                        <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
+                          <input type="hidden" name="action" value="confirm">
+                          <button class="btn btn-success me-2" type="submit">Confirm</button>
+                        </form>
+                        <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
+                          <input type="hidden" name="action" value="deny">
+                          <button class="btn btn-danger" type="submit">Deny</button>
+                        </form>
+                      </div>
+                    {% endif %}
+                  </td>
+                </tr>
               {% endfor %}
             </tbody>
           </table>
-    </fieldset>
-
-    <fieldset>
-      <form method="post">
-        {{ form.csrf_token }}
-        {{ form.notes.label }} {{ ckeditor.create(name='notes', value=appData.notes) }}  <!-- Set the value of CKEditor textarea -->
-        {{ form.submit(class_='btn btn-primary') }}
-      </form>
-      {{ ckeditor.load() }}
-      {{ ckeditor.config(name='notes') }}
-    </fieldset>
-    
-    
-    
-    
-    
-</div>
-
+        </div>
+      </div>
+      <div class="col-md-12 mt-3">
+        <h3 class="mb-3">Application Notes</h3>
+        <div class="col-md-12"></div>
+        <form method="POST">
+          {{ form.csrf_token }}
+          {{ form.notes.label }} {{ ckeditor.create(name='notes', value=appData.notes) }}  <!-- Set the value of CKEditor textarea -->
+          {{ form.submit(class_='btn btn-primary') }}
+        </form>
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='notes') }}
+      </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

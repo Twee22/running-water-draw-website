@@ -426,11 +426,9 @@ fieldset label{
 fieldset input{
     display: inline-block;
     align-content: center;
-    width: 20vw;
 }
 
 .boothPrice input{
-    width: 4vw;
     padding-right: 6px;
 }
 
@@ -461,9 +459,8 @@ input, select {
   }
 
   .appTitle{
-    color:rgb(255, 255, 255);
-    background-color: #091753;
-    margin: 0px;
+    color:#091753;
+    margin-top: 5%;
   }
 
   #sign{
