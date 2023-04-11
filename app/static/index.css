@@ -232,6 +232,24 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     font-size: 17px;
     font-weight: bold;
 }
+/*
+map on vendor application page
+*/
+.grid-container-vendor {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(28, 1fr);
+    gap: 1px;
+    background-color: #091753;
+    padding: 5px;
+  }
+  
+.grid-container-vendor > div {
+    text-align: center;
+    padding: 10px 0;
+    font-size: 17px;
+    font-weight: bold;
+}
 
 .item {
     background-color: #c0c3d3;
@@ -319,6 +337,12 @@ grid layout
     float: left;
 }
 
+.map_width {
+    width: 66.66%;
+    float: right;
+    padding-top: 50px;
+}
+
 .third {
     width: 33%;
     float: right;
@@ -402,11 +426,9 @@ fieldset label{
 fieldset input{
     display: inline-block;
     align-content: center;
-    width: 20vw;
 }
 
 .boothPrice input{
-    width: 4vw;
     padding-right: 6px;
 }
 
@@ -437,9 +459,8 @@ input, select {
   }
 
   .appTitle{
-    color:rgb(255, 255, 255);
-    background-color: #091753;
-    margin: 0px;
+    color:#091753;
+    margin-top: 5%;
   }
 
   #sign{
