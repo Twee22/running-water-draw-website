@@ -359,12 +359,16 @@ grid layout
     border: 5px solid #091753;
 }
 
+/*
+classes that style the carousel
+*/
 .carouselContainer {
-    position: relative;
+    text-align: center;
+}
+#carouselExampleFade {
     display: inline-block;
-    margin-left: 200px;
-    margin-right: auto;
-    width: 63%;
+    text-align: center;
+    width: 80%;
 }
 
 .carousel-inner img {
@@ -373,14 +377,6 @@ grid layout
     border: 5px solid #091753;
     
 }
-
-.carousel-control-prev, .carousel-control-next, .carousel-control-next-icon, .carousel-control-prev-con {
-    position: absolute;
-}
-
-/*
-classes that style the carousel
-*/
 
 
 .application{
