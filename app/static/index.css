@@ -379,13 +379,13 @@ classes that style the carousel
 }
 
 
-.application{
+.application {
     display: flex;
     position: relative;
     padding: 50px 50px;
 }
 
-.form{
+.form {
     background: #fff;
     justify-content: center;
     align-items: center;

@@ -1,3 +1,6 @@
+from app import app
+from app.routes import vendors
+
 vendor_dict = {
 
 #Row 3
@@ -803,5 +806,10 @@ vendor_dict = {
 #Row 27
 	"filler_177": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_178": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_179": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_180": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_181": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_182": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_183": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_184": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_185": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_186": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_187": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_188": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"
     }
-    
 }
+
+for vendor in vendors: 
+    for key in vendor_dict:
+        if vendor.boothLoc == vendor_dict[key]['booth_num']:
+            vendor_dict[key]['business_name'] = vendor.business
+
