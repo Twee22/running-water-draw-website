@@ -1,5 +1,5 @@
 from app import app
-from app.routes import vendors
+from app.models import Vendor
 
 vendor_dict = {
 
@@ -808,8 +808,12 @@ vendor_dict = {
     }
 }
 
-for vendor in vendors: 
-    for key in vendor_dict:
-        if vendor.boothLoc == vendor_dict[key]['booth_num']:
-            vendor_dict[key]['business_name'] = vendor.business
-
+def update():
+    with app.app_context():
+        vendors = Vendor.query.order_by(Vendor.boothNum)
+        for vendor in vendors: 
+            for key in vendor_dict:
+                if vendor.boothLoc == vendor_dict[key]['booth_num']:
+                    vendor_dict[key]['business_name'] = vendor.business
+                    vendor_dict[key]['status'] = "APPROVED"
+    return vendor_dict
