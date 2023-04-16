@@ -348,9 +348,6 @@ grid layout
     margin-top: 100px;
 }
 
-/*
-styling of images held in the carousel
-*/
 .page_header {
     position: relative;
     z-index: 1;
@@ -362,28 +359,19 @@ styling of images held in the carousel
     border: 5px solid #091753;
 }
 
-* {
-box-sizing: border-box;
-
+.carouselContainer {
+    position: relative;
+    display: inline-block;
+    margin-left: 200px;
+    margin-right: auto;
+    width: 63%;
 }
 
 .carousel-inner img {
-    width: 500px;
-    height: 500px;
+    width: 850px;
+    height: 750px;
     border: 5px solid #091753;
-}
-/* side by side carousels inspired by https://www.w3schools.com/howto/howto_css_images_side_by_side.asp */
-.row {
-    display: flex;
-    float: left;
-    padding-left: 200px;
-}
-
-/* Create three equal columns that sits next to each other */
-.column {
-    flex: 50%;
-    padding: 5px;
-    padding-bottom: 200px;
+    
 }
 
 .carousel-control-prev, .carousel-control-next, .carousel-control-next-icon, .carousel-control-prev-con {
