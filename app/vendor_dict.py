@@ -1,3 +1,6 @@
+from app import app
+from app.models import Vendor
+
 vendor_dict = {
 
 #Row 3
@@ -533,13 +536,13 @@ vendor_dict = {
 	"booth_num": 51,"business_name": "NOTINIT","status": "NOTINIT"
 	},
 	"booth_52":{
-	"booth_num": 52,"business_name": "Charlie", "status": "APPROVED"
+	"booth_num": 52,"business_name": "NOTINIT", "status": "NOTINIT"
 	},
 	"filler_115": {
 	"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"
 	},
 	"booth_55":{
-	"booth_num": 55,"business_name": "Bob","status": "APPROVED"
+	"booth_num": 55,"business_name": "NOTINIT","status": "NOTINIT"
 	},
 	"booth_56":{
 	"booth_num": 56,"business_name": "NOTINIT","status": "NOTINIT"
@@ -573,7 +576,7 @@ vendor_dict = {
 	"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"
 	},
 	"booth_31":{
-	"booth_num": 31,"business_name": "William","status": "PENDING"
+	"booth_num": 31,"business_name": "NOTINIT","status": "FILLER"
 	},
 	"booth_32":{
 	"booth_num": 32,"business_name": "NOTINIT","status": "NOTINIT"
@@ -803,5 +806,17 @@ vendor_dict = {
 #Row 27
 	"filler_177": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_178": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_179": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_180": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_181": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_182": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_183": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_184": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_185": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_186": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_187": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"},"filler_188": {"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"
     }
-    
 }
+
+# links dictionary to database, dictionary is updated everytime the database is updated
+def update(vendors):
+    
+    for vendor in vendors: 
+        for key in vendor_dict:
+            if int(vendor.boothLoc) == vendor_dict[key]['booth_num']:
+                if vendor.status == "pendingApproval" or "pendingPayment":
+                    vendor_dict[key]['status'] = "PENDING"
+                elif vendor.status == "finalized": 
+                    vendor_dict[key]['business_name'] = vendor.business
+                    vendor_dict[key]['status'] = "APPROVED"
+    return vendor_dict

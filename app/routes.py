@@ -3,9 +3,8 @@ from flask_login import login_required, current_user, login_user, logout_user
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm
 from app.models import Vendor, User, AppText
-from app.vendor_dict import vendor_dict
+from app.vendor_dict import vendor_dict, update
 import csv
-
 import os
 
 @app.route('/', methods=['GET', 'POST'])
@@ -19,10 +18,8 @@ def index():
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
     #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
     vendors = Vendor.query.order_by(Vendor.boothNum)
+    vendor_dict = update(vendors)
     
-    # for vendor in vendors
-    #   Find booth_[booth_num]
-    #   Update booth_name and status
     return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict)
 
 @app.route('/info')
@@ -36,6 +33,9 @@ def application():
     form = ApplicationForm()
     appText = AppText.query.first()
     boothLoc_ = session.get('boothLoc_', None)
+    
+    vendors = Vendor.query.order_by(Vendor.boothNum)
+    vendor_dict = update(vendors)
     
     if form.validate_on_submit():
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
