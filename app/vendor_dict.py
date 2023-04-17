@@ -536,13 +536,13 @@ vendor_dict = {
 	"booth_num": 51,"business_name": "NOTINIT","status": "NOTINIT"
 	},
 	"booth_52":{
-	"booth_num": 52,"business_name": "Charlie", "status": "APPROVED"
+	"booth_num": 52,"business_name": "NOTINIT", "status": "NOTINIT"
 	},
 	"filler_115": {
 	"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"
 	},
 	"booth_55":{
-	"booth_num": 55,"business_name": "Bob","status": "APPROVED"
+	"booth_num": 55,"business_name": "NOTINIT","status": "NOTINIT"
 	},
 	"booth_56":{
 	"booth_num": 56,"business_name": "NOTINIT","status": "NOTINIT"
@@ -576,7 +576,7 @@ vendor_dict = {
 	"booth_num": 0,"business_name": "NOTINIT","status": "FILLER"
 	},
 	"booth_31":{
-	"booth_num": 31,"business_name": "William","status": "PENDING"
+	"booth_num": 31,"business_name": "NOTINIT","status": "FILLER"
 	},
 	"booth_32":{
 	"booth_num": 32,"business_name": "NOTINIT","status": "NOTINIT"
@@ -816,7 +816,7 @@ def update(vendors):
             if int(vendor.boothLoc) == vendor_dict[key]['booth_num']:
                 if vendor.status == "pendingApproval" or "pendingPayment":
                     vendor_dict[key]['status'] = "PENDING"
-                else: 
+                elif vendor.status == "finalized": 
                     vendor_dict[key]['business_name'] = vendor.business
                     vendor_dict[key]['status'] = "APPROVED"
     return vendor_dict

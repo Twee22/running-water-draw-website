@@ -254,6 +254,10 @@ map on vendor application page
     background-color: #c0c3d3;
 }
 
+.empty {
+    background-color: #c0c3d3;
+}
+
 .filler, .reserved, .available, .pend {
     background-color: #c0c3d3ea;
 }
@@ -270,9 +274,17 @@ map on vendor application page
     background-color: white;
     transform: scale(2);
     font-size: 10px;
+    cursor: pointer;
+}
+
+.empty:hover {
+    background-color: white;
+    transform: scale(2);
+    font-size: 10px;
     transition-duration: 0.5s;
     cursor: pointer;
 }
+
 
 .reserved {
     grid-column: 1/3;
@@ -565,4 +577,8 @@ input, select {
 .contactUs{
     text-align: center;
     padding-top: 50px;
+}
+
+.payComp {
+    padding-top: 70px;
 }
