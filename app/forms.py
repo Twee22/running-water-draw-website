@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanField, PasswordField, DateTimeField
 from wtforms.validators import InputRequired, Length, NumberRange, DataRequired, ValidationError
-
+from flask_ckeditor import CKEditorField
 
 class ApplicationForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired()], render_kw={"placeholder": "Your Name Here"})
@@ -16,6 +16,11 @@ class ApplicationForm(FlaskForm):
     tableNum = IntegerField('Number of Tables', validators=[InputRequired(), NumberRange(min=0, max=20)])
     date = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
     terms = BooleanField('I have read and agree to this', validators=[InputRequired()])
+    #sign = StringField('Signed', validators=[InputRequired()])
+    submit = SubmitField('Submit')
+
+class AdminForm(FlaskForm):
+    notes = CKEditorField('Note Editor', validators=[InputRequired()])
     submit = SubmitField('Submit')
 
 

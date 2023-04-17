@@ -1,16 +1,15 @@
 from flask import render_template, request, redirect, url_for, session, send_file
-from flask_login import current_user, login_user, logout_user
-from app import app, db
-from app.forms import ApplicationForm, LoginForm
-from app.models import Vendor, User
+from flask_login import login_required, current_user, login_user, logout_user
+from app import app, db, ckeditor
+from app.forms import ApplicationForm, LoginForm, AdminForm
+from app.models import Vendor, User, AppText
 from app.vendor_dict import vendor_dict
-from app import application_text
 import csv
 
 import os
 
-@app.route('/')
-@app.route('/index', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
@@ -35,6 +34,7 @@ def info():
 @app.route('/application', methods=['GET', 'POST'])
 def application():
     form = ApplicationForm()
+    appText = AppText.query.first()
     boothLoc_ = session.get('boothLoc_', None)
     
     if form.validate_on_submit():
@@ -55,7 +55,7 @@ def application():
         session['tableNum'] = str(v.tableNum)
         session['date'] = str(v.date)
         return redirect('/confirmation')
-    return render_template('application.html', form=form, boothLoc_ = boothLoc_)
+    return render_template('application.html', form=form, appText=appText, boothLoc_ = boothLoc_, vendor_dict = vendor_dict)
 
 @app.route('/confirmation')
 def confirmation():
@@ -80,9 +80,12 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
+        if (form.username.data == "admin" and form.password.data == "admin"):
+            return redirect(url_for('adminapp'))
         if user is None or not user.check_password(form.password.data):
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        return redirect(url_for('index'))
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
@@ -90,22 +93,20 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-@app.route('/adminapp', methods=['POST', 'GET'])
+@login_required
+@app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
+    form = AdminForm()
     data = Vendor.query.all()
-    if request.method == 'POST':
-        application_text.note_l1 = request.form['application_text.note_l1']
-        application_text.note_l2 = request.form['application_text.note_l2']
-        application_text.note_l3 = request.form['application_text.note_l3']
-        application_text.note_l4 = request.form['application_text.note_l4']
-        application_text.note_l5 = request.form['application_text.note_l5']
-        application_text.note_l6 = request.form['application_text.note_l6']
-        application_text.note_l7 = request.form['application_text.note_l7']
-        application_text.note_l8 = request.form['application_text.note_l8']
-        application_text.boothPay = request.form['application_text.boothPay']
-    return render_template('AdminApp.html', data=data, application_text=application_text)
+    appData = AppText.query.first()
 
-@app.route('/adminapp/<int:id>', methods=['POST', 'GET'])
+    if form.validate_on_submit():
+        appData.notes = form.notes.data
+        db.session.commit()
+
+    return render_template('AdminApp.html', data=data, form=form, appData = appData)
+
+@app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
 def adminappupdate(id):
     data = Vendor.query.all()
     vendor_status_update = Vendor.query.get_or_404(id)

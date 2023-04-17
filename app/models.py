@@ -47,6 +47,10 @@ class Vendor(db.Model):
                         str(self.citystatezip), str(self.email), str(self.phoneNum), str(self.desc), str(self.boothNum), 
                         str(self.boothLoc), str(self.tableNum), str(self.date), str(self.status)])
     
+class AppText(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    notes = db.Column(db.String, nullable=False)
+    
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
