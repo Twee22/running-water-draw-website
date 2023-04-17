@@ -31,7 +31,7 @@
                             <div class="item pending booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', 'Pending')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
                         {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
                             {% set booth_num_ = vendor_dict[key]['booth_num'] %}
-                            <div class="item" onclick="setBoothLoc('{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+                            <div class="empty" onclick="setBoothLoc('{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
                         {% else %}
                             <div class="filler"></div>
                         {% endif %}
