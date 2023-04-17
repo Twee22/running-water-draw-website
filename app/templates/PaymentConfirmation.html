@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<body id="vendor-information">
+    <h1>Payment Confirmation</h1>
+    <h2>Your Information</h2>
+    <p>Name: {{ vendor.name }}</p>
+    <p>Business Name: {{ vendor.business }}</p>
+    <p>Address: {{ vendor.address }}</p>
+    <p>City, State, Zip: {{ vendor.citystatezip }}</p>
+    <p>Email Address: {{ vendor.email }}</p>
+    <p>Phone Number: {{ vendor.phoneNum }}</p>
+    <p>Business Description: {{ vendor.desc }}</p>
+    <p>Booth Location: {{ vendor.boothLoc.replace(",", ", ") }}</p>
+    <p>Number of Tables Required: {{ vendor.tableNum }}</p>
+    <p>Numbers of Booths Required: {{ vendor.boothNum }}</p>
+    <p>Application submitted on {{ vendor.date }}</p>
+
+    <form class="reset" method="POST" action="/payment/{{ vendor.id }}">
+        <input type="hidden" name="action" value="confirm">
+        <button class="button confirm" type="submit">Pay</button>
+    </form>
+{% endblock %}
