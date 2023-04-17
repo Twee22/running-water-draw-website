@@ -148,11 +148,13 @@ def payment(id):
     if request.method == 'POST':
         action = request.form['action']
         if action == 'confirm':
+            print(action)
             vendor_status_update.status = 'finalized'
-        try:
-            db.session.commit()
-            return render_template('PaymentConfirmation.html')
-        except:
-            return "There was a problem updating the status of the vendor"
+            try:
+                db.session.commit()
+                return render_template('index.html')
+            except:
+                return "There was a problem updating the status of the vendor"
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
     elif request.method == 'GET':
-        return render_template('PaymentConfirmation.html')
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
