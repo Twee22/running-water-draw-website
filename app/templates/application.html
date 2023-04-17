@@ -40,11 +40,15 @@
             </div>
         </div>
 
-        <script>
-            function setBoothLoc(boothNum) {
-              document.getElementById("boothLoc").value += ' ' + boothNum;
-            }
-            </script>
+<script>
+    function setBoothLoc(boothNum) {
+        document.getElementById("boothLoc").value += ' ' + boothNum;
+    }
+
+    function content(divSelector, value) {
+        document.querySelector(divSelector).innerHTML = value;
+    }
+</script>
         
         <div class="col-12 col-md-6">
             <div class="application">
