@@ -814,6 +814,9 @@ def update(vendors):
     for vendor in vendors: 
         for key in vendor_dict:
             if int(vendor.boothLoc) == vendor_dict[key]['booth_num']:
-                vendor_dict[key]['business_name'] = vendor.business
-                vendor_dict[key]['status'] = "APPROVED"
+                if vendor.status == "pendingApproval" or "pendingPayment":
+                    vendor_dict[key]['status'] = "PENDING"
+                else: 
+                    vendor_dict[key]['business_name'] = vendor.business
+                    vendor_dict[key]['status'] = "APPROVED"
     return vendor_dict
