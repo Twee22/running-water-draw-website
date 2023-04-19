@@ -64,13 +64,19 @@
               {% endfor %}
             </tbody>
           </table>
-          <a href="{{ url_for('adminDB') }}">
-          <button type="button" class="btn btn-success h1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-            </svg>
-          </button>
-          </a>
+          <div class="d-flex align-items-center mb-3">
+            <a href="{{ url_for('adminDB') }}" class="btn btn-success me-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+              </svg>
+              Add
+            </a>
+            <a href="{{ url_for('adminDB') }}" class="btn btn-primary">
+              <span>&#9998;</span>
+              Edit
+            </a>
+          </div>
+          
         </div>
       </div>
       <div class="col-md-12 mt-3">
@@ -96,9 +102,7 @@
       $(document).ready(function () {
         $('#myTable').DataTable();
       });
-    </script>
-    
-    
+    </script>    
   
 
 {% endblock %}
