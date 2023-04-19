@@ -387,6 +387,7 @@ classes that style the carousel
     display: flex;
     position: relative;
     padding: 50px 50px;
+    justify-content: space-evenly;
 }
 
 .form{
@@ -413,6 +414,7 @@ fieldset label{
 fieldset input{
     display: inline-block;
     align-content: center;
+    width: 40vw;
 }
 
 .boothPrice input{

@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, send_file
 from flask_login import login_required, current_user, login_user, logout_user
 from app import app, db, ckeditor
-from app.forms import ApplicationForm, LoginForm, AdminForm
+from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
 from app.models import Vendor, User, AppText
 from app.vendor_dict import vendor_dict
 import csv
@@ -118,12 +118,25 @@ def adminappupdate(id):
             vendor_status_update.status = 'denied'
         try:
             db.session.commit()
-            return render_template('AdminApp.html', data=Vendor.query.all())
+            return render_template(url_for('adminapp'), data=Vendor.query.all())
         except:
             return "There was a problem updating the status of the vendor"
 
     elif request.method == 'GET':
         return render_template('AdminApp.html')
+    
+@login_required
+@app.route('/adminDB', methods=['GET', 'POST'])
+def adminDB():
+    form = AdminApplicationForm()
+    if form.validate_on_submit():
+        v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
+                   citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
+                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
+        db.session.add(v)
+        db.session.commit()
+        return redirect(url_for('adminapp'))
+    return render_template('adminDB.html', form=form)
     
 @app.route('/adminapp/download_data')
 def admin_download_data():

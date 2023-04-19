@@ -39,14 +39,13 @@
                 </div>
             </div>
         </div>
+</div>
 
         <script>
             function setBoothLoc(boothNum) {
               document.getElementById("boothLoc").value += ' ' + boothNum;
             }
             </script>
-        
-        <div class="col-12 col-md-6">
             <div class="application">
                 <form class="form" method="POST" action="/application">
                     {{ form.csrf_token() }}
@@ -64,31 +63,15 @@
                         <legend>Business Information</legend>
                         <div class="form-group">
                             {{form.name.label}}{{form.name(class="form-control")}}
-                        </div>
-                        <div class="form-group">
                             {{form.business.label}}{{form.business(class="form-control")}}
-                        </div>
-                        <div class="form-group">
                             {{form.address.label}}{{form.address(class="form-control")}}
-                        </div>
-                        <div class="form-group">
                             {{form.citystatezip.label}}{{form.citystatezip(class="form-control")}}
-                        </div>
-                        <div class="form-group">
                             {{form.email.label}}{{form.email(class="form-control")}}
-                        </div>
-                        <div class="form-group">
                             {{form.phoneNum.label}}{{form.phoneNum()}}
-                        </div>
-                        <div class="form-group">{{form.desc.label}}{{form.desc()}}</div>
-                    </fieldset>
-                    <fieldset class="boothPrice">
-                        <div class="form-group">
+                            {{form.desc.label}}{{form.desc()}}
                             {{form.boothNum.label}}{{form.boothNum()}}
-                        </div>
-                        <div class="form-group">
                             {{form.tableNum.label}}{{form.tableNum()}}
-                        </div>   
+                        </div>
                         <div class="input-group-lg mb-3">
                             {{form.boothLoc.label}}
                             
