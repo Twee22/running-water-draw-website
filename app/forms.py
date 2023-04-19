@@ -20,6 +20,7 @@ class ApplicationForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class AdminForm(FlaskForm):
+    payment_deadline = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
     notes = CKEditorField('Note Editor', validators=[InputRequired()])
     submit = SubmitField('Submit')
 

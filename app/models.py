@@ -36,6 +36,7 @@ class Vendor(db.Model):
     boothLoc = db.Column(db.String, nullable=False)
     tableNum = db.Column(db.Integer)
     date = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    payment_deadline = db.Column(db.DateTime(timezone=True), server_default=func.now())
     status = db.Column(db.String, nullable=False)
 
 
