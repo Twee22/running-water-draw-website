@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+<script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+
+<body id="vendor-information">
+    <h1 class="payComp">Payment Confirmation</h1>
+    <h2 class="text-center">Your Information</h2>
+    <p>Name: {{ vendor.name }}</p>
+    <p>Business Name: {{ vendor.business }}</p>
+    <p>Address: {{ vendor.address }}</p>
+    <p>City, State, Zip: {{ vendor.citystatezip }}</p>
+    <p>Email Address: {{ vendor.email }}</p>
+    <p>Phone Number: {{ vendor.phoneNum }}</p>
+    <p>Business Description: {{ vendor.desc }}</p>
+    <p>Booth Location: {{ vendor.boothLoc.replace(",", ", ") }}</p>
+    <p>Number of Tables Required: {{ vendor.tableNum }}</p>
+    <p>Numbers of Booths Required: {{ vendor.boothNum }}</p>
+    <p>Application submitted on {{ vendor.date }}</p>
+
+    <form class="reset" method="POST" action="/payment/{{ vendor.id }}">
+        <input type="hidden" name="action" value="confirm">
+        <button class="button confirm" type="submit">Pay</button>
+    </form>
+{% endblock %}

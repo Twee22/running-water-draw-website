@@ -31,7 +31,7 @@
                             <div class="item pending booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', 'Pending')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
                         {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
                             {% set booth_num_ = vendor_dict[key]['booth_num'] %}
-                            <div class="item" onclick="setBoothLoc('{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+                            <div class="empty" onclick="setBoothLoc('{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
                         {% else %}
                             <div class="filler"></div>
                         {% endif %}
@@ -41,11 +41,17 @@
         </div>
 </div>
 
-        <script>
-            function setBoothLoc(boothNum) {
-              document.getElementById("boothLoc").value += ' ' + boothNum;
-            }
-            </script>
+<script>
+    function setBoothLoc(boothNum) {
+        document.getElementById("boothLoc").value += ' ' + boothNum;
+    }
+
+    function content(divSelector, value) {
+        document.querySelector(divSelector).innerHTML = value;
+    }
+</script>
+        
+        <div class="col-12 col-md-6">
             <div class="application">
                 <form class="form" method="POST" action="/application">
                     {{ form.csrf_token() }}

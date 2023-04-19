@@ -70,16 +70,6 @@
 
             <div id="map-view" style="display: none">
                 <div class="grid-container">
-                    <!--
-                    add for loop (loop through dictionary)
-
-                            if statment  (if status is pending: if approve, elif pending, elif unit, else filler:  change color accordingly)
-                    if status
-                    elif pending
-                    elif un-it
-                    else filler
-                    -->
-                    
                     
                     <div class="reserved">Reserved</div>
                     <div class="item_legend">#</div>
@@ -107,7 +97,7 @@
                         {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
                         {% set booth_num_ = vendor_dict[key]['booth_num'] %}
                         <!-- link to function info code inspired and modified from ChatGPT-->
-                        <div class="item" onclick="location.href='{{ url_for('info', booth_num=booth_num_) }}'">{{vendor_dict[key]['booth_num']}}</div>
+                        <div class="empty" onclick="location.href='{{ url_for('info', booth_num=booth_num_) }}'">{{vendor_dict[key]['booth_num']}}</div>
 
                             
                         {% else %}
@@ -187,11 +177,9 @@
 <div class="contact-container" id="contactUs">
     <h2 class="contactUs">Contact Us</h2>
     <form action="mailto:mia.arceneaux@wayland.wbu.edu" method="POST" class="contact-form">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="fullName" required />
+    <label for="name">Your Name</label>
+    <input type="text" id="name" required />
 
-    <label for="message">Message</label>
-    <textarea name="message" id="message" cols="30" rows="10"></textarea>
     <button type="submit">Send</button>
     </form>
 </div>
