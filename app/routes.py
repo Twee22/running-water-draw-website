@@ -1,9 +1,10 @@
-from flask import render_template, request, redirect, url_for, session, send_file
+from flask import render_template, request, redirect, url_for, session, send_file, flash
 from flask_login import login_required, current_user, login_user, logout_user
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm
 from app.models import Vendor, User, AppText
 from app.vendor_dict import vendor_dict, update
+from datetime import datetime
 import csv
 import os
 
@@ -114,16 +115,19 @@ def adminappupdate(id):
         action = request.form['action']
         if action == 'confirm':
             vendor_status_update.status = 'pendingPayment'
+            vendor_status_update.payment_deadline = datetime.now()
         elif action == 'deny':
             vendor_status_update.status = 'denied'
-        try:
-            db.session.commit()
-            return render_template('AdminApp.html', data=Vendor.query.all())
-        except:
-            return "There was a problem updating the status of the vendor"
-
+        while True:
+            try:
+                db.session.commit()
+                flash('Vendor status updated successfully!', 'success')
+                break
+            except:
+                return "There was a problem updating the status of the vendor"
+        return redirect(url_for('adminapp'))
     elif request.method == 'GET':
-        return render_template('AdminApp.html')
+        return render_template(url_for('adminapp'))
     
 @app.route('/adminapp/download_data')
 def admin_download_data():
@@ -151,9 +155,11 @@ def payment(id):
         if action == 'confirm':
             print(action)
             vendor_status_update.status = 'finalized'
+        while True:
             try:
                 db.session.commit()
-                return render_template('index.html')
+                flash('Vendor status updated successfully!', 'success')
+                break
             except:
                 return "There was a problem updating the status of the vendor"
         return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
