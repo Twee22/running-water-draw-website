@@ -19,6 +19,21 @@ class ApplicationForm(FlaskForm):
     #sign = StringField('Signed', validators=[InputRequired()])
     submit = SubmitField('Submit')
 
+
+class AdminApplicationForm(FlaskForm):
+    name = StringField('Name', render_kw={"placeholder": "Your Name Here"})
+    business = StringField('Business Name', render_kw={"placeholder": "Business Name Here"})
+    address = StringField('Address', render_kw={"placeholder": "Address Here"})
+    citystatezip = StringField('City, State, Zip', render_kw={"placeholder": "City, State, and Zip"})
+    email = EmailField('Email Address', render_kw={"placeholder": "Email Here"})
+    phoneNum = StringField('Phone Number', render_kw={"placeholder": "Phone Number Here"})
+    desc = StringField('Description of Sales Items', render_kw={"placeholder": "Write a Description of What Your Business Does Here"})
+    boothNum = IntegerField('Number of Booths')
+    boothLoc = StringField('Booth Location(s)', render_kw={"placeholder": "Booth Location(s) here"})
+    tableNum = IntegerField('Number of Tables')
+    date = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
+    submit = SubmitField('Submit')
+
 class AdminForm(FlaskForm):
     payment_deadline = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
     notes = CKEditorField('Note Editor', validators=[InputRequired()])
