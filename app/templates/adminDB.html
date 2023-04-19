@@ -1,44 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="appTitle">Admin Vendor Application</h1>
-<div class="col-12 col-md-6 application">
-        <form class="form" method="POST" action="/adminDB">
-            {{ form.csrf_token() }}
-            {% if form.errors %}
-                <ul class="errors">
-                    {% for field_name, field_errors in form.errors|dictsort if field_errors %}
-                        {% for error in field_errors %}
-                            <li>{{ form[field_name].label }}: {{ error }}</li>
-                        {% endfor %}
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <fieldset>
-                <div class="form-group">
-                    {{form.name.label}}{{form.name(class="form-control")}}
-                    {{form.business.label}}{{form.business(class="form-control")}}
-                    {{form.address.label}}{{form.address(class="form-control")}}
-                    {{form.citystatezip.label}}{{form.citystatezip(class="form-control")}}
-                    {{form.email.label}}{{form.email(class="form-control")}}
-                    {{form.phoneNum.label}}{{form.phoneNum()}}
-                    {{form.desc.label}}{{form.desc()}}
-                    {{form.boothNum.label}}{{form.boothNum()}}
-                    {{form.tableNum.label}}{{form.tableNum()}}
-                </div>
-                <div class="input-group-lg mb-3">
-                    {{form.boothLoc.label}}
-                    
-                    {% if boothLoc_ is not none %}
-                        {{form.boothLoc(value=boothLoc_)}}
-                    {% else %}
-                        {{form.boothLoc()}}
-                    {% endif %}
-                </div>
-    <div>{{form.submit()}}</div>
-    </fieldset>
-</form>
+<div class="container-fluid">
+  <h1 class="appTitle">Admin Vendor Application</h1>
+  <div class="col-12 col-md-6 application">
+    <form class="form" method="POST" action="/adminDB">
+      {{ form.csrf_token() }}
+      {% if form.errors %}
+        <ul class="errors">
+          {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+            {% for error in field_errors %}
+              <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <fieldset>
+        <div class="form-group">
+          {{form.name.label}}{{form.name(class="form-control")}}
+          {{form.business.label}}{{form.business(class="form-control")}}
+          {{form.address.label}}{{form.address(class="form-control")}}
+          {{form.citystatezip.label}}{{form.citystatezip(class="form-control")}}
+          {{form.email.label}}{{form.email(class="form-control")}}
+          {{form.phoneNum.label}}{{form.phoneNum(class="form-control")}}
+          {{form.desc.label}}{{form.desc(class="form-control")}}
+          {{form.boothNum.label}}{{form.boothNum(class="form-control")}}
+          {{form.tableNum.label}}{{form.tableNum(class="form-control")}}
+        </div>
+        <div class="form-group mb-3">
+          {{form.boothLoc.label}}
+          {% if boothLoc_ is not none %}
+            {{form.boothLoc(value=boothLoc_, class="form-control")}}
+          {% else %}
+            {{form.boothLoc(class="form-control")}}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{form.submit(class="btn btn-primary")}}
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </div>
-
-
 {% endblock %}
