@@ -1,14 +1,8 @@
 """empty message
 
-<<<<<<<< HEAD:migrations/versions/87931dd33394_.py
-Revision ID: 87931dd33394
+Revision ID: e01f36ce1f84
 Revises: 
-Create Date: 2023-04-03 23:23:42.042088
-========
-Revision ID: 6513a4b2460f
-Revises: 
-Create Date: 2023-04-04 19:16:39.054314
->>>>>>>> main:migrations/versions/6513a4b2460f_.py
+Create Date: 2023-04-18 23:08:01.037331
 
 """
 from alembic import op
@@ -16,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/87931dd33394_.py
-revision = '87931dd33394'
-========
-revision = '6513a4b2460f'
->>>>>>>> main:migrations/versions/6513a4b2460f_.py
+revision = 'e01f36ce1f84'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -31,8 +21,6 @@ def upgrade():
     op.create_table('app_text',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('notes', sa.String(), nullable=False),
-    sa.Column('datestimes', sa.String(), nullable=False),
-    sa.Column('conditions', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
@@ -59,6 +47,7 @@ def upgrade():
     sa.Column('boothLoc', sa.String(), nullable=False),
     sa.Column('tableNum', sa.Integer(), nullable=True),
     sa.Column('date', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
+    sa.Column('payment_deadline', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('status', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
