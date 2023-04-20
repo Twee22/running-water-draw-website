@@ -5,6 +5,7 @@ from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationFor
 from app.models import Vendor, User, AppText
 from app.vendor_dict import vendor_dict, update
 from datetime import datetime
+from app.payment_deadline import save_initial_time, check_db
 import csv
 import os
 
@@ -18,7 +19,9 @@ def index():
     #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
     #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
+    
     vendors = Vendor.query.order_by(Vendor.boothNum)
+    check_db(vendors)
     vendor_dict = update(vendors)
     
     return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict)
@@ -110,12 +113,12 @@ def adminapp():
 @app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
 def adminappupdate(id):
     data = Vendor.query.all()
-    vendor_status_update = Vendor.query.get_or_404(id)
+    vendor_status_update = vendor_payment_deadline = Vendor.query.get_or_404(id)
     if request.method == 'POST':
         action = request.form['action']
         if action == 'confirm':
             vendor_status_update.status = 'pendingPayment'
-            vendor_status_update.payment_deadline = datetime.now()
+            vendor_payment_deadline.payment_deadline = save_initial_time()
         elif action == 'deny':
             vendor_status_update.status = 'denied'
         while True:
@@ -123,7 +126,8 @@ def adminappupdate(id):
                 db.session.commit()
                 flash('Vendor status updated successfully!', 'success')
                 break
-            except:
+            except Exception as e:
+                print(e)
                 return "There was a problem updating the status of the vendor"
         return redirect(url_for('adminapp'))
     elif request.method == 'GET':
