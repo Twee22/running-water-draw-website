@@ -1,11 +1,13 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash
 from flask_login import login_required, current_user, login_user, logout_user
+from flask_mail import Mail, Message
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
 from app.models import Vendor, User, AppText
 from app.vendor_dict import vendor_dict, update
 from datetime import datetime
-from app.payment_deadline import save_initial_time, check_db
+from app.payment_deadline import save_initial_time, check_db, future_times
+from app.send_email import send_email
 import csv
 import os
 
@@ -118,7 +120,10 @@ def adminappupdate(id):
         action = request.form['action']
         if action == 'confirm':
             vendor_status_update.status = 'pendingPayment'
-            vendor_payment_deadline.payment_deadline = save_initial_time()
+            send_email(vendor_status_update.email)
+            if vendor_status_update.status == 'pendingPayment':
+                vendor_payment_deadline.date == save_initial_time()
+                vendor_payment_deadline.payment_deadline = future_times()
         elif action == 'deny':
             vendor_status_update.status = 'denied'
         while True:
