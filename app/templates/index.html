@@ -55,8 +55,8 @@
                                     {% elif vendor.status == "pendingApproval" or vendor.status == "pendingPayment" %}
                                         <tr>
                                             <td>Pending</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{ vendor.business }}</td>
+                                            <td>{{ vendor.desc }}</td>
                                             <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
                                         </tr>
                                     {% endif %}
