@@ -1,0 +1,8 @@
+id,name,business,address,citystatezip,email,phoneNum,desc,boothNum,boothLoc,tableNum,date,payment_deadline,status
+1,John Doe,John Deer,123 St.,"City, State, 11111",email@email.com,1234567890,Tractors,1,1,1,2023-04-19 15:23:21,pendingPayment
+2,Judith Doe,Judith Deer,124 St.,"City2, State, 11112",email2@email.com,1234567891,Lawn Mowers,1,2,1,2023-04-19 15:28:16,finalized
+3,Jane Doe,Jane Deer,125 St.,"City3, State, 11113",email3@email.com,1234567892,Sheers,1,3,1,2023-04-19 15:30:47,pendingPayment
+4,James Doe,New Business,123 Strait St.,"City3, State, 11114",email4@email.com,1800Contacts,Eyes,1,4,1,2023-04-19 15:33:58,pendingPayment
+5,new,business,here,"City3, State, 11115",email5@email.com,1234567894,new stuff,1,6,1,2023-04-19 15:41:04,pendingPayment
+6,hope,this,works,now,maybe@gmail.com,1,can do something,1,5,1,2023-04-19 15:43:14,pendingPayment
+7,how,about,now,maybe,e@e.e,111,hopefully,1,7,1,2023-04-19 15:44:22,pendingPayment

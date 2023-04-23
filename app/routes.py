@@ -149,7 +149,7 @@ def adminDB():
 @app.route('/adminapp/download_data')
 def admin_download_data():
 
-    with open('database_dump.csv', 'w') as csv_file:
+    with open('database_dump.csv', 'w', newline='') as csv_file:
         wr = csv.writer(csv_file, delimiter=",")
         records = Vendor.query.all()
         wr.writerow(list(filter(None,[ i[0] if (not i[0].startswith('_') and not i[0] == "followers") else None for i in Vendor.__dict__.items()])))
