@@ -120,7 +120,7 @@ def adminappupdate(id):
         action = request.form['action']
         if action == 'confirm':
             vendor_status_update.status = 'pendingPayment'
-            send_email(vendor_status_update.email)
+            send_email(vendor_status_update)
             if vendor_status_update.status == 'pendingPayment':
                 vendor_payment_deadline.date == save_initial_time()
                 vendor_payment_deadline.payment_deadline = future_times()

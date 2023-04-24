@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from app import app
 from flask_mail import Mail, Message
 
@@ -15,13 +15,16 @@ app.config['MAIL_PASSWORD'] = 'zktfwkjnfxnnttfk' # enter your email password her
 mail = Mail(app)
 
 # route to send email
-def send_email(user_email):
+def send_email(user):
     invoice_payment = "getPaymentAmount"
-    paypal_link = "https://www.paypal.com/us/webapps/mpp/account-selection?kid=p75883314412&gclid=CjwKCAjw6IiiBhAOEiwALNqncWyRm_HXRwkEhvR-bfC4g4bFgvYR-rJyxKobopBzKR32wrGTyljbExoChtAQAvD_BwE&gclsrc=aw.ds"
+    paypal_link = url_for('payment', id = user.id, _external=True)
 
     # create message object
-    msg = Message('Vendor Application Approved', sender='testemailschool@gmail.com', recipients=[user_email])
-    msg.body = 'Your vendor application has been approved, your invoice amount is' + invoice_payment + 'Here is a link to your invoice #: ' + paypal_link
+    msg = Message('Vendor Application Approved', sender='testemailschool@gmail.com', recipients=[user.email])
+    msg.body = 'Your vendor application has been approved, your invoice amount is ' + invoice_payment + '. Here is a link to your invoice: ' + paypal_link
 
     # send email
     mail.send(msg)
+
+
+
