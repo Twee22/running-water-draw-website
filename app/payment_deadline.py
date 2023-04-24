@@ -5,18 +5,21 @@ def save_initial_time():
     initial = datetime.datetime.now()
     return initial
 
-def check_time(initial):
+def future_times():
     current_time = datetime.datetime.now()
-    elapsed_time = current_time - initial
-    if elapsed_time.days >= 14:
-        return True
-    else:
-        return False
+    future_time = current_time + datetime.timedelta(days=14)
+    return future_time
+
+def check_time(deadline):
+    current_time = datetime.datetime.now()
+    elapsed_time = current_time - deadline
+    return elapsed_time.days >= 14
+    
 def check_db(vendors):
     for vendor in vendors:
         if check_time(vendor.payment_deadline):
-            x = x
-            #vendor.status = 'deadLineReached'
+            vendor.status = 'deadlineReached'
 
     db.session.commit()
+
 
