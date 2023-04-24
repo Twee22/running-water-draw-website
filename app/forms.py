@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanField, PasswordField, DateTimeField
+from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanField, PasswordField, DateTimeField, ValidationError
 from wtforms.validators import InputRequired, Length, NumberRange, DataRequired, ValidationError
 from flask_ckeditor import CKEditorField
+from app.map_contraints import check_loc
 
 class ApplicationForm(FlaskForm):
     name = StringField('Name', validators=[InputRequired()], render_kw={"placeholder": "Your Name Here"})
@@ -18,6 +19,12 @@ class ApplicationForm(FlaskForm):
     terms = BooleanField('I have read and agree to this', validators=[InputRequired()])
     #sign = StringField('Signed', validators=[InputRequired()])
     submit = SubmitField('Submit')
+    def validate_boothLoc(form, field):
+        booth_list = field.data.split(',')
+        if len(booth_list) > 1:
+            for i in range(len(booth_list)-1):
+                if not check_loc(booth_list[i], booth_list[i+1]):
+                    raise ValidationError('Booths must be next to each other.')
 
 
 class AdminApplicationForm(FlaskForm):
