@@ -40,7 +40,7 @@
             // Finalize the transaction after payer approval
             // Finalize the transaction on the server after payer approval
             onApprove: (data, actions) => {
-                return fetch(`/payments/${data.orderID}/capture`, {
+                return fetch(`/payments/${vendro.id}/capture`, {
                     method: "post",
                 })
                     .then((response) => response.json())

@@ -182,3 +182,23 @@ def payment(id):
         return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
     elif request.method == 'GET':
         return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+
+    
+@app.route('/payments/<int:id>/capture', methods=['POST', 'GET'])
+def payment_capture(id):
+    data = Vendor.query.all()
+    vendor_status_update = Vendor.query.get_or_404(id)
+    if request.method == 'POST':
+        action = request.form['action']
+        if action == 'confirm':
+            print(action)
+            vendor_status_update.status = 'finalized'
+        while True:
+            try:
+                db.session.commit()
+                break
+            except:
+                return "There was a problem updating the status of the vendor"
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+    elif request.method == 'GET':
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
