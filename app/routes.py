@@ -21,6 +21,10 @@ def index():
     #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
     #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
+
+    #a = AppText(notes = 'hi')
+    #db.session.add(a)
+    #db.session.commit()
     
     vendors = Vendor.query.order_by(Vendor.boothNum)
     check_db(vendors)
@@ -44,9 +48,15 @@ def application():
     vendor_dict = update(vendors)
     
     if form.validate_on_submit():
+        if form.boothNum.data == 1:
+            boothPrice = 150
+        else:
+            boothPrice = 200
+
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
-                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
+                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
+                   payment_amount = (10 * form.tableNum.data) + boothPrice)
         db.session.add(v)
         db.session.commit()
         session['name'] = str(v.name)
@@ -145,7 +155,8 @@ def adminDB():
     if form.validate_on_submit():
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
-                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
+                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
+                   payment_amount = form.payment_amount.data)
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('adminapp'))

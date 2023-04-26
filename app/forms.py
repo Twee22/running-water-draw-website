@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanField, PasswordField, DateTimeField
+from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanField, PasswordField, DateTimeField, FloatField
 from wtforms.validators import InputRequired, Length, NumberRange, DataRequired, ValidationError
 from flask_ckeditor import CKEditorField
 
@@ -32,6 +32,7 @@ class AdminApplicationForm(FlaskForm):
     boothLoc = StringField('Booth Location(s)', render_kw={"placeholder": "Booth Location(s) here"})
     tableNum = IntegerField('Number of Tables')
     date = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
+    payment_amount = FloatField('Payment Amount', render_kw={"placeholder": "Payment Amount Here"})
     submit = SubmitField('Submit')
 
 class AdminForm(FlaskForm):

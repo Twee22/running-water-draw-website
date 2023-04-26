@@ -29,6 +29,7 @@
                 <th>Description</th>
                 <th>Booth(s) Location</th>
                 <th>Number of Tables</th>
+                <th>Payment Amount</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
@@ -45,6 +46,7 @@
                   <td>{{ item.desc }}</td>
                   <td>{{ item.boothLoc }}</td>
                   <td>{{ item.tableNum }}</td>
+                  <td>{{ item.payment_amount }}</td>
                   <td>{{ item.status }}</td>
                   <td>
                     {% if item.status == "pendingApproval" %}
