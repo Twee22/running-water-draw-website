@@ -37,6 +37,7 @@ class Vendor(db.Model):
     tableNum = db.Column(db.Integer)
     date = db.Column(db.DateTime(timezone=True), server_default=func.now())
     payment_deadline = db.Column(db.DateTime(timezone=True), server_default=func.now())
+    payment_amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.String, nullable=False)
 
 
@@ -46,7 +47,7 @@ class Vendor(db.Model):
     def __iter__(self):
         return iter([str(self.id), str(self.name), str(self.business), str(self.address), 
                         str(self.citystatezip), str(self.email), str(self.phoneNum), str(self.desc), str(self.boothNum), 
-                        str(self.boothLoc), str(self.tableNum), str(self.date), str(self.status)])
+                        str(self.boothLoc), str(self.tableNum), str(self.date), str(self.payment_amount), str(self.payment_deadline), str(self.status)])
     
 class AppText(db.Model):
     id = db.Column(db.Integer, primary_key=True)
