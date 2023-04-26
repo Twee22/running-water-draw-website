@@ -254,20 +254,27 @@ map on vendor application page
     background-color: #c0c3d3;
 }
 
-.empty {
-    background-color: #c0c3d3;
-}
+.empty, .available_legend {
+    background-color: #656ea0eb;}
 
-.filler, .reserved, .available, .pend {
+.filler {
     background-color: #c0c3d3ea;
 }
 
-.pending {
-    background-color: #c0c3d396;
+.reserved, .available, .pend, .legend_filler {
+    background-color: #091753;
+    color: white;
+    
 }
 
-.approved {    
-    background-color: rgb(120, 117, 117);
+.pending, .pend_legend {
+    background-color: #696c78;
+
+
+}
+
+.approved, .item_legend {    
+    background-color: rgb(193, 33, 5);
 }
 
 .item:hover {
@@ -290,24 +297,16 @@ map on vendor application page
     grid-column: 1/3;
 }
 
-.item_legend {
-    background-color: rgb(120, 117, 117)!important;
-}
-
 .available {
     grid-column: 7/9;
 }
 
-.available_legend {
-    background-color: #c0c3d3;
+.legend_filler {
+    grid-column: 10/13;
 }
 
 .pend {
     grid-column: 4/6;
-}
-
-.pend_legend {
-    background-color: #c0c3d396;
 }
 
 
