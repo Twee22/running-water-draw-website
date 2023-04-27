@@ -22,4 +22,39 @@
         <input type="hidden" name="action" value="confirm">
         <button class="button confirm" type="submit">Pay</button>
     </form>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AU7r_2RfDPHln4inQxzcbuf6INXxQDeL3wC53Bm7saJKZLB9Oqf1kSl-bOgYpWRPQhqT6ijeSMtbDFrI&currency=USD"></script>
+    <div id="paypal-button-container"></div>
+    <script>
+        paypal.Buttons({
+            // Sets up the transaction when a payment button is clicked
+            createOrder: (data, actions) => {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '100' // TODO: Update price
+                        }
+                    }]
+                });
+            },
+            // Finalize the transaction after payer approval
+            // Finalize the transaction on the server after payer approval
+            onApprove: (data, actions) => {
+                return fetch(`/payments/${vendro.id}/capture`, {
+                    method: "post",
+                })
+                    .then((response) => response.json())
+                    .then((orderData) => {
+                        // Successful capture! For dev/demo purposes:
+                        console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                        const transaction = orderData.purchase_units[0].payments.captures[0];
+                        // alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                        // When ready to go live, remove the alert and show a success message within this page. For example:
+                        const element = document.getElementById('paypal-button-container');
+                        element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                        // Or go to another URL:  actions.redirect('thank_you.html');
+                    });
+            }
+        }).render('#paypal-button-container');
+    </script>
 {% endblock %}
