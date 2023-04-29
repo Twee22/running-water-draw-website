@@ -8,8 +8,7 @@ from app.vendor_dict import vendor_dict, update
 from datetime import datetime
 from app.payment_deadline import save_initial_time, check_db, future_times
 from app.send_email import send_email
-import csv
-import os
+import csv, os
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -108,6 +107,12 @@ def login():
 def logout():
     logout_user()
     return render_template('index.html')
+
+@app.route('/send_email_route', methods=['POST'])
+def send_email_route():
+    item = request.json["vendor_item"]
+    send_email(item)
+    return 'Email sent successfully'
 
 @login_required
 @app.route('/adminapp', methods=['GET', 'POST'])

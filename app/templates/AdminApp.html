@@ -46,7 +46,12 @@
                   <td>{{ item.desc }}</td>
                   <td>{{ item.boothLoc }}</td>
                   <td>{{ item.tableNum }}</td>
-                  <td>{{ item.payment_amount }}</td>
+                  <td>{{ item.payment_amount }} 
+                    <div class="text-center mb-3">
+                      <button id="sendEmail" class="btn btn-primary mt-1 mb-1">Send Email</button>
+                      {% set vendor_item = item %}
+                    </div>
+                  </td>
                   <td>{{ item.status }}</td>
                   <td>
                     {% if item.status == "pendingApproval" %}
@@ -104,6 +109,20 @@
       $(document).ready(function () {
         $('#myTable').DataTable();
       });
+
+      document.getElementById("sendEmail").addEventListener("click", function() {
+    
+    // Get the value of the "item" Flask variable
+      var vendor_item = "{{ vendor_item }}";
+      
+      // Send an AJAX request to the Flask route with the "item" variable as data
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "/send_email_route");
+      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.send(JSON.stringify({vendor_item: vendor_item}));
+      
+    });
+
     </script>    
   
 

@@ -21,7 +21,7 @@ def send_email(user):
 
     # create message object
     msg = Message('Vendor Application Approved', sender='testemailschool@gmail.com', recipients=[user.email])
-    msg.body = 'Your vendor application has been approved, your invoice amount is ' + '$' + str(invoice_payment) + '. Here is a link to your invoice: ' + paypal_link
+    msg.body = f'Your vendor application has been approved, your invoice amount is ${str(invoice_payment)}. Here is a link to your invoice: {paypal_link}'
 
     # send email
     mail.send(msg)
