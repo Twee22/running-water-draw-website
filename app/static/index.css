@@ -263,14 +263,11 @@ map on vendor application page
 
 .reserved, .available, .pend, .legend_filler {
     background-color: #091753;
-    color: white;
-    
+    color: white; 
 }
 
 .pending, .pend_legend {
     background-color: #696c78;
-
-
 }
 
 .approved, .item_legend {    
@@ -291,7 +288,6 @@ map on vendor application page
     transition-duration: 0.5s;
     cursor: pointer;
 }
-
 
 .reserved {
     grid-column: 1/3;
