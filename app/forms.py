@@ -6,7 +6,7 @@ from app.map_contraints import validate_boothLoc
 
 class ApplicationForm(FlaskForm):
                 
-    name = StringField('Name', validators=[InputRequired()], render_kw={"placeholder": "Your Name Here"})
+    name = StringField('Name', validators=[InputRequired()], render_kw={"placeholder": "Your Full Name Here"})
     business = StringField('Business Name', validators=[InputRequired()], render_kw={"placeholder": "Business Name Here"})
     address = StringField('Address', validators=[InputRequired()], render_kw={"placeholder": "Address Here"})
     citystatezip = StringField('City, State, Zip', validators=[InputRequired()], render_kw={"placeholder": "City, State, and Zip"})
@@ -25,7 +25,7 @@ class ApplicationForm(FlaskForm):
 
 
 class AdminApplicationForm(FlaskForm):
-    name = StringField('Name', render_kw={"placeholder": "Your Name Here"})
+    name = StringField('Name', render_kw={"placeholder": "Your Full Name Here"})
     business = StringField('Business Name', render_kw={"placeholder": "Business Name Here"})
     address = StringField('Address', render_kw={"placeholder": "Address Here"})
     citystatezip = StringField('City, State, Zip', render_kw={"placeholder": "City, State, and Zip"})
