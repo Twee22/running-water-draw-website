@@ -10,8 +10,7 @@ from app.payment_deadline import save_initial_time, check_db
 from app.map_contraints import check_loc
 from app.payment_deadline import save_initial_time, check_db, future_times
 from app.send_email import send_email
-import csv
-import os
+import csv, os
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -23,6 +22,10 @@ def index():
     #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
     #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
+
+    #a = AppText(notes = 'hi')
+    #db.session.add(a)
+    #db.session.commit()
     
     vendors = Vendor.query.order_by(Vendor.boothNum)
     check_db(vendors)
@@ -46,9 +49,15 @@ def application():
     vendor_dict = update(vendors)
     
     if form.validate_on_submit():
+        if form.boothNum.data == 1:
+            boothPrice = 150
+        else:
+            boothPrice = 200
+
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
-                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
+                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
+                   payment_amount = (10 * form.tableNum.data) + boothPrice)
         db.session.add(v)
         db.session.commit()
         session['name'] = str(v.name)
@@ -114,31 +123,55 @@ def adminapp():
 
     return render_template('AdminApp.html', data=data, form=form, appData = appData)
 
+# Define a route for the admin app that takes an integer parameter called id and supports GET and POST requests
 @app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
 def adminappupdate(id):
+    # Query the database to retrieve all Vendor objects
     data = Vendor.query.all()
+    # Retrieve the Vendor object with the specified id, or return a 404 error if not found
     vendor_status_update = vendor_payment_deadline = Vendor.query.get_or_404(id)
+    
+    # If the request method is POST, process the form data
     if request.method == 'POST':
+        # Get the values of the 'email' and 'action' fields from the submitted form data
+        email = request.form['action']
         action = request.form['action']
+        
+        # If the 'email' field is set to 'send_email', send an email to the vendor
+        if email == 'send_email':
+            send_email(vendor_status_update)
+        
+        # If the 'action' field is set to 'confirm', update the vendor status to 'pendingPayment'
+        # and set the payment deadline to a future time
         if action == 'confirm':
             vendor_status_update.status = 'pendingPayment'
             send_email(vendor_status_update)
             if vendor_status_update.status == 'pendingPayment':
                 vendor_payment_deadline.date == save_initial_time()
                 vendor_payment_deadline.payment_deadline = future_times()
+        
+        # If the 'action' field is set to 'deny', update the vendor status to 'denied'
         elif action == 'deny':
             vendor_status_update.status = 'denied'
+        
+        # Commit the changes to the database and display a success message
         while True:
             try:
                 db.session.commit()
                 flash('Vendor status updated successfully!', 'success')
                 break
+            # If there is an exception while committing the changes, return an error message
             except Exception as e:
                 print(e)
                 return "There was a problem updating the status of the vendor"
+        
+        # Redirect the user to the adminapp page
         return redirect(url_for('adminapp'))
+    
+    # If the request method is GET, render the adminapp page
     elif request.method == 'GET':
         return render_template(url_for('adminapp'))
+
     
 @login_required
 @app.route('/adminDB', methods=['GET', 'POST'])
@@ -147,7 +180,8 @@ def adminDB():
     if form.validate_on_submit():
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
-                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval")
+                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
+                   payment_amount = form.payment_amount.data)
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('adminapp'))
@@ -183,6 +217,26 @@ def payment(id):
             try:
                 db.session.commit()
                 flash('Vendor status updated successfully!', 'success')
+                break
+            except:
+                return "There was a problem updating the status of the vendor"
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+    elif request.method == 'GET':
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+
+    
+@app.route('/payments/<int:id>/capture', methods=['POST', 'GET'])
+def payment_capture(id):
+    data = Vendor.query.all()
+    vendor_status_update = Vendor.query.get_or_404(id)
+    if request.method == 'POST':
+        action = request.form['action']
+        if action == 'confirm':
+            print(action)
+            vendor_status_update.status = 'finalized'
+        while True:
+            try:
+                db.session.commit()
                 break
             except:
                 return "There was a problem updating the status of the vendor"

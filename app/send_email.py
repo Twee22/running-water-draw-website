@@ -16,12 +16,12 @@ mail = Mail(app)
 
 # route to send email
 def send_email(user):
-    invoice_payment = "getPaymentAmount"
+    invoice_payment = user.payment_amount
     paypal_link = url_for('payment', id = user.id, _external=True)
 
     # create message object
     msg = Message('Vendor Application Approved', sender='testemailschool@gmail.com', recipients=[user.email])
-    msg.body = 'Your vendor application has been approved, your invoice amount is ' + invoice_payment + '. Here is a link to your invoice: ' + paypal_link
+    msg.body = f'Your vendor application has been approved, your invoice amount is ${str(invoice_payment)}. Here is a link to your invoice: {paypal_link}'
 
     # send email
     mail.send(msg)
