@@ -16,8 +16,9 @@
     <div class="row mt-3">
       <div class="col-md-12">
         <div class="table-responsive">
+          <!-- The following code represents a table that displays a list of vendors and their information, with the ability for an administrator to take actions on each vendor, such as confirming or denying their application. -->
           <table class="table table-striped table-bordered display" id="myTable">
-
+            <!-- The 'thead' element contains the table header row, which defines the column labels. -->
             <thead>
               <tr>
                 <th>Name</th>
@@ -34,6 +35,8 @@
                 <th>Actions</th>
               </tr>
             </thead>
+
+            <!-- The 'tbody' element contains the table data, with one row for each vendor in the 'data' list. -->
             <tbody>
               {% for item in data %}
                 <tr>
@@ -46,14 +49,19 @@
                   <td>{{ item.desc }}</td>
                   <td>{{ item.boothLoc }}</td>
                   <td>{{ item.tableNum }}</td>
+                  <!-- The following column shows the vendor's payment amount and provides a button for the administrator to send an email to the vendor. -->
                   <td>{{ item.payment_amount }} 
                     <div class="text-center mb-3">
-                      <button id="sendEmail" class="btn btn-primary mt-1 mb-1">Send Email</button>
-                      {% set vendor_item = item %}
+                      <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
+                        <input type="hidden" name="action" value="send_email">
+                        <button class="send btn btn-primary mt-1 mb-1" type="submit">Send Email</button>
+                      </form>
                     </div>
+                    
                   </td>
                   <td>{{ item.status }}</td>
                   <td>
+                    <!-- If the vendor's status is 'pendingApproval', the administrator can confirm or deny the vendor's application by clicking on one of two buttons. -->
                     {% if item.status == "pendingApproval" %}
                       <div style="display: inline-flex">
                         <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
@@ -71,6 +79,7 @@
               {% endfor %}
             </tbody>
           </table>
+          <!-- The following div contains two buttons: one for adding a new vendor to the list, and one for editing an existing vendor's information. -->
           <div class="d-flex align-items-center mb-3">
             <a href="{{ url_for('adminDB') }}" class="btn btn-success me-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
@@ -108,22 +117,21 @@
     <script type="text/javascript">
       $(document).ready(function () {
         $('#myTable').DataTable();
+      });  
+      
+      const button = document.querySelector('.send');
+
+      // Add an event listener to the button element
+      button.addEventListener('click', function() {
+        // Change the button color to a confirmation color
+        button.style.backgroundColor = 'green !important';
+
+        // Set a timeout to revert the color back to normal after 1 second
+        setTimeout(function() {
+          button.style.backgroundColor = '';
+        }, 1000);
       });
 
-      document.getElementById("sendEmail").addEventListener("click", function() {
-    
-    // Get the value of the "item" Flask variable
-      var vendor_item = "{{ vendor_item }}";
-      
-      // Send an AJAX request to the Flask route with the "item" variable as data
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "/send_email_route");
-      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      xhr.send(JSON.stringify({vendor_item: vendor_item}));
-      
-    });
-
-    </script>    
-  
+    </script>
 
 {% endblock %}

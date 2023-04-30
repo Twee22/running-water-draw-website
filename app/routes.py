@@ -108,12 +108,6 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-@app.route('/send_email_route', methods=['POST'])
-def send_email_route():
-    item = request.json["vendor_item"]
-    send_email(item)
-    return 'Email sent successfully'
-
 @login_required
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
@@ -127,31 +121,55 @@ def adminapp():
 
     return render_template('AdminApp.html', data=data, form=form, appData = appData)
 
+# Define a route for the admin app that takes an integer parameter called id and supports GET and POST requests
 @app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
 def adminappupdate(id):
+    # Query the database to retrieve all Vendor objects
     data = Vendor.query.all()
+    # Retrieve the Vendor object with the specified id, or return a 404 error if not found
     vendor_status_update = vendor_payment_deadline = Vendor.query.get_or_404(id)
+    
+    # If the request method is POST, process the form data
     if request.method == 'POST':
+        # Get the values of the 'email' and 'action' fields from the submitted form data
+        email = request.form['action']
         action = request.form['action']
+        
+        # If the 'email' field is set to 'send_email', send an email to the vendor
+        if email == 'send_email':
+            send_email(vendor_status_update)
+        
+        # If the 'action' field is set to 'confirm', update the vendor status to 'pendingPayment'
+        # and set the payment deadline to a future time
         if action == 'confirm':
             vendor_status_update.status = 'pendingPayment'
             send_email(vendor_status_update)
             if vendor_status_update.status == 'pendingPayment':
                 vendor_payment_deadline.date == save_initial_time()
                 vendor_payment_deadline.payment_deadline = future_times()
+        
+        # If the 'action' field is set to 'deny', update the vendor status to 'denied'
         elif action == 'deny':
             vendor_status_update.status = 'denied'
+        
+        # Commit the changes to the database and display a success message
         while True:
             try:
                 db.session.commit()
                 flash('Vendor status updated successfully!', 'success')
                 break
+            # If there is an exception while committing the changes, return an error message
             except Exception as e:
                 print(e)
                 return "There was a problem updating the status of the vendor"
+        
+        # Redirect the user to the adminapp page
         return redirect(url_for('adminapp'))
+    
+    # If the request method is GET, render the adminapp page
     elif request.method == 'GET':
         return render_template(url_for('adminapp'))
+
     
 @login_required
 @app.route('/adminDB', methods=['GET', 'POST'])
