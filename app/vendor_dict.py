@@ -810,13 +810,14 @@ vendor_dict = {
 
 # links dictionary to database, dictionary is updated everytime the database is updated
 def update(vendors):
-    
     for vendor in vendors: 
+        booth_nums = [int(num.strip()) for num in vendor.boothLoc.split(',')]
         for key in vendor_dict:
-            if int(vendor.boothLoc) == vendor_dict[key]['booth_num']:
+            if vendor_dict[key]['booth_num'] in booth_nums:
                 if vendor.status == "pendingApproval" or vendor.status == "pendingPayment":
                     vendor_dict[key]['status'] = "PENDING"
                 elif vendor.status == "finalized": 
                     vendor_dict[key]['business_name'] = vendor.business
                     vendor_dict[key]['status'] = "APPROVED"
     return vendor_dict
+
