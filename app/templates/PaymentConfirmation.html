@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}"/>
 <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
 
-<body id="vendor-information">
+<body id="vendor-information" class="background">
     <h1 class="payComp">Payment Confirmation</h1>
     <h2 class="text-center">Your Information</h2>
     <p>Name: {{ vendor.name }}</p>
@@ -20,7 +20,10 @@
     <p>Cost: ${{ vendor.payment_amount }}</p>
 
     <script src="https://www.paypal.com/sdk/js?client-id=AU7r_2RfDPHln4inQxzcbuf6INXxQDeL3wC53Bm7saJKZLB9Oqf1kSl-bOgYpWRPQhqT6ijeSMtbDFrI&currency=USD"></script>
-    <div id="paypal-button-container"></div>
+    <div class="mx-auto text-center">
+        <div id="paypal-button-container" class="pr-2"></div>
+      </div>
+      
     <script>
         paypal.Buttons({
             // Sets up the transaction when a payment button is clicked

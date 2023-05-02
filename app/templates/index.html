@@ -1,197 +1,206 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="background">
+    <!-- Boostrap link -->
+    <link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+    <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+    <!--{% set reserved_booths = [".cell_46", ".cell_45", ".cell_44", ".cell_43", ".cell_42", ".cell_41", ".cell_52", ".cell_50", ".cell_49" ,".cell_48", ".cell_31", ".cell_35", ".cell_36", ".cell_38", ".cell_15", ".cell_14", ".cell_13", ".cell_12", ".cell_25", ".cell_26", ".cell_21", ".cell_6", ".cell_5", ".cell_19", ".cell_20", ".cell_22"] %}-->
 
-<!-- Boostrap link -->
-<link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
-<script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
-<!--{% set reserved_booths = [".cell_46", ".cell_45", ".cell_44", ".cell_43", ".cell_42", ".cell_41", ".cell_52", ".cell_50", ".cell_49" ,".cell_48", ".cell_31", ".cell_35", ".cell_36", ".cell_38", ".cell_15", ".cell_14", ".cell_13", ".cell_12", ".cell_25", ".cell_26", ".cell_21", ".cell_6", ".cell_5", ".cell_19", ".cell_20", ".cell_22"] %}-->
+    <!-- Header -->
+    <header>
+    <!-- Header image -->
+    <img src="./static/header/Header.png" alt="RDWD Header" height="468" width="800" class="page_header"> <br><br>
+    <!-- Linkts to application, both PDF and online versions -->
+    <a href ="{{ url_for('application') }}"><button class="top_button1">Online Application</button> </a>
+    <a href ="./static/vendor_app/2023RWDApplication.pdf" target="blank"><button class="top_button1">PDF Application</button> </a>
 
-<!-- Header -->
-<header>
-<!-- Header image -->
-<img src="./static/header/Header.png" alt="RDWD Header" height="468" width="800" class="page_header"> <br><br>
-<!-- Linkts to application, both PDF and online versions -->
-<a href ="{{ url_for('application') }}"><button class="top_button1">Online Application</button> </a>
-<a href ="./static/vendor_app/2023RWDApplication.pdf" target="blank"><button class="top_button1">PDF Application</button> </a>
+    </header>
 
-</header>
+    <!-- First grid -->
+    <div class="grid1">
+        <div class="grid_content">
+            <div class="two_third">
+            <!-- displays name of festival -->
+            <h1>Running Water Festival</h1>
+            <h5 
+                class="h5_padding">The Plainview Rotary Club's 49th Annual Running Water Draw Festival will be held at the Ollie Liner Center (2000 S. Columbia St.) on Friday, Saturday and Sunday, October 20th, 21st & 22nd.
+            </h5>
 
-<!-- First grid -->
-<div class="grid1">
-    <div class="grid_content">
-        <div class="two_third">
-        <!-- displays name of festival -->
-        <h1>Running Water Festival</h1>
-        <h5 
-            class="h5_padding">The Plainview Rotary Club's 49th Annual Running Water Draw Festival will be held at the Ollie Liner Center (2000 S. Columbia St.) on Friday, Saturday and Sunday, October 20th, 21st & 22nd.
-        </h5>
-
-        <!-- button that switch between the list and map views -->
-        <button class="top_button" id="spaces_booking" onclick="showList()">List View</button>
-        <button class="top_button" id="spaces_booking" onclick="showMap()">Map View</button>
-             <!-- Table of verifed vendors -->
-            <!-- scroll bar taken from https://stackoverflow.com/questions/8232713/how-to-display-scroll-bar-onto-a-html-table-->
-            <div id="list-view">
-                <div id="table-wrapper">
-                    <div id="table-scroll">
-                        <table class="list">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Business</th>
-                                    <th>Description</th>
-                                    <th>Booth Location</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for vendor in vendors %}
-                                    {% if vendor.year == current_year %}
-                                        {% if vendor.status == "finalized" %}
-                                            <tr>
-                                                <td>{{ vendor.name }}</td>
-                                                <td>{{ vendor.business }}</td>
-                                                <td>{{ vendor.desc }}</td>
-                                                <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
-                                            </tr>
-                                        {% elif vendor.status == "pendingApproval" or vendor.status == "pendingPayment" %}
-                                            <tr>
-                                                <td>Pending</td>
-                                                <td>{{ vendor.business }}</td>
-                                                <td>{{ vendor.desc }}</td>
-                                                <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
-                                            </tr>
+            <!-- button that switch between the list and map views -->
+            <button class="top_button" id="spaces_booking" onclick="showList()">List View</button>
+            <button class="top_button" id="spaces_booking" onclick="showMap()">Map View</button>
+                <!-- Table of verifed vendors -->
+                <!-- scroll bar taken from https://stackoverflow.com/questions/8232713/how-to-display-scroll-bar-onto-a-html-table-->
+                <div id="list-view">
+                    <div id="table-wrapper">
+                        <div id="table-scroll">
+                            <table class="list">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Business</th>
+                                        <th>Description</th>
+                                        <th>Booth Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for vendor in vendors %}
+                                        {% if vendor.year == current_year %}
+                                            {% if vendor.status == "finalized" %}
+                                                <tr>
+                                                    <td>{{ vendor.name }}</td>
+                                                    <td>{{ vendor.business }}</td>
+                                                    <td>{{ vendor.desc }}</td>
+                                                    <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
+                                                </tr>
+                                            {% elif vendor.status == "pendingApproval" or vendor.status == "pendingPayment" %}
+                                                <tr>
+                                                    <td>Pending</td>
+                                                    <td>{{ vendor.business }}</td>
+                                                    <td>{{ vendor.desc }}</td>
+                                                    <td>{{ vendor.boothLoc.replace(",", ", ") }}</td>
+                                                </tr>
+                                            {% endif %}
                                         {% endif %}
-                                    {% endif %}
-                                {% endfor %}
-                            </tbody>
-                        </table> <br><br>
+                                    {% endfor %}
+                                </tbody>
+                            </table> <br><br>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <br><br>
+                <br><br>
 
-            <div id="map-view" style="display: none">
-                <div class="grid-container">
-                    
-                    <div class="reserved">Reserved</div>
-                    <div class="item_legend">#</div>
-                    <div class="pend">Pending</div>
-                    <div class="pend_legend">#</div>
-                    <div class="available">Available</div>
-                    <div class="available_legend">#</div>
-                    <div class="legend_filler"></div>
-                    
-                    
-                    {% for cell in range(12) %}
-                    <div class="filler"></div>
-                    {% endfor %}
+                <div id="map-view" style="display: none">
+                    <div class="grid-container">
+                        
+                        <div class="reserved">Reserved</div>
+                        <div class="item_legend">#</div>
+                        <div class="pend">Pending</div>
+                        <div class="pend_legend">#</div>
+                        <div class="available">Available</div>
+                        <div class="available_legend">#</div>
+                        <div class="legend_filler"></div>
+                        
+                        
+                        {% for cell in range(12) %}
+                        <div class="filler"></div>
+                        {% endfor %}
 
-                    <!-- for loops and if statements inspired/modified/taken from ChatGPT -->
-                    {% for key in vendor_dict %}
-                        {% if vendor_dict[key]['status'] == 'APPROVED' %}
+                        <!-- for loops and if statements inspired/modified/taken from ChatGPT -->
+                        {% for key in vendor_dict %}
+                            {% if vendor_dict[key]['status'] == 'APPROVED' %}
+                                {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                                {% set business_name_ = vendor_dict[key]['business_name'] %}
+                                <div class="item approved booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', '{{business_name_}}')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+
+                            {% elif vendor_dict[key]['status'] == 'PENDING' %}
+                                {% set booth_num_ = vendor_dict[key]['booth_num'] %}
+                                <div class="item pending booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', 'Pending')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+
+                            {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
                             {% set booth_num_ = vendor_dict[key]['booth_num'] %}
-                            {% set business_name_ = vendor_dict[key]['business_name'] %}
-                            <div class="item approved booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', '{{business_name_}}')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+                            <!-- link to function info code inspired and modified from ChatGPT-->
+                            <div class="empty" onclick="location.href='{{ url_for('info', booth_num=booth_num_) }}'">{{vendor_dict[key]['booth_num']}}</div>
 
-                        {% elif vendor_dict[key]['status'] == 'PENDING' %}
-                            {% set booth_num_ = vendor_dict[key]['booth_num'] %}
-                            <div class="item pending booth_{{ booth_num_ }}" onmouseover="content('.booth_{{ booth_num_ }}', 'Pending')" onmouseout="content('.booth_{{ booth_num_ }}', '{{booth_num_}}')">{{vendor_dict[key]['booth_num']}}</div>
+                                
+                            {% else %}
+                                <div class="filler"></div>
 
-                        {% elif vendor_dict[key]['status'] == 'NOTINIT' %}
-                        {% set booth_num_ = vendor_dict[key]['booth_num'] %}
-                        <!-- link to function info code inspired and modified from ChatGPT-->
-                        <div class="empty" onclick="location.href='{{ url_for('info', booth_num=booth_num_) }}'">{{vendor_dict[key]['booth_num']}}</div>
+                            {% endif %}
+                        {% endfor %}
 
-                            
-                        {% else %}
-                            <div class="filler"></div>
-
-                        {% endif %}
-                    {% endfor %}
-
+                    </div>
                 </div>
+
+                <!-- Header before carousel -->
+                <br><br> <h2 id="FestivalPhotos">Pictures and Sponsors of the Festival</h2> <br><br>
             </div>
 
-            <!-- Header before carousel -->
-            <br><br> <h2 id="FestivalPhotos">Pictures and Sponsors of the Festival</h2> <br><br>
-        </div>
 
-
-        <div class="third">
-        <!-- Facebook feed plugin and link -->
-        <rounded mx-auto d-block>
-            <p><a href="https://www.facebook.com/runningwaterdrawartsandcraftsfestival/" target="_blank" >Our Facebook Page</a></p>
-            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frunningwaterdrawartsandcraftsfestival%2F&tabs=timeline&width=340&height=865&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>        </rounded mx-auto d-block>
+            <div class="third">
+            <!-- Facebook feed plugin and link -->
+                <p><a href="https://www.facebook.com/runningwaterdrawartsandcraftsfestival/" target="_blank">
+                    <i class="fab fa-facebook fa-3x"></i>
+                </a> 
+                <a href="https://www.facebook.com/runningwaterdrawartsandcraftsfestival/" target="_blank" >Our Facebook Page</a></p> 
+                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Frunningwaterdrawartsandcraftsfestival%2F&tabs=timeline&width=340&height=865&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                <head>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+                    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+                </head>
+            </div>
         </div>
     </div>
-</div>
-<br><br>
+    <br><br>
 
-<!-- Carousel taken from https://getbootstrap.com/docs/5.0/components/carousel/  -->
+    <!-- Carousel taken from https://getbootstrap.com/docs/5.0/components/carousel/  -->
 
-<div class = "carouselContainer" id="carousel">
-    <div id="carouselExampleFade" class="carousel carousel-dark carousel-fade slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{ url_for('static',filename='./carousel/' + image_name[0] )}}" alt="add alt">
+    <div class = "carouselContainer" id="carousel">
+        <div id="carouselExampleFade" class="carousel carousel-dark carousel-fade slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{{ url_for('static',filename='./carousel/' + image_name[0] )}}" alt="add alt">
+                </div>
+                {% for image in image_name %}
+                <!--for loop inspired from https://stackoverflow.com/questions/59478573/how-to-display-images-from-folder-in-python-html-and-flask-->
+                <div class="carousel-item">
+                    <img src="{{url_for('static',filename='./carousel/' + image)}}"alt="...">
+                </div>
+                {% endfor %}
             </div>
-            {% for image in image_name %}
-            <!--for loop inspired from https://stackoverflow.com/questions/59478573/how-to-display-images-from-folder-in-python-html-and-flask-->
-            <div class="carousel-item">
-                <img src="{{url_for('static',filename='./carousel/' + image)}}"alt="...">
-            </div>
-            {% endfor %}
+            <!--buttons that control next and previous image on carousel-->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <!--buttons that control next and previous image on carousel-->
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+    </div> <br> <br>
+
+    <script>
+
+        function showList() {
+            var x = document.getElementById("list-view");
+            var y = document.getElementById("map-view");
+            x.style.display = "block";
+            y.style.display = "none";
+        }
+        function showMap() {
+            var x = document.getElementById("map-view");
+            var y = document.getElementById("list-view");
+            x.style.display = "block";
+            y.style.display = "none";
+        }
+        // inspired from https://stackoverflow.com/questions/2554149/how-can-i-change-div-content-with-javascript
+        function content(divSelector, value) {
+            document.querySelector(divSelector).innerHTML = value;
+        }
+        
+    </script>
+
+
+
+    <div class="contact-container" id="contactUs">
+        <h1 class="contactUs">Contact Us</h1>
+        <form action="mailto:mia.arceneaux@wayland.wbu.edu" method="POST" class="contact-form">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" required />
+
+        <button type="submit">Send</button>
+        </form>
     </div>
-</div> <br> <br>
-
-<script>
-
-    function showList() {
-        var x = document.getElementById("list-view");
-        var y = document.getElementById("map-view");
-        x.style.display = "block";
-        y.style.display = "none";
-    }
-    function showMap() {
-        var x = document.getElementById("map-view");
-        var y = document.getElementById("list-view");
-        x.style.display = "block";
-        y.style.display = "none";
-    }
-    // inspired from https://stackoverflow.com/questions/2554149/how-can-i-change-div-content-with-javascript
-    function content(divSelector, value) {
-        document.querySelector(divSelector).innerHTML = value;
-    }
-    
-</script>
-
-
-
-<div class="contact-container" id="contactUs">
-    <h2 class="contactUs">Contact Us</h2>
-    <form action="mailto:mia.arceneaux@wayland.wbu.edu" method="POST" class="contact-form">
-    <label for="name">Your Name</label>
-    <input type="text" id="name" required />
-
-    <button type="submit">Send</button>
-    </form>
 </div>
-
-<!-- Footer -->
-<footer id = "footer">
-    <h2>© 2023  All rights reserved.<br>
-        <a href = "https://www.plainviewrotary.org/">Rotary Club</a>
-        <a href="https://express.adobe.com/page/oJZIEO1fk6o97/" target="_blank" >More About the Creators</a></h2>
-        <a href ="{{ url_for('login') }}">Manage</a>
-</footer>
-{% endblock %}
+    <!-- Footer -->
+    <footer id = "footer">
+        <h2>© 2023  All rights reserved.<br>
+            <a href = "https://www.plainviewrotary.org/">Rotary Club </a>
+            <a href="https://express.adobe.com/page/oJZIEO1fk6o97/" target="_blank" >| More About the Creators</a></h2>
+            <a href ="{{ url_for('login') }}">Manage</a>
+    </footer>
+    {% endblock %}

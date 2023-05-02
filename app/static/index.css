@@ -2,12 +2,15 @@
 screen sizing taken from https://stackoverflow.com/questions/53201195/how-to-make-my-website-fit-any-screen-size
 */
 body {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin: 0;
     width: 100vw;
     height: 100vh;
     background-color: #b0c4de;
     max-width: 100%;
+}
+
+.background{
+    background-color: #ecf4ffdc;
 }
 
 p {
@@ -99,6 +102,10 @@ nav ul li {
     padding: 20px;
 }
 
+.FestivalPhotos {
+    text-align: center;
+}
+
 nav ul li a {
     text-decoration: none;
     color: white;
@@ -111,7 +118,7 @@ nav ul li a {
 header color and alignment
 */
 header {
-    background-color: #ffffff;
+    background-color: #ecf4ffdc;
     text-align: center;
     padding: 128px 16px;
 }
@@ -119,6 +126,11 @@ header {
 /*
 PDF and Vendor application buttons 
 */
+#paypal-button-container {
+    align-items: center!important;
+    padding-right: 150px!important;
+    padding-top: 20px;
+}
 .top_button1 {
     color: rgb(255, 255, 255);
     background-color: #091753;
@@ -319,7 +331,7 @@ footer {
     text-align: center;
     clear: both;
     height: 200px;
-    margin-top: -200px;
+    margin-top: -300px;
 }
 
 /*
@@ -354,6 +366,7 @@ grid layout
     float: right;
     margin-top: 100px;
 }
+
 
 .page_header {
     position: relative;
@@ -478,7 +491,6 @@ input, select {
 .contact-container * {
     display: block;
   box-sizing: border-box;
-	font-family: "Inter", sans-serif;
   --color-blue: #091753;
   --color-light-blue: #3266e3;
   --color-gray: #e5e7eb;
@@ -492,7 +504,7 @@ input, select {
   --c-max-width: 500px;
   width: var(--c-width);
   max-width: var(--c-max-width);
-  
+  padding-bottom: 150px;
   margin: 10vh auto 250px auto;
 }
 
@@ -501,7 +513,7 @@ input, select {
   padding: 12px 0 2px 0;
   letter-spacing: -0.2px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 24px;
   font-weight: 700;
 }
 
@@ -540,7 +552,7 @@ input, select {
   background-color: var(--color-blue);
   color: #fff;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 24px;
 
   transition: 300ms all;
 }
@@ -577,5 +589,7 @@ input, select {
 }
 
 .payComp {
-    padding-top: 70px;
+    padding-top: 100px;
+    padding-bottom: 25px;
 }
+
