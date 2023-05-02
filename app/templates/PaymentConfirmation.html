@@ -28,7 +28,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: {{ vendor.payment_amount }} // TODO: Update price
+                            value: {{ vendor.payment_amount }} 
                         }
                     }]
                 });
@@ -36,7 +36,7 @@
             // Finalize the transaction after payer approval
             // Finalize the transaction on the server after payer approval
             onApprove: (data, actions) => {
-                return fetch(`/payments/${vendro.id}/capture`, {
+                return fetch(`/payments/{{ vendor.id }}/capture`, {
                     method: "post",
                 })
                     .then((response) => response.json())
