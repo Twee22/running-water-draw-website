@@ -24,6 +24,10 @@ def check_loc(user_booth1, user_booth2):
 # Define a function to validate booth locations
 def validate_boothLoc(form, field):
     # Get a list of booth locations from the field data and remove any whitespace
+    boothLoc = field.data.replace(' ', '') # remove all spaces
+    if not all(char.isdigit() or char == ',' for char in boothLoc):
+            raise ValidationError('Booth Location can only contain numbers and commas.')
+
     booth_list = field.data.strip().split(',')
     
     # If there's more than one booth in the list, check if each booth is next to the previous booth
@@ -36,6 +40,22 @@ def validate_boothLoc(form, field):
             if check_loc(int(booth_list[i]), int(booth_list[i+1])) == False:
                 # If they're not next to each other, raise a validation error
                 raise ValidationError('Booths must be next to each other.')
+            
+
+def validate_no_digits(form, field):
+        if any(char.isdigit() for char in field.data):
+            raise ValidationError('Name cannot contain any digits.')
 
 
+
+def validate_phoneNum(form, field):
+    phoneNum = field.data.replace('-', '') # remove dashes
+    if len(phoneNum) < 10 or len(phoneNum) > 11:
+        raise ValidationError('Invalid phone number length.')
+
+def validate_boothNum_loc_match(form, field):
+    boothNum = field.data
+    boothLoc = form.boothLoc.data.replace(' ', '') # remove all spaces
+    if boothLoc.count(',') + 1 != boothNum:
+        raise ValidationError('Number of booth locations must match the number of booths.')
 
