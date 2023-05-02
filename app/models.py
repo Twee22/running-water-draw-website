@@ -39,6 +39,7 @@ class Vendor(db.Model):
     payment_deadline = db.Column(db.DateTime(timezone=True), server_default=func.now())
     payment_amount = db.Column(db.Float, nullable=False)
     status = db.Column(db.String, nullable=False)
+    year = db.Column(db.Integer, nullable=False)
 
 
     def __repr__(self):
@@ -53,6 +54,10 @@ class AppText(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     notes = db.Column(db.String, nullable=False)
     
+class CurrentYear(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.Integer, nullable=False)
+
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))

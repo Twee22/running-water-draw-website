@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, session, send_fil
 from flask_login import login_required, current_user, login_user, logout_user
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
-from app.models import Vendor, User, AppText
+from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times
 from app.send_email import send_email
@@ -22,12 +22,13 @@ def index():
     #a = AppText(notes = 'hi')
     #db.session.add(a)
     #db.session.commit()
-    
+
     vendors = Vendor.query.order_by(Vendor.boothNum)
     check_db(vendors)
-    vendor_dict = update(vendors)
+    currYear = CurrentYear.query.first().year
+    vendor_dict = update(vendors, current_year = currYear)
     
-    return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict)
+    return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
 
 @app.route('/info')
 def info():
@@ -41,8 +42,9 @@ def application():
     appText = AppText.query.first()
     boothLoc_ = session.get('boothLoc_', None)
     
+    currYear = CurrentYear.query.first().year
     vendors = Vendor.query.order_by(Vendor.boothNum)
-    vendor_dict = update(vendors)
+    vendor_dict = update(vendors, current_year=currYear)
     
     if form.validate_on_submit():
         if form.boothNum.data == 1:
@@ -50,10 +52,11 @@ def application():
         else:
             boothPrice = 200
 
+
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
                    boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
-                   payment_amount = (10 * form.tableNum.data) + boothPrice)
+                   payment_amount = (10 * form.tableNum.data) + boothPrice, year=currYear)
         db.session.add(v)
         db.session.commit()
         session['name'] = str(v.name)
@@ -112,12 +115,21 @@ def adminapp():
     form = AdminForm()
     data = Vendor.query.all()
     appData = AppText.query.first()
+    currYear = CurrentYear.query.first()
 
     if form.validate_on_submit():
         appData.notes = form.notes.data
         db.session.commit()
 
-    return render_template('AdminApp.html', data=data, form=form, appData = appData)
+    try:
+        new_year = request.form['year']
+        current_year = CurrentYear.query.first()
+        current_year.year = new_year
+        db.session.commit()
+    except:
+        pass
+
+    return render_template('AdminApp.html', data=data, form=form, appData = appData, current_year=currYear.year)
 
 # Define a route for the admin app that takes an integer parameter called id and supports GET and POST requests
 @app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
@@ -174,10 +186,11 @@ def adminappupdate(id):
 def adminDB():
     form = AdminApplicationForm()
     if form.validate_on_submit():
+        currYear = CurrentYear.query.first().year
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
                    boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
-                   payment_amount = form.payment_amount.data)
+                   payment_amount = form.payment_amount.data, year=currYear)
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('adminapp'))

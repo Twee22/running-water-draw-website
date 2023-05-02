@@ -1,8 +1,8 @@
-"""empty message
+"""Create db, now with year
 
-Revision ID: e593755e0a61
+Revision ID: 60131410d00c
 Revises: 
-Create Date: 2023-04-26 00:07:38.783797
+Create Date: 2023-05-02 15:09:57.743944
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e593755e0a61'
+revision = '60131410d00c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -50,6 +50,7 @@ def upgrade():
     sa.Column('payment_deadline', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('payment_amount', sa.Float(), nullable=False),
     sa.Column('status', sa.String(), nullable=False),
+    sa.Column('year', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
