@@ -33,22 +33,25 @@ def validate_boothLoc(form, field):
     if not all(char.isdigit() or char == ',' for char in boothLoc):
             raise ValidationError('Booth Location can only contain numbers and commas.')
 
-    booth_list = field.data.strip().split(',')
+    booth_list = boothLoc.split(",")
 
     # Check if booth(s) entered are in map_locations
-    if booth_list[0] not in map_locations or booth_list[1] not in map_locations:
-        raise ValidationError('Invalid Booth Location')
+    for loc in booth_list:
+        if int(loc) not in map_locations:
+            raise ValidationError(f"Booth location {loc} is not a valid location.")
     
     # If there's more than one booth in the list, check if each booth is next to the previous booth
     if len(booth_list) > 1:
         for i in range(len(booth_list)-1):
-            # Check if the current booth and the next booth are vertically adjacent
-            if tuple(map(int, [booth_list[i], booth_list[i+1]])) in wall_booths:
+            # Check if the current booth and the next booth are vertically adjacent, regardless of order
+            booth_pair = tuple(sorted(map(int, [booth_list[i], booth_list[i+1]])))
+            if booth_pair in wall_booths or booth_pair[::-1] in wall_booths:                 
                 return True
             # Use the check_loc function to see if two booths are next to each other
             if check_loc(int(booth_list[i]), int(booth_list[i+1])) == False:
                 # If they're not next to each other, raise a validation error
                 raise ValidationError('Booths must be next to each other.')
+            
  # Define a function to validate booth locations
 def validate_boothLoc_available(form, field):
     # Get a clean list of booth locations without any spaces
@@ -79,7 +82,7 @@ def validate_boothNum_loc_match(form, field):
 def validate_no_digits(form, field):
     # Check if the name contains any digits
     if any(char.isdigit() for char in field.data):
-        raise ValidationError('Name cannot contain any digits.')
+        raise ValidationError('cannot contain any digits.')
 
 # Define a function to validate that a phone number has a valid length
 def validate_phoneNum(form, field):
@@ -88,3 +91,7 @@ def validate_phoneNum(form, field):
     # Check if the phone number has a valid length
     if len(phoneNum) < 10 or len(phoneNum) > 11:
         raise ValidationError('Invalid phone number length.')
+    
+    # Check if the phone number contains only digits
+    if not phoneNum.isdigit():
+        raise ValidationError('Phone number can only contain digits.')

@@ -6,8 +6,7 @@ from datetime import datetime, timezone
 from app.map_contraints import validate_boothLoc, validate_boothNum_loc_match, validate_boothLoc_available,  validate_no_digits, validate_phoneNum 
 import pytz
 
-class ApplicationForm(FlaskForm):
-                
+class ApplicationForm(FlaskForm):    
     name = StringField('Name', validators=[InputRequired(), validate_no_digits], render_kw={"placeholder": "Your Full Name Here"})
     business = StringField('Business Name', validators=[InputRequired()], render_kw={"placeholder": "Business Name Here"})
     address = StringField('Address', validators=[InputRequired()], render_kw={"placeholder": "Address Here"})
@@ -42,8 +41,6 @@ class AdminForm(FlaskForm):
     payment_deadline = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
     notes = CKEditorField('Note Editor', validators=[InputRequired()])
     submit = SubmitField('Submit')
-
-
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()], render_kw={"placeholder": "username"})
