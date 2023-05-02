@@ -17,11 +17,7 @@
     <p>Number of Tables Required: {{ vendor.tableNum }}</p>
     <p>Numbers of Booths Required: {{ vendor.boothNum }}</p>
     <p>Application submitted on {{ vendor.date }}</p>
-
-    <form class="reset" method="POST" action="/payment/{{ vendor.id }}">
-        <input type="hidden" name="action" value="confirm">
-        <button class="button confirm" type="submit">Pay</button>
-    </form>
+    <p>Cost: ${{ vendor.payment_amount }}</p>
 
     <script src="https://www.paypal.com/sdk/js?client-id=AU7r_2RfDPHln4inQxzcbuf6INXxQDeL3wC53Bm7saJKZLB9Oqf1kSl-bOgYpWRPQhqT6ijeSMtbDFrI&currency=USD"></script>
     <div id="paypal-button-container"></div>
@@ -32,7 +28,7 @@
                 return actions.order.create({
                     purchase_units: [{
                         amount: {
-                            value: '100' // TODO: Update price
+                            value: {{ vendor.payment_amount }} // TODO: Update price
                         }
                     }]
                 });
