@@ -1,13 +1,9 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash
 from flask_login import login_required, current_user, login_user, logout_user
-from flask_mail import Mail, Message
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
 from app.models import Vendor, User, AppText
-from app.vendor_dict import vendor_dict, update
-from datetime import datetime
-from app.payment_deadline import save_initial_time, check_db
-from app.map_contraints import check_loc
+from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times
 from app.send_email import send_email
 import csv, os
