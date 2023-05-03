@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="background">
+
     <!-- Boostrap link -->
     <link rel="stylesheet" a href="{{url_for('static',filename='css/bootstrap.css')}}"/>
     <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
-    <!--{% set reserved_booths = [".cell_46", ".cell_45", ".cell_44", ".cell_43", ".cell_42", ".cell_41", ".cell_52", ".cell_50", ".cell_49" ,".cell_48", ".cell_31", ".cell_35", ".cell_36", ".cell_38", ".cell_15", ".cell_14", ".cell_13", ".cell_12", ".cell_25", ".cell_26", ".cell_21", ".cell_6", ".cell_5", ".cell_19", ".cell_20", ".cell_22"] %}-->
 
+<div class="background">
     <!-- Header -->
     <header>
     <!-- Header image -->
@@ -163,26 +163,26 @@
         </div>
     </div> <br> <br>
 
-    <script>
+<script>
 
-        function showList() {
-            var x = document.getElementById("list-view");
-            var y = document.getElementById("map-view");
-            x.style.display = "block";
-            y.style.display = "none";
-        }
-        function showMap() {
-            var x = document.getElementById("map-view");
-            var y = document.getElementById("list-view");
-            x.style.display = "block";
-            y.style.display = "none";
-        }
-        // inspired from https://stackoverflow.com/questions/2554149/how-can-i-change-div-content-with-javascript
-        function content(divSelector, value) {
-            document.querySelector(divSelector).innerHTML = value;
-        }
-        
-    </script>
+    function showList() {
+        var x = document.getElementById("list-view");
+        var y = document.getElementById("map-view");
+        x.style.display = "block";
+        y.style.display = "none";
+    }
+    function showMap() {
+        var x = document.getElementById("map-view");
+        var y = document.getElementById("list-view");
+        x.style.display = "block";
+        y.style.display = "none";
+    }
+    // inspired from https://stackoverflow.com/questions/2554149/how-can-i-change-div-content-with-javascript
+    function content(divSelector, value) {
+        document.querySelector(divSelector).innerHTML = value;
+    }
+    
+</script>
 
 
 
@@ -197,10 +197,10 @@
     </div>
 </div>
     <!-- Footer -->
-    <footer id = "footer">
-        <h2>© 2023  All rights reserved.<br>
-            <a href = "https://www.plainviewrotary.org/">Rotary Club </a>
-            <a href="https://express.adobe.com/page/oJZIEO1fk6o97/" target="_blank" >| More About the Creators</a></h2>
-            <a href ="{{ url_for('login') }}">Manage</a>
-    </footer>
-    {% endblock %}
+<footer id = "footer">
+    <h2>© 2023  All rights reserved.<br>
+        <a href = "https://www.plainviewrotary.org/">Rotary Club </a>
+        <a href="https://express.adobe.com/page/oJZIEO1fk6o97/" target="_blank" >| More About the Creators</a></h2>
+        <a href ="{{ url_for('login') }}">Manage</a>
+</footer>
+{% endblock %}

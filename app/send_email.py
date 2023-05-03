@@ -26,5 +26,15 @@ def send_email(user):
     # send email
     mail.send(msg)
 
+# route to send email 
+def send_payment_confirmation_email(user):
+    # create message object
+    msg = Message('Payment Recieved', sender ='testemailschool@gmail.com', recipients=[user.email])
+    msg.body = 'We have recieved your invoice payment and your booth selection has been confirmed.'
+
+    # send confirmation of payment email
+    mail.send(msg)
+
+
 
 

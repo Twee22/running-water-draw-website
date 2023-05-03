@@ -5,7 +5,7 @@ from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationFor
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times
-from app.send_email import send_email
+from app.send_email import send_email, send_payment_confirmation_email
 import csv, os
 
 @app.route('/', methods=['GET', 'POST'])
@@ -224,6 +224,7 @@ def payment_capture(id):
     vendor_status_update = Vendor.query.get_or_404(id)
     if request.method == 'POST':
         vendor_status_update.status = 'finalized'
+        send_payment_confirmation_email(vendor_status_update)
         while True:
             try:
                 db.session.commit()
