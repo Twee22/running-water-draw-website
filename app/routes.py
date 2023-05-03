@@ -4,7 +4,7 @@ from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
-from app.payment_deadline import save_initial_time, check_db, future_times
+from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
 
@@ -112,6 +112,7 @@ def logout():
 @login_required
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
+    deadline = set_deadline()
     form = AdminForm()
     data = Vendor.query.all()
     appData = AppText.query.first()
@@ -129,7 +130,7 @@ def adminapp():
     except:
         pass
 
-    return render_template('AdminApp.html', data=data, form=form, appData = appData, current_year=currYear.year)
+    return render_template('AdminApp.html', data=data, form=form, appData = appData, current_year=currYear.year, deadline=deadline)
 
 # Define a route for the admin app that takes an integer parameter called id and supports GET and POST requests
 @app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
