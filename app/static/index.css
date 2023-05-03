@@ -131,6 +131,8 @@ PDF and Vendor application buttons
     padding-left: 250px!important;
     padding-top: 20px;
 }
+
+
 .top_button1 {
     color: rgb(255, 255, 255);
     background-color: #091753;
@@ -477,7 +479,7 @@ input, select {
 }
 
 .containerPrint {
-    padding-left: 100px;
+    text-align: center!important;
 }
 
 .printButton {
