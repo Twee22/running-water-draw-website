@@ -128,7 +128,7 @@ PDF and Vendor application buttons
 */
 #paypal-button-container {
     align-items: center!important;
-    padding-right: 150px!important;
+    padding-left: 250px!important;
     padding-top: 20px;
 }
 .top_button1 {
