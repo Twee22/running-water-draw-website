@@ -36,5 +36,12 @@ def send_payment_confirmation_email(user):
     mail.send(msg)
 
 
+def send_decline_email(user):
+    msg = Message('Vendor Application Declined', sender ='testemailschool@gmail.com', recipients=[user.email])
+    msg.body = 'Unfortunately, your vendor booth application has been declined. If you have questions please email us.'
+
+    mail.send(msg)
+
+
 
 

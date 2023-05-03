@@ -5,7 +5,7 @@ from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationFor
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times
-from app.send_email import send_email, send_payment_confirmation_email
+from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
 
 @app.route('/', methods=['GET', 'POST'])
@@ -161,6 +161,7 @@ def adminappupdate(id):
         # If the 'action' field is set to 'deny', update the vendor status to 'denied'
         elif action == 'deny':
             vendor_status_update.status = 'denied'
+            send_decline_email(vendor_status_update)
         
         # Commit the changes to the database and display a success message
         while True:
