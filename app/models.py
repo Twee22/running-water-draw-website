@@ -10,7 +10,7 @@ user_vendor = db.Table('user_vendor',
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
+    email = db.Column(db.String(120), index=True)
     password_hash = db.Column(db.String(128))
     following = db.relationship('Vendor', secondary=user_vendor, backref='followers')
 
@@ -29,7 +29,7 @@ class Vendor(db.Model):
     business = db.Column(db.String(200), nullable=False)
     address = db.Column(db.String(200), nullable=False)
     citystatezip = db.Column(db.String(50), nullable=False)
-    email = db.Column(db.String(120), nullable=False, unique=True)
+    email = db.Column(db.String(120), nullable=False)
     phoneNum = db.Column(db.String(20), nullable=False)
     desc = db.Column(db.Text)
     boothNum = db.Column(db.Integer, nullable=False)
