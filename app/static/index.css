@@ -359,6 +359,7 @@ grid layout
 
 .map_width {
     width: 66.66%;
+    margin-right: -50%;
     float: right;
     padding-top: 50px;
 }
@@ -402,7 +403,6 @@ classes that style the carousel
 
 
 .application {
-    display: flex;
     position: relative;
     padding: 50px 50px;
     justify-content: space-evenly;
@@ -415,7 +415,6 @@ classes that style the carousel
     border-radius: 10px;
     padding-left: 5px;
     box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
 }
 
 fieldset {
@@ -432,7 +431,6 @@ fieldset label{
 fieldset input{
     display: inline-block;
     align-content: center;
-    width: 40vw;
 }
 
 .boothPrice input{
