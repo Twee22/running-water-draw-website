@@ -13,6 +13,10 @@ body {
     background-color: #ecf4ffdc;
 }
 
+.confirmation {
+    padding-bottom: 200px;
+}
+
 p {
     font-size: 20px;
     text-align: center;
