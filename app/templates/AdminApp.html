@@ -50,11 +50,10 @@
                     <td>{{ item.desc }}</td>
                     <td>{{ item.boothLoc }}</td>
                     <td>{{ item.tableNum }}</td>
-                    <!-- The following column shows the vendor's payment amount and provides a button for the administrator to send an email to the vendor. -->
-                    <td>{{ item.payment_amount }} 
-                      
-                    </td>
+                    <td>{{ item.payment_amount }}</td>
                     <td>{{ item.status }}</td>
+
+                    <!-- The following column shows the vendor's payment amount and provides a button for the administrator to send an email to the vendor. -->
                     <td>
                       <div class="text-center mb-3">
                         <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
@@ -62,9 +61,6 @@
                           <button class="send btn btn-primary mt-1 mb-1" type="submit">Send Email</button>
                         </form>
                       </div>
-                    </td>
-                    <td>{{ item.status }}</td>
-                    <td>
                       <!-- If the vendor's status is 'pendingApproval', the administrator can confirm or deny the vendor's application by clicking on one of two buttons. -->
                       {% if item.status == "pendingApproval" %}
                         <div style="display: inline-flex">
@@ -77,9 +73,9 @@
                             <button class="btn btn-danger" type="submit">Deny</button>
                           </form>
                         </div>
-                        
                       {% endif %}
                     </td>
+
                   </tr>
                 {% endif %}
               {% endfor %}
