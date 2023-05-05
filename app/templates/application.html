@@ -6,7 +6,19 @@
 
 
 <h1 class="appTitle">Vendor Application</h1>
-<div class="row mt-4 background">
+
+<form class="form" style="padding-left: 5%;" method="POST" action="/application">
+    {{ form.csrf_token() }}
+        {% if form.errors %}
+            <ul class="errors">
+                {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                    {% for error in field_errors %}
+                        <li>{{ form[field_name].label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+<div class="mt-4 background">
     <div class="col-12 col-md-6 mb-4">
         <div class="map_width">
             <div class="grid-container-vendor">
@@ -53,19 +65,7 @@
 </script>
         
         <div class="col-12 col-md-6">
-            <div class="application">
-                <form class="form" method="POST" action="/application">
-                    {{ form.csrf_token() }}
-                    {% if form.errors %}
-                        <ul class="errors">
-                            {% for field_name, field_errors in form.errors|dictsort if field_errors %}
-                                {% for error in field_errors %}
-                                    <li>{{ form[field_name].label }}: {{ error }}</li>
-                                {% endfor %}
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    
+            <div class="application">                    
                     <fieldset class="businessInfo">
                         <legend>Business Information</legend>
                         <div class="form-group">
@@ -87,12 +87,13 @@
                               {{form.boothLoc(class="form-control")}}
                             {% endif %}
                           </div>
+                          <div class="note">
+                            {{ appText.notes|safe }}
+                        </div>
+                        <div>{{form.terms.label}}{{form.terms()}}</div>
+                        <div>{{form.submit()}}</div>
                 </fieldset>
-            <div class="note">
-                {{ appText.notes|safe }}
             </div>
-            <div>{{form.terms.label}}{{form.terms()}}</div>
-            <div>{{form.submit()}}</div>
-        </form>
-    </div>
+        </div>
+</form>
 {% endblock %}

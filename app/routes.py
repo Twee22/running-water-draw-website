@@ -19,6 +19,7 @@ def index():
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
     #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
 
+    # Adds a hi to notes in the database so that it can be edited
     #a = AppText(notes = 'hi')
     #db.session.add(a)
     #db.session.commit()

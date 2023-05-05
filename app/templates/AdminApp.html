@@ -52,6 +52,10 @@
                     <td>{{ item.tableNum }}</td>
                     <!-- The following column shows the vendor's payment amount and provides a button for the administrator to send an email to the vendor. -->
                     <td>{{ item.payment_amount }} 
+                      
+                    </td>
+                    <td>{{ item.status }}</td>
+                    <td>
                       <div class="text-center mb-3">
                         <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
                           <input type="hidden" name="action" value="send_email">
@@ -73,6 +77,7 @@
                             <button class="btn btn-danger" type="submit">Deny</button>
                           </form>
                         </div>
+                        
                       {% endif %}
                     </td>
                   </tr>

@@ -17,6 +17,10 @@ body {
     padding: 30px 0 50px 30px !important; 
 }
 
+.confirmation {
+    padding-bottom: 200px;
+}
+
 p {
     font-size: 20px;
     text-align: center;
@@ -132,9 +136,11 @@ PDF and Vendor application buttons
 */
 #paypal-button-container {
     align-items: center!important;
-    padding-right: 150px!important;
+    padding-left: 250px!important;
     padding-top: 20px;
 }
+
+
 .top_button1 {
     color: rgb(255, 255, 255);
     background-color: #091753;
@@ -361,6 +367,7 @@ grid layout
 
 .map_width {
     width: 66.66%;
+    margin-right: -50%;
     float: right;
     padding-top: 50px;
 }
@@ -404,7 +411,6 @@ classes that style the carousel
 
 
 .application {
-    display: flex;
     position: relative;
     padding: 50px 50px;
     justify-content: space-evenly;
@@ -417,7 +423,6 @@ classes that style the carousel
     border-radius: 10px;
     padding-left: 5px;
     box-sizing: border-box;
-    box-shadow: 0 15px 25px rgba(0,0,0,.6);
 }
 
 fieldset {
@@ -434,7 +439,6 @@ fieldset label{
 fieldset input{
     display: inline-block;
     align-content: center;
-    width: 40vw;
 }
 
 .boothPrice input{
@@ -481,7 +485,7 @@ input, select {
 }
 
 .containerPrint {
-    padding-left: 100px;
+    text-align: center!important;
 }
 
 .printButton {
