@@ -13,6 +13,10 @@ body {
     background-color: #ecf4ffdc;
 }
 
+.paddingHere { 
+    padding: 30px 0 50px 30px !important; 
+}
+
 p {
     font-size: 20px;
     text-align: center;

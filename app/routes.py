@@ -4,7 +4,7 @@ from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
-from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline
+from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, payment_deadline_days
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
 
@@ -112,25 +112,27 @@ def logout():
 @login_required
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
-    deadline = set_deadline()
     form = AdminForm()
     data = Vendor.query.all()
     appData = AppText.query.first()
     currYear = CurrentYear.query.first()
+
+    new_deadline = int(request.form.get('day', payment_deadline_days))
+    set_deadline(new_deadline)
 
     if form.validate_on_submit():
         appData.notes = form.notes.data
         db.session.commit()
 
     try:
-        new_year = request.form['year']
-        current_year = CurrentYear.query.first()
-        current_year.year = new_year
+        new_year = int(request.form.get('year', currYear.year))
+        currYear.year = new_year
         db.session.commit()
     except:
         pass
 
-    return render_template('AdminApp.html', data=data, form=form, appData = appData, current_year=currYear.year, deadline=deadline)
+    return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, deadline=payment_deadline_days)
+
 
 # Define a route for the admin app that takes an integer parameter called id and supports GET and POST requests
 @app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
