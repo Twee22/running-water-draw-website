@@ -4,7 +4,7 @@ from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
-from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, payment_deadline_days
+from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, payment_deadline_days
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
 
@@ -109,7 +109,6 @@ def logout():
     logout_user()
     return render_template('index.html')
 
-@login_required
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
     form = AdminForm()
@@ -117,28 +116,43 @@ def adminapp():
     appData = AppText.query.first()
     currYear = CurrentYear.query.first()
 
-    new_deadline = int(request.form.get('day', payment_deadline_days))
-    set_deadline(new_deadline)
+    # Check if the payment deadline is already set in the session
+    deadline = session.get('deadline', get_deadline())
 
-    if form.validate_on_submit():
-        appData.notes = form.notes.data
-        db.session.commit()
+    if request.method == 'POST':
+        if 'currYearBtn' in request.form:
+            # Handle current year update
+            try:
+                new_year = request.form['year']
+                current_year = CurrentYear.query.first()
+                current_year.year = new_year
+                db.session.commit()
+            except:
+                pass
+        elif 'paymentDeadlineBtn' in request.form:
+            # Handle payment deadline update
+            try:
+                new_deadline = int(request.form['day'])
+                set_deadline(new_deadline)
+                # Store the new deadline in the session
+                session['deadline'] = new_deadline
+                deadline = new_deadline
 
-    try:
-        new_year = int(request.form.get('year', currYear.year))
-        currYear.year = new_year
-        db.session.commit()
-    except:
-        pass
+                # Update payment_deadline for all vendors with new deadline
+                vendors = Vendor.query.all()
+                for vendor in vendors:
+                    vendor.payment_deadline = future_times()
+                db.session.commit()
 
-    return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, deadline=payment_deadline_days)
+            except:
+                pass
+
+    return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, deadline=deadline)
 
 
 # Define a route for the admin app that takes an integer parameter called id and supports GET and POST requests
 @app.route('/adminapp/<int:id>', methods=['GET', 'POST'])
 def adminappupdate(id):
-    # Query the database to retrieve all Vendor objects
-    data = Vendor.query.all()
     # Retrieve the Vendor object with the specified id, or return a 404 error if not found
     vendor_status_update = vendor_payment_deadline = Vendor.query.get_or_404(id)
     
