@@ -50,11 +50,10 @@
                     <td>{{ item.desc }}</td>
                     <td>{{ item.boothLoc }}</td>
                     <td>{{ item.tableNum }}</td>
-                    <!-- The following column shows the vendor's payment amount and provides a button for the administrator to send an email to the vendor. -->
-                    <td>{{ item.payment_amount }} 
-                      
-                    </td>
+                    <td>{{ item.payment_amount }}</td>
                     <td>{{ item.status }}</td>
+
+                    <!-- The following column shows the vendor's payment amount and provides a button for the administrator to send an email to the vendor. -->
                     <td>
                       <div class="text-center mb-3">
                         <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
@@ -74,9 +73,9 @@
                             <button class="btn btn-danger" type="submit">Deny</button>
                           </form>
                         </div>
-                        
                       {% endif %}
                     </td>
+
                   </tr>
                 {% endif %}
               {% endfor %}
@@ -112,15 +111,35 @@
       </div>
     </div>
 
-    <div id="UpdateCurrYear">
-      <h3>Update Current Year</h1>
-      <form method="POST">
-        <label for="year">Current Year:</label>
-        <input type="number" id="year" name="year" min="1900" max="2100" value="{{ current_year }}" required>
-        <br>
-        <button type="submit">Update</button>
-      </form>
+    <div class="row paddingHere">
+      <div class="col-md-6">
+        <div id="UpdateCurrYear">
+          <h3>Update Current Year</h3>
+          <form method="POST">
+            <div class="form-group">
+              <label for="year">Current Year:</label>
+              <input type="number" id="year" name="year" min="1900" max="2100" value="{{ current_year }}" class="form-control" style="width: 150px;" required>
+            </div>
+            <button type="submit" name="currYearBtn" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+    
+      <div class="col-md-6">
+        <div id="UpdatePaymentDeadline">
+          <h3>Update Payment Deadline Length</h3>
+          <form method="POST">
+            <div class="form-group">
+              <label for="day">Current Deadline:</label>
+              <input type="number" id="day" name="day" min="7" max="30" value="{{ deadline }}" class="form-control" style="width: 150px;" required>
+            </div>
+            <button type="submit" name="paymentDeadlineBtn" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
     </div>
+    
+    
     
     <!-- Make sure jQuery and DataTables are included -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
