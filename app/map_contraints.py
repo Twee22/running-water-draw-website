@@ -52,6 +52,19 @@ def validate_boothLoc(form, field):
                 # If they're not next to each other, raise a validation error
                 raise ValidationError('Booths must be next to each other.')
             
+def validate_boothLoc_admin(form, field):
+    # Get a list of booth locations from the field data and remove any whitespace
+    boothLoc = get_clean_boothLoc(field.data)
+    if not all(char.isdigit() or char == ',' for char in boothLoc):
+            raise ValidationError('Booth Location can only contain numbers and commas.')
+
+    booth_list = boothLoc.split(",")
+
+    # Check if booth(s) entered are in map_locations
+    for loc in booth_list:
+        if int(loc) not in map_locations:
+            raise ValidationError(f"Booth location {loc} is not a valid location.")
+            
  # Define a function to validate booth locations
 def validate_boothLoc_available(form, field):
     # Get a clean list of booth locations without any spaces
