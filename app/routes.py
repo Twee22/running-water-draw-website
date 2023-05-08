@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash
 from flask_login import login_required, current_user, login_user, logout_user
 from app import app, db, ckeditor
-from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
+from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm, AdminEditForm
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, payment_deadline_days
@@ -214,6 +214,21 @@ def adminDB():
         db.session.commit()
         return redirect(url_for('adminapp'))
     return render_template('adminDB.html', form=form)
+
+@app.route('/DBEdit/<int:id>', methods=['GET', 'POST'])
+def DBEdit(id):
+    vendor = Vendor.query.get_or_404(id)
+    form = AdminEditForm(obj=vendor)
+    if form.validate_on_submit():
+        print('I am here')
+        form.populate_obj(vendor)
+        db.session.commit()
+        flash('Vendor has been updated', 'success')
+        return redirect(url_for('adminapp'))
+    else:
+        print(form.errors)
+    return render_template('DBEdit.html', form=form, vendor=vendor)
+
     
 @app.route('/adminapp/download_data')
 def admin_download_data():

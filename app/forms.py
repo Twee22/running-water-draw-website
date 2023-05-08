@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanField, PasswordField, DateTimeField, FloatField
+from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanField, PasswordField, DateTimeField, FloatField, SelectField
 from wtforms.validators import InputRequired, Length, NumberRange, DataRequired, ValidationError
 from flask_ckeditor import CKEditorField
 from datetime import datetime, timezone
@@ -36,6 +36,22 @@ class AdminApplicationForm(FlaskForm):
     date = DateTimeField('Date and Time', format='%H:%M:%S %m-%d-%Y', default=datetime.strptime(datetime.now(pytz.timezone('US/Central')).strftime('%H:%M:%S %m-%d-%Y'), '%H:%M:%S %m-%d-%Y'))
     payment_amount = FloatField('Payment Amount', render_kw={"placeholder": "Payment Amount Here"})
     submit = SubmitField('Submit')
+
+class AdminEditForm(FlaskForm):
+    name = StringField('Name', validators=[InputRequired(), validate_no_digits], render_kw={"placeholder": "Your Full Name Here"})
+    business = StringField('Business Name', validators=[InputRequired()], render_kw={"placeholder": "Business Name Here"})
+    address = StringField('Address', validators=[InputRequired()], render_kw={"placeholder": "Address Here"})
+    citystatezip = StringField('City, State, Zip', validators=[InputRequired()], render_kw={"placeholder": "City, State, and Zip"})
+    email = EmailField('Email Address', validators=[InputRequired()], render_kw={"placeholder": "Email Here"})
+    phoneNum = StringField('Phone Number', validators=[InputRequired()], render_kw={"placeholder": "Phone Number Here"})
+    desc = StringField('Description of Sales Items', validators=[InputRequired()], render_kw={"placeholder": "Write a Description of What Your Business Does Here"})
+    boothNum = IntegerField('Number of Booths', validators=[InputRequired(), validate_boothNum_loc_match])
+    boothLoc = StringField('Booth Location(s)', validators=[InputRequired(), validate_boothLoc_admin], render_kw={"placeholder": "Booth Location(s) here"})
+    tableNum = IntegerField('Number of Tables', validators=[InputRequired(), NumberRange(min=0, max=20)])
+    date = DateTimeField('Date and Time', format='%H:%M:%S %m-%d-%Y', default=datetime.strptime(datetime.now(pytz.timezone('US/Central')).strftime('%H:%M:%S %m-%d-%Y'), '%H:%M:%S %m-%d-%Y'))
+    payment_amount = FloatField('Payment Amount', render_kw={"placeholder": "Payment Amount Here"})
+    status = SelectField(u'Status', choices=[('pendingApproval', 'Pending Approval'), ('pendingPayment', 'Pending Payment'), ('denied', 'Denied'), ('finalized', 'Finalized')])
+    submit = SubmitField('Save Changes')
 
 class AdminForm(FlaskForm):
     payment_deadline = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
