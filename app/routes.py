@@ -217,17 +217,27 @@ def adminDB():
 
 @app.route('/DBEdit/<int:id>', methods=['GET', 'POST'])
 def DBEdit(id):
+    # Get the vendor object with the specified ID or return a 404 error if not found
     vendor = Vendor.query.get_or_404(id)
+    # Create a new AdminEditForm and pre-populate it with the data from the vendor object
     form = AdminEditForm(obj=vendor)
+    
+    # If the form has been submitted and passes validation...
     if form.validate_on_submit():
-        print('I am here')
+        # Update the vendor object with the data from the form
         form.populate_obj(vendor)
+        # Commit the changes to the database
         db.session.commit()
+        # Flash a success message to the user
         flash('Vendor has been updated', 'success')
+        # Redirect the user to the adminapp page
         return redirect(url_for('adminapp'))
     else:
+        # If the form has not been submitted or does not pass validation, print any errors to the console
         print(form.errors)
+    # Render the DBEdit.html template, passing in the form and vendor objects
     return render_template('DBEdit.html', form=form, vendor=vendor)
+
 
     
 @app.route('/adminapp/download_data')
