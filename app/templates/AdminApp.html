@@ -55,6 +55,12 @@
 
                     <!-- The following column shows the vendor's payment amount and provides a button for the administrator to send an email to the vendor. -->
                     <td>
+                      
+                      <!--[This is the edit button]-->
+                      <a href="/DBEdit/{{ item.id }}" class="btn btn-primary">
+                        <span>&#9998;</span>
+                        Edit
+                      </a>
                       <div class="text-center mb-3">
                         <form class="reset" method="POST" action="/adminapp/{{ item.id }}">
                           <input type="hidden" name="action" value="send_email">
@@ -88,10 +94,6 @@
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
               </svg>
               Add
-            </a>
-            <a href="{{ url_for('adminDB') }}" class="btn btn-primary">
-              <span>&#9998;</span>
-              Edit
             </a>
           </div>
           

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.css')}}"/>
+<script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+
+<div class="container-fluid">
+    <h1 class="appTitle">Edit Vendor Information</h1>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <form method="POST" action="/DBEdit/{{ vendor.id }}">
+            {{ form.csrf_token() }}
+            {% if form.errors %}
+                <ul class="errors">
+                    {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                        {% for error in field_errors %}
+                            <li>{{ form[field_name].label }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}    
+            <div class="form-group">
+                {{form.name.label}}{{form.name(value=vendor.name,class="form-control")}}
+                {{form.business.label}}{{form.business(value=vendor.business,class="form-control")}}
+                {{form.address.label}}{{form.address(value=vendor.address,class="form-control")}}
+                {{form.citystatezip.label}}{{form.citystatezip(value=vendor.citystatezip,class="form-control")}}
+                {{form.email.label}}{{form.email(value=vendor.email,class="form-control")}}
+                {{form.phoneNum.label}}{{form.phoneNum(value=vendor.phoneNum,class="form-control")}}
+                {{form.desc.label}}{{form.desc(value=vendor.desc,class="form-control")}}
+                {{form.boothLoc.label}}{{form.boothLoc(value=vendor.boothLoc,class="form-control")}}
+                {{form.boothNum.label}}{{form.boothNum(value=vendor.boothNum,class="form-control")}}
+                {{form.tableNum.label}}{{form.tableNum(value=vendor.tableNum,class="form-control")}}
+                {{form.payment_amount.label}}{{form.payment_amount(value=vendor.payment_amount,class="form-control")}}
+                {{form.status.label}}{{form.status(value=vendor.status,class="form-control")}}
+                {{form.submit}}
+              </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
