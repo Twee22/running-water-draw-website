@@ -110,34 +110,55 @@
       </div>
       </div>
     </div>
+    
 
     <div class="row paddingHere">
-      <div class="col-md-6">
+      <!-- Column 1 -->
+      <div class="col-md-3">
         <div id="UpdateCurrYear">
           <h3>Update Current Year</h3>
           <form method="POST">
             <div class="form-group">
               <label for="year">Current Year:</label>
+              <!-- Input field for current year with default value from Flask template variable -->
               <input type="number" id="year" name="year" min="1900" max="2100" value="{{ current_year }}" class="form-control" style="width: 150px;" required>
             </div>
+            <!-- Button to submit form to update current year -->
             <button type="submit" name="currYearBtn" class="btn btn-primary">Update</button>
           </form>
         </div>
       </div>
     
-      <div class="col-md-6">
+      <!-- Column 2 -->
+      <div class="col-md-4">
         <div id="UpdatePaymentDeadline">
-          <h3>Update Payment Deadline Length</h3>
+          <h3>Update Payment Deadline</h3>
           <form method="POST">
             <div class="form-group">
               <label for="day">Current Deadline:</label>
+              <!-- Input field for payment deadline with default value from Flask template variable -->
               <input type="number" id="day" name="day" min="7" max="30" value="{{ deadline }}" class="form-control" style="width: 150px;" required>
             </div>
+            <!-- Button to submit form to update payment deadline -->
             <button type="submit" name="paymentDeadlineBtn" class="btn btn-primary">Update</button>
           </form>
         </div>
       </div>
+    
+      <!-- Column 3 -->
+      <div class="col-md-4">
+        <div id="OpenFolder">
+          <h3>Change Photos</h3>
+          <label for="openHeadFolderBtn">Header:</label>
+          <!-- Button to open header folder with URL from data-url attribute -->
+          <button type="button" class="btn btn-primary" id="openHeaderFolderBtn" data-url="/static/header">Open</button>
+          <label for="openCarFolderBtn">Carousel:</label>
+          <!-- Button to open carousel folder with URL from data-url attribute -->
+          <button type="button" class="btn btn-primary" id="openCarFolderBtn" data-url="/static/carousel">Open</button>
+        </div>
+      </div>
     </div>
+    
     
     
     
@@ -163,6 +184,26 @@
           button.style.backgroundColor = '';
         }, 1000);
       });
+
+        // Get the button element for opening the header folder
+        const openHeaderFolderBtn = document.getElementById('openHeaderFolderBtn');
+        // Add a click event listener to the button
+        openHeaderFolderBtn.addEventListener('click', () => {
+          // Get the URL of the folder from the data-url attribute of the button element
+          const folderUrl = openHeaderFolderBtn.getAttribute('data-url');
+          // Navigate to the folder URL
+          window.location.href = folderUrl;
+          });
+
+        // Get the button element for opening the carousel folder
+        const openCarFolderBtn = document.getElementById('openCarFolderBtn');
+        // Add a click event listener to the button
+        openCarFolderBtn.addEventListener('click', () => {
+          // Get the URL of the folder from the data-url attribute of the button element
+          const folderUrl = openCarFolderBtn.getAttribute('data-url');
+          // Navigate to the folder URL
+          window.location.href = folderUrl;
+          });
 
     </script>
 
