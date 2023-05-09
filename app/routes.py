@@ -60,7 +60,7 @@ def application():
                    desc=form.desc.data,
                    boothNum=form.boothNum.data, boothLoc=form.boothLoc.data, tableNum=form.tableNum.data,
                    date=form.date.data, status="pendingApproval",
-                   payment_amount=(10 * form.tableNum.data) + boothPrice, year=currYear)  # create vendor instance with form data
+                   payment_amount=(10 * form.tableNum.data) + int(boothPrice), year=currYear)  # create vendor instance with form data
 
         db.session.add(v)  # add vendor to database session
         db.session.commit()  # commit changes to database
@@ -85,6 +85,18 @@ def application():
 def set_cutoff():
     deadline_date = request.form['deadline_date']
     session['deadline_date'] = deadline_date
+    return redirect(url_for('adminapp'))
+
+@app.route('/update_pricing', methods=['POST'])
+def update_pricing():
+    one_booth_price = request.form['one_booth']
+    two_booths_price = request.form['two_booths']
+    one_booth_post_cutoff_price = request.form['one_booth_post_cutoff']
+    two_booths_post_cutoff_price = request.form['two_booths_post_cutoff']
+    session['one_booth_price'] = one_booth_price
+    session['two_booths_price'] = two_booths_price
+    session['one_booth_post_cutoff_price'] = one_booth_post_cutoff_price
+    session['two_booths_post_cutoff_price'] = two_booths_post_cutoff_price
     return redirect(url_for('adminapp'))
 
 
