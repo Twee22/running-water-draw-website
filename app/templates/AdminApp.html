@@ -146,17 +146,26 @@
           </form>
         </div>
       </div>
-      <div class="col-md-6 mt-3">
-        <form action="{{ url_for('set_cutoff') }}" method="POST">
-            <div class="form-group">
-                <label for="deadline_date">Pricing Cutoff Date:</label>
-                <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ session.get('deadline_date', '') }}">
-            </div>
-            <button type="submit" name="setDeadlineBtn" class="btn btn-primary">Set Cutoff</button>
-        </form>
+    
       <!-- Column 3 -->
-      <div class="col-md-4">
-        <div id="carousel-folder">
+      <div class="col-md-5">
+        <div id="UpdatePricingCutoff">
+          <h3>Update Pricing Cutoff</h3>
+          <form action="{{ url_for('set_cutoff') }}" method="POST">
+            <div class="form-group">
+              <label for="deadline_date">Pricing Cutoff Date:</label>
+              <!-- Input field for pricing cutoff date with default value from Flask session variable -->
+              <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ session.get('deadline_date', '') }}">
+            </div>
+            <!-- Button to submit form to update pricing cutoff date -->
+            <button type="submit" name="setDeadlineBtn" class="btn btn-primary">Set Cutoff</button>
+          </form>
+        </div>
+      </div>
+    
+      <!-- Column 4 -->
+      <div class="col-md-4 mt-3">
+        <div id="Photos">
           <h3>Photos</h3>
           <button type="button" id="open-header-folder-btn" class="btn btn-primary">Open Header</button>
           <input type="file" id="header-file-input" style="display: none;" directory webkitdirectory mozdirectory>
@@ -165,6 +174,7 @@
         </div>
       </div>
     </div>
+    
     
     
     
