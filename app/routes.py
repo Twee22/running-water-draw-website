@@ -22,7 +22,9 @@ def index():
 
     # Adds a hi to notes in the database so that it can be edited
     #a = AppText(notes = 'hi')
+    #b = CurrentYear(year = 2023)
     #db.session.add(a)
+    #db.session.add(b)
     #db.session.commit()
 
     vendors = Vendor.query.order_by(Vendor.boothNum)
