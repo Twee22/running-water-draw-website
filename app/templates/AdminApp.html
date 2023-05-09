@@ -149,14 +149,12 @@
     
       <!-- Column 3 -->
       <div class="col-md-4">
-        <div id="OpenFolder">
-          <h3>Change Photos</h3>
-          <label for="openHeadFolderBtn">Header:</label>
-          <!-- Button to open header folder with URL from data-url attribute -->
-          <button type="button" class="btn btn-primary" id="openHeaderFolderBtn" data-url="/static/header">Open</button>
-          <label for="openCarFolderBtn">Carousel:</label>
-          <!-- Button to open carousel folder with URL from data-url attribute -->
-          <button type="button" class="btn btn-primary" id="openCarFolderBtn" data-url="/static/carousel">Open</button>
+        <div id="carousel-folder">
+          <h3>Photos</h3>
+          <button type="button" id="open-header-folder-btn" class="btn btn-primary">Open Header</button>
+          <input type="file" id="header-file-input" style="display: none;" directory webkitdirectory mozdirectory>
+          <button type="button" id="open-carousel-folder-btn" class="btn btn-primary">Open Carousel</button>
+          <input type="file" id="carousel-file-input" style="display: none;" directory webkitdirectory mozdirectory>
         </div>
       </div>
     </div>
@@ -187,24 +185,18 @@
         }, 1000);
       });
 
-        // Get the button element for opening the header folder
-        const openHeaderFolderBtn = document.getElementById('openHeaderFolderBtn');
-        // Add a click event listener to the button
-        openHeaderFolderBtn.addEventListener('click', () => {
-          // Get the URL of the folder from the data-url attribute of the button element
-          const folderUrl = openHeaderFolderBtn.getAttribute('data-url');
-          // Navigate to the folder URL
-          window.location.href = folderUrl;
+          const openHeaderFolderBtn = document.getElementById('open-header-folder-btn');
+          const headerFileInput = document.getElementById('header-file-input');
+
+          openHeaderFolderBtn.addEventListener('click', () => {
+            headerFileInput.click();
           });
 
-        // Get the button element for opening the carousel folder
-        const openCarFolderBtn = document.getElementById('openCarFolderBtn');
-        // Add a click event listener to the button
-        openCarFolderBtn.addEventListener('click', () => {
-          // Get the URL of the folder from the data-url attribute of the button element
-          const folderUrl = openCarFolderBtn.getAttribute('data-url');
-          // Navigate to the folder URL
-          window.location.href = folderUrl;
+          const openCarouselFolderBtn = document.getElementById('open-carousel-folder-btn');
+          const carouselFileInput = document.getElementById('carousel-file-input');
+
+          openCarouselFolderBtn.addEventListener('click', () => {
+            carouselFileInput.click();
           });
 
     </script>
