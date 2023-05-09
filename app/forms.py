@@ -3,11 +3,11 @@ from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanF
 from wtforms.validators import InputRequired, Length, NumberRange, DataRequired, ValidationError
 from flask_ckeditor import CKEditorField
 from datetime import datetime, timezone
-from app.map_contraints import validate_boothLoc, validate_boothLoc_admin, validate_boothNum_loc_match, validate_boothLoc_available,  validate_no_digits, validate_phoneNum 
+from app.map_contraints import validate_boothLoc, validate_boothLoc_admin, validate_boothNum_loc_match, validate_boothLoc_available,  validate_no_digits, validate_phoneNum, validate_no_special_chars
 import pytz
 
 class ApplicationForm(FlaskForm):    
-    name = StringField('Name', validators=[InputRequired(), validate_no_digits], render_kw={"placeholder": "Your Full Name Here"})
+    name = StringField('Name', validators=[InputRequired(), validate_no_digits, validate_no_special_chars], render_kw={"placeholder": "Your Full Name Here"})
     business = StringField('Business Name', validators=[InputRequired()], render_kw={"placeholder": "Business Name Here"})
     address = StringField('Address', validators=[InputRequired()], render_kw={"placeholder": "Address Here"})
     citystatezip = StringField('City, State, Zip', validators=[InputRequired()], render_kw={"placeholder": "City, State, and Zip"})

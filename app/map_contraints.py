@@ -96,6 +96,11 @@ def validate_no_digits(form, field):
     # Check if the name contains any digits
     if any(char.isdigit() for char in field.data):
         raise ValidationError('cannot contain any digits.')
+    
+def validate_no_special_chars(form, field):
+    #Custom validator that checks if the name field contains special characters.
+    if any(not c.isalpha() and not c.isspace() for c in field.data):
+        raise ValidationError("Name should only contain letters and spaces")
 
 # Define a function to validate that a phone number has a valid length
 def validate_phoneNum(form, field):
@@ -108,3 +113,4 @@ def validate_phoneNum(form, field):
     # Check if the phone number contains only digits
     if not phoneNum.isdigit():
         raise ValidationError('Phone number can only contain digits.')
+    
