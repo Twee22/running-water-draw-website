@@ -1,12 +1,13 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash, send_from_directory
 from flask_login import login_required, current_user, login_user, logout_user
 from app import app, db, ckeditor
-from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm
+from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm, AdminEditForm
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, payment_deadline_days
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
+from config import Config
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -20,7 +21,9 @@ def index():
 
     # Adds a hi to notes in the database so that it can be edited
     #a = AppText(notes = 'hi')
+    #b = CurrentYear(year = 2023)
     #db.session.add(a)
+    #db.session.add(b)
     #db.session.commit()
 
     vendors = Vendor.query.order_by(Vendor.boothNum)
@@ -96,7 +99,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if (form.username.data == "admin" and form.password.data == "admin"):
+        if (form.username.data == Config.admin_username and form.password.data == Config.admin_password):
             return redirect(url_for('adminapp'))
         if user is None or not user.check_password(form.password.data):
             return redirect(url_for('login'))
@@ -214,6 +217,31 @@ def adminDB():
         db.session.commit()
         return redirect(url_for('adminapp'))
     return render_template('adminDB.html', form=form)
+
+@app.route('/DBEdit/<int:id>', methods=['GET', 'POST'])
+def DBEdit(id):
+    # Get the vendor object with the specified ID or return a 404 error if not found
+    vendor = Vendor.query.get_or_404(id)
+    # Create a new AdminEditForm and pre-populate it with the data from the vendor object
+    form = AdminEditForm(obj=vendor)
+    
+    # If the form has been submitted and passes validation...
+    if form.validate_on_submit():
+        # Update the vendor object with the data from the form
+        form.populate_obj(vendor)
+        # Commit the changes to the database
+        db.session.commit()
+        # Flash a success message to the user
+        flash('Vendor has been updated', 'success')
+        # Redirect the user to the adminapp page
+        return redirect(url_for('adminapp'))
+    else:
+        # If the form has not been submitted or does not pass validation, print any errors to the console
+        print(form.errors)
+    # Render the DBEdit.html template, passing in the form and vendor objects
+    return render_template('DBEdit.html', form=form, vendor=vendor)
+
+
     
 @app.route('/adminapp/download_data')
 def admin_download_data():

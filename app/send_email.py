@@ -1,5 +1,6 @@
 from flask import Flask, url_for
 from app import app
+from config import Config
 from flask_mail import Mail, Message
 
 
@@ -8,8 +9,8 @@ app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'testemailschool50@gmail.com' # enter your email address here
-app.config['MAIL_PASSWORD'] = 'zktfwkjnfxnnttfk' # enter your email password here
+app.config['MAIL_USERNAME'] =  Config.email# enter your email address here
+app.config['MAIL_PASSWORD'] =  Config.email_password# enter your email password here
 
 # create mail instance
 mail = Mail(app)

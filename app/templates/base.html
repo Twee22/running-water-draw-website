@@ -1,17 +1,16 @@
 <!doctype html>
-<html>
-  <html lang="en"></html>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-    <head>
-      <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='./index.css') }}">
-
-      {% if title %}
-      <title>{{ title }} - Running Water Draw Festival</title>
-      {% else %}
-      <title>Running Water Draw Festival</title>
-      {% endif %}
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for ('static', filename='./index.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='header/favicon.ico') }}">
+    {% if title %}
+        <title>{{ title }} - Running Water Draw Festival</title>
+    {% else %}
+        <title>Running Water Draw Festival</title>
+    {% endif %}
+</head>
     <body>
       <!-- Nav bar with links to Home, PDF, Vendor, Photos, and Contact Us-->
       <div class="nav-bar">
