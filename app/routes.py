@@ -118,6 +118,11 @@ def adminapp():
     form = AdminForm()
     data = Vendor.query.all()
     appData = AppText.query.first()
+
+    if form.validate_on_submit():
+        appData.notes = form.notes.data
+        db.session.commit()
+
     currYear = CurrentYear.query.first()
 
     # Check if the payment deadline is already set in the session
