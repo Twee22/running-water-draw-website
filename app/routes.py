@@ -7,6 +7,7 @@ from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, payment_deadline_days
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
+from config import Config
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -21,7 +22,9 @@ def index():
 
     # Adds a hi to notes in the database so that it can be edited
     #a = AppText(notes = 'hi')
+    #b = CurrentYear(year = 2023)
     #db.session.add(a)
+    #db.session.add(b)
     #db.session.commit()
 
     vendors = Vendor.query.order_by(Vendor.boothNum)
@@ -97,7 +100,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        if (form.username.data == "admin" and form.password.data == "admin"):
+        if (form.username.data == Config.admin_username and form.password.data == Config.admin_password):
             return redirect(url_for('adminapp'))
         if user is None or not user.check_password(form.password.data):
             return redirect(url_for('login'))

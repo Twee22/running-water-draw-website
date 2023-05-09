@@ -1,8 +1,8 @@
-"""Create db, now with year
+"""empty message
 
-Revision ID: 60131410d00c
+Revision ID: 140e719cf77f
 Revises: 
-Create Date: 2023-05-02 15:09:57.743944
+Create Date: 2023-05-08 19:17:27.275396
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '60131410d00c'
+revision = '140e719cf77f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,6 +23,11 @@ def upgrade():
     sa.Column('notes', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('current_year',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('year', sa.Integer(), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=64), nullable=True),
@@ -31,7 +36,7 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     with op.batch_alter_table('user', schema=None) as batch_op:
-        batch_op.create_index(batch_op.f('ix_user_email'), ['email'], unique=True)
+        batch_op.create_index(batch_op.f('ix_user_email'), ['email'], unique=False)
         batch_op.create_index(batch_op.f('ix_user_username'), ['username'], unique=True)
 
     op.create_table('vendor',
@@ -51,8 +56,7 @@ def upgrade():
     sa.Column('payment_amount', sa.Float(), nullable=False),
     sa.Column('status', sa.String(), nullable=False),
     sa.Column('year', sa.Integer(), nullable=False),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_vendor',
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -72,5 +76,6 @@ def downgrade():
         batch_op.drop_index(batch_op.f('ix_user_email'))
 
     op.drop_table('user')
+    op.drop_table('current_year')
     op.drop_table('app_text')
     # ### end Alembic commands ###
