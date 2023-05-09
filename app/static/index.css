@@ -273,6 +273,9 @@ map on vendor application page
     padding: 10px 0;
     font-size: 17px;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .item {
@@ -418,6 +421,7 @@ classes that style the carousel
     position: relative;
     padding: 50px 50px;
     justify-content: space-evenly;
+    overflow: hidden;
 }
 
 .form {

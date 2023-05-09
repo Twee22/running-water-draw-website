@@ -18,18 +18,18 @@
                 {% endfor %}
             </ul>
         {% endif %}
-<div class="mt-4 background">
-    <div class="col-12 col-md-6 mb-4">
-        <div class="map_width">
-            <div class="grid-container-vendor">
-                <div class="reserved">Reserved</div>
-                <div class="item_legend">#</div>
-                <div class="pend">Pending</div>
-                <div class="pend_legend">#</div>
-                <div class="available">Available</div>
-                <div class="available_legend">#</div>
-                <div class="legend_filler"></div>
-                
+    <div class="mt-4 background">
+        <div class="col-12 col-md-6 mb-4">
+            <div class="map_width">
+                <div class="grid-container-vendor">
+                    <div class="reserved">Reserved</div>
+                    <div class="item_legend">#</div>
+                    <div class="pend">Pending</div>
+                    <div class="pend_legend">#</div>
+                    <div class="available">Available</div>
+                    <div class="available_legend">#</div>
+                    <div class="legend_filler"></div>
+                    
                     {% for cell in range(12) %}
                         <div class="filler"></div>
                     {% endfor %}
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </div>
-</div>
+    </div>
 
 <script>
     function setBoothLoc(boothNum) {
