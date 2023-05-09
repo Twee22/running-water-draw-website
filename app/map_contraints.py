@@ -9,7 +9,7 @@ wall_booths = [(128, 126), (126, 125), (86, 85), (46, 45), (45, 44), (44, 43), (
 
 # Define a function to remove all spaces of boothLoc
 def get_clean_boothLoc(boothLoc):
-    return boothLoc.replace(' ', '') 
+    return boothLoc.strip()
 
 # Define a function that checks if entered booth locations are adjecent horizontally
 def check_loc(user_booth1, user_booth2):
@@ -31,14 +31,15 @@ def validate_boothLoc(form, field):
     # Get a list of booth locations from the field data and remove any whitespace
     boothLoc = get_clean_boothLoc(field.data)
     if not all(char.isdigit() or char == ',' for char in boothLoc):
-            raise ValidationError('Booth Location can only contain numbers and commas.')
+            raise ValidationError('Booth Location can only contain numbers and commas. No spaces. Please enter Booth Location in the form: #,#')
 
+    #boothLoc = field.data
     booth_list = boothLoc.split(",")
 
     # Check if booth(s) entered are in map_locations
     for loc in booth_list:
         if int(loc) not in map_locations:
-            raise ValidationError(f"Booth location {loc} is not a valid location.")
+            raise ValidationError(f"Booth Location {loc} is not a valid location.")
     
     # If there's more than one booth in the list, check if each booth is next to the previous booth
     if len(booth_list) > 1:

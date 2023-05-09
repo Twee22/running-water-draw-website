@@ -29,7 +29,7 @@
                     <div class="available">Available</div>
                     <div class="available_legend">#</div>
                     <div class="legend_filler"></div>
-                    
+
                     {% for cell in range(12) %}
                         <div class="filler"></div>
                     {% endfor %}
@@ -86,6 +86,11 @@
                             {% else %}
                               {{form.boothLoc(class="form-control")}}
                             {% endif %}
+                          </div>
+                          <div>
+                            <strong>Booth Registration Information:</strong><br>
+                            With regards booth location options, you can currently register a maximum of <strong>two booths</strong> online. If you need <strong>more</strong>, please email us. If you are a <strong>charity</strong>, please also email us.
+                            <br><br>
                           </div>
                           <div class="note">
                             {{ appText.notes|safe }}
