@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session, send_file, flash
+from flask import render_template, request, redirect, url_for, session, send_file, flash, send_from_directory
 from flask_login import login_required, current_user, login_user, logout_user
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm, AdminEditForm
@@ -15,7 +15,6 @@ from config import Config
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
-    sponsor_images = os.listdir("./app/static/sponsor")
     #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
     #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
@@ -33,7 +32,7 @@ def index():
     currYear = CurrentYear.query.first().year
     vendor_dict = update(vendors, current_year = currYear)
     
-    return render_template('index.html', image_name = image_names, sponsor_image = sponsor_images, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
+    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
 
 @app.route('/info')
 def info():
@@ -164,6 +163,7 @@ def adminapp():
                 pass
 
     return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, deadline=deadline)
+
 
 
 # Define a route for the admin app that takes an integer parameter called id and supports GET and POST requests

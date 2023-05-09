@@ -112,34 +112,40 @@
       </div>
       </div>
     </div>
+    
 
     <div class="row paddingHere">
-      <div class="col-md-6">
+      <!-- Column 1 -->
+      <div class="col-md-3">
         <div id="UpdateCurrYear">
           <h3>Update Current Year</h3>
           <form method="POST">
             <div class="form-group">
               <label for="year">Current Year:</label>
+              <!-- Input field for current year with default value from Flask template variable -->
               <input type="number" id="year" name="year" min="1900" max="2100" value="{{ current_year }}" class="form-control" style="width: 150px;" required>
             </div>
+            <!-- Button to submit form to update current year -->
             <button type="submit" name="currYearBtn" class="btn btn-primary">Update</button>
           </form>
         </div>
       </div>
     
-      <div class="col-md-6">
+      <!-- Column 2 -->
+      <div class="col-md-4">
         <div id="UpdatePaymentDeadline">
-          <h3>Update Payment Deadline Length</h3>
+          <h3>Update Payment Deadline</h3>
           <form method="POST">
             <div class="form-group">
               <label for="day">Current Deadline:</label>
+              <!-- Input field for payment deadline with default value from Flask template variable -->
               <input type="number" id="day" name="day" min="7" max="30" value="{{ deadline }}" class="form-control" style="width: 150px;" required>
             </div>
+            <!-- Button to submit form to update payment deadline -->
             <button type="submit" name="paymentDeadlineBtn" class="btn btn-primary">Update</button>
           </form>
         </div>
       </div>
-
       <div class="col-md-6 mt-3">
         <form action="{{ url_for('set_cutoff') }}" method="POST">
             <div class="form-group">
@@ -148,8 +154,18 @@
             </div>
             <button type="submit" name="setDeadlineBtn" class="btn btn-primary">Set Cutoff</button>
         </form>
+      <!-- Column 3 -->
+      <div class="col-md-4">
+        <div id="carousel-folder">
+          <h3>Photos</h3>
+          <button type="button" id="open-header-folder-btn" class="btn btn-primary">Open Header</button>
+          <input type="file" id="header-file-input" style="display: none;" directory webkitdirectory mozdirectory>
+          <button type="button" id="open-carousel-folder-btn" class="btn btn-primary">Open Carousel</button>
+          <input type="file" id="carousel-file-input" style="display: none;" directory webkitdirectory mozdirectory>
+        </div>
       </div>
     </div>
+    
     
     
     
@@ -175,6 +191,20 @@
           button.style.backgroundColor = '';
         }, 1000);
       });
+
+          const openHeaderFolderBtn = document.getElementById('open-header-folder-btn');
+          const headerFileInput = document.getElementById('header-file-input');
+
+          openHeaderFolderBtn.addEventListener('click', () => {
+            headerFileInput.click();
+          });
+
+          const openCarouselFolderBtn = document.getElementById('open-carousel-folder-btn');
+          const carouselFileInput = document.getElementById('carousel-file-input');
+
+          openCarouselFolderBtn.addEventListener('click', () => {
+            carouselFileInput.click();
+          });
 
     </script>
 
