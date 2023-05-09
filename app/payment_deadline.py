@@ -53,9 +53,6 @@ def get_booth_price(form_data, deadline_date):
     return boothPrice
 
 
-
-
-
 # This function calculates the future date and time based on the current time and the deadline set
 def future_times():
     current_time = datetime.datetime.now()
@@ -74,7 +71,7 @@ def check_time(deadline):
 # This function checks the payment deadlines for all vendors in the database and sets the status to 'deadlineReached' if necessary
 def check_db(vendors):
     for vendor in vendors:
-        if check_time(vendor.payment_deadline):
+        if vendor.status == 'pendingPayment' and check_time(vendor.payment_deadline):
             vendor.status = 'deadlineReached'
     # Commit the changes to the database
     db.session.commit()

@@ -7,7 +7,6 @@ from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, get_booth_price, payment_deadline_days
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
-import datetime 
 from config import Config
 
 @app.route('/', methods=['GET', 'POST'])
@@ -120,20 +119,31 @@ def confirmation():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    # Create a login form
     form = LoginForm()
+
+    # If the form is submitted and valid
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        # Check if the user is the admin and redirect to adminapp if true
         if (form.username.data == Config.admin_username and form.password.data == Config.admin_password):
             return redirect(url_for('adminapp'))
+        # Otherwise, try to find the user in the database and authenticate them
+        user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
+            # Redirect back to the login page if authentication fails
             return redirect(url_for('login'))
+        # Log in the user and redirect to the index page
         login_user(user, remember=form.remember_me.data)
         return redirect(url_for('index'))
+
+    # Render the login page with the form
     return render_template('login.html', title='Sign In', form=form)
 
 @app.route('/logout')
 def logout():
+    # Log out the user
     logout_user()
+    # Render the index page
     return render_template('index.html')
 
 @app.route('/adminapp', methods=['GET', 'POST'])
@@ -227,21 +237,21 @@ def adminappupdate(id):
         return render_template(url_for('adminapp'))
 
     
-@login_required
+@login_required # This decorator ensures that only logged-in users can access this page
 @app.route('/adminDB', methods=['GET', 'POST'])
 def adminDB():
     form = AdminApplicationForm()
     if form.validate_on_submit():
-        currYear = CurrentYear.query.first().year
+        currYear = CurrentYear.query.first().year # Get the current year from the database
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
                    boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
                    payment_amount = form.payment_amount.data, year=currYear)
         
-        db.session.add(v)
-        db.session.commit()
-        return redirect(url_for('adminapp'))
-    return render_template('adminDB.html', form=form)
+        db.session.add(v)  # Add the new vendor to the database
+        db.session.commit()  # Commit the changes to the database
+        return redirect(url_for('adminapp'))  # Redirect to the adminapp page
+    return render_template('adminDB.html', form=form)  # Render the adminDB.html template with the form object
 
 @app.route('/DBEdit/<int:id>', methods=['GET', 'POST'])
 def DBEdit(id):
@@ -268,16 +278,24 @@ def DBEdit(id):
 
 
     
+# This route is used to download data from the database as a CSV file
+# The route can only be accessed by an admin user
 @app.route('/adminapp/download_data')
 def admin_download_data():
 
+    # Open a new CSV file to write the data to
     with open('database_dump.csv', 'w', newline='') as csv_file:
+        # Use the CSV writer to write the data to the file
         wr = csv.writer(csv_file, delimiter=",")
+        # Get all the Vendor records from the database
         records = Vendor.query.all()
+        # Write the header row to the CSV file
         wr.writerow(list(filter(None,[ i[0] if (not i[0].startswith('_') and not i[0] == "followers") else None for i in Vendor.__dict__.items()])))
+        # Write the data for each record to the CSV file
         for r in records:
             wr.writerow(r)
             
+    # Return the CSV file as a downloadable attachment
     return send_file(
         '../database_dump.csv',
         mimetype='text/csv',
@@ -285,24 +303,35 @@ def admin_download_data():
         as_attachment=True
     )
 
+
+# Payment confirmation page
 @app.route('/payment/<int:id>', methods=['POST', 'GET'])
 def payment(id):
+    # Get the vendor object from the database based on the ID
     vendor_status_update = Vendor.query.get_or_404(id)
+    # Render the PaymentConfirmation.html template and pass in the vendor object
     return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
 
-    
+# Payment capture route
 @app.route('/payments/<int:id>/capture', methods=['POST', 'GET'])
 def payment_capture(id):
+    # Get the vendor object from the database based on the ID
     vendor_status_update = Vendor.query.get_or_404(id)
     if request.method == 'POST':
+        # If the request method is POST, update the vendor's status to 'finalized'
         vendor_status_update.status = 'finalized'
+        # Send a payment confirmation email to the vendor
         send_payment_confirmation_email(vendor_status_update)
         while True:
             try:
+                # Attempt to commit the changes to the database
                 db.session.commit()
                 break
             except:
+                # If there is an error, return an error message
                 return "There was a problem updating the status of the vendor"
+        # Render the PaymentConfirmation.html template and pass in the vendor object
         return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
     elif request.method == 'GET':
+        # If the request method is GET, simply render the PaymentConfirmation.html template and pass in the vendor object
         return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
