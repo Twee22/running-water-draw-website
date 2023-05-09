@@ -57,7 +57,8 @@ def validate_boothLoc_admin(form, field):
     # Get a list of booth locations from the field data and remove any whitespace
     boothLoc = get_clean_boothLoc(field.data)
     if not all(char.isdigit() or char == ',' for char in boothLoc):
-            raise ValidationError('Booth Location can only contain numbers and commas.')
+        raise ValidationError('Booth Location can only contain numbers and commas. No spaces. Please enter Booth Location in the form: #,#')
+
 
     booth_list = boothLoc.split(",")
 

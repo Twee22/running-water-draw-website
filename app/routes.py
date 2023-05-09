@@ -4,9 +4,10 @@ from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm, AdminEditForm
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
-from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, payment_deadline_days
+from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, get_booth_price, payment_deadline_days
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
 import csv, os
+import datetime 
 from config import Config
 
 @app.route('/', methods=['GET', 'POST'])
@@ -51,16 +52,14 @@ def application():
     vendor_dict = update(vendors, current_year=currYear)
     
     if form.validate_on_submit():
-        if form.boothNum.data == 1:
-            boothPrice = 150
-        else:
-            boothPrice = 200
-
+        deadline_date = datetime.datetime(currYear, 8, 1).date()
+        boothPrice = get_booth_price(form, deadline_date)
 
         v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
                    boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
                    payment_amount = (10 * form.tableNum.data) + boothPrice, year=currYear)
+        
         db.session.add(v)
         db.session.commit()
         session['name'] = str(v.name)
@@ -213,6 +212,7 @@ def adminDB():
                    citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
                    boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
                    payment_amount = form.payment_amount.data, year=currYear)
+        
         db.session.add(v)
         db.session.commit()
         return redirect(url_for('adminapp'))
