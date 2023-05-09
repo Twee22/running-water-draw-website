@@ -19,7 +19,7 @@
     <p>Application submitted on {{ vendor.date }}</p>
     <p>Cost: ${{ vendor.payment_amount }}</p>
 
-    <script src="https://www.paypal.com/sdk/js?client-id=AU7r_2RfDPHln4inQxzcbuf6INXxQDeL3wC53Bm7saJKZLB9Oqf1kSl-bOgYpWRPQhqT6ijeSMtbDFrI&currency=USD"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id={{ paypal_id }}&currency=USD"></script>
         <div id="paypal-button-container"></div>
         
     <script>

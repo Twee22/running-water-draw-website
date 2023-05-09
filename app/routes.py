@@ -263,7 +263,7 @@ def admin_download_data():
 @app.route('/payment/<int:id>', methods=['POST', 'GET'])
 def payment(id):
     vendor_status_update = Vendor.query.get_or_404(id)
-    return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+    return render_template('PaymentConfirmation.html', vendor=vendor_status_update, paypal_id=Config.paypal_id)
 
     
 @app.route('/payments/<int:id>/capture', methods=['POST', 'GET'])
@@ -278,6 +278,6 @@ def payment_capture(id):
                 break
             except:
                 return "There was a problem updating the status of the vendor"
-        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update, paypal_id=Config.paypal_id)
     elif request.method == 'GET':
-        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update, paypal_id=Config.paypal_id)
