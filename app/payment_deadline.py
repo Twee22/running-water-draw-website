@@ -14,10 +14,14 @@ def get_deadline():
     return payment_deadline_days
 
 # Check if submission is before the deadline
+import datetime
+
 def is_before_deadline(submission_date, deadline_date):
     # Convert submission_date to date object to compare with deadline_date
     submission_date = submission_date.date()
+    deadline_date = datetime.datetime.strptime(deadline_date, '%Y-%m-%d').date()
     return submission_date < deadline_date
+
 
 # Get the initial time of payment submission
 def save_initial_time():
