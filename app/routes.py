@@ -41,27 +41,31 @@ def info():
     session['boothLoc_'] = boothLoc
     return redirect(url_for('application'))
 
-@app.route('/application', methods=['GET', 'POST'])
+@app.route('/application', methods=['GET', 'POST'])  # create route for application page
 def application():
-    form = ApplicationForm()
-    appText = AppText.query.first()
-    boothLoc_ = session.get('boothLoc_', None)
-    
-    currYear = CurrentYear.query.first().year
-    vendors = Vendor.query.order_by(Vendor.boothNum)
-    vendor_dict = update(vendors, current_year=currYear)
-    
-    if form.validate_on_submit():
-        deadline_date = datetime.datetime(currYear, 8, 1).date()
-        boothPrice = get_booth_price(form, deadline_date)
+    form = ApplicationForm()  # create instance of application form
+    appText = AppText.query.first()  # get application text from database
+    boothLoc_ = session.get('boothLoc_', None)  # get booth location from session
 
-        v = Vendor(name = form.name.data, business = form.business.data, address = form.address.data, 
-                   citystatezip = form.citystatezip.data, email = form.email.data, phoneNum = form.phoneNum.data, desc = form.desc.data, 
-                   boothNum = form.boothNum.data, boothLoc = form.boothLoc.data, tableNum = form.tableNum.data, date = form.date.data, status="pendingApproval",
-                   payment_amount = (10 * form.tableNum.data) + boothPrice, year=currYear)
-        
-        db.session.add(v)
-        db.session.commit()
+    currYear = CurrentYear.query.first().year  # get current year from database
+    vendors = Vendor.query.order_by(Vendor.boothNum)  # get list of vendors from database
+    vendor_dict = update(vendors, current_year=currYear)  # create dictionary of vendors with booth info
+
+    if form.validate_on_submit():  # if form submitted and validated
+        deadline_date = session.get('deadline_date')
+        #deadline_date = datetime.datetime(currYear, 8, 1).date()  # get deadline date for payment
+        boothPrice = get_booth_price(form, deadline_date)  # get booth price based on form data and deadline
+
+        v = Vendor(name=form.name.data, business=form.business.data, address=form.address.data,
+                   citystatezip=form.citystatezip.data, email=form.email.data, phoneNum=form.phoneNum.data,
+                   desc=form.desc.data,
+                   boothNum=form.boothNum.data, boothLoc=form.boothLoc.data, tableNum=form.tableNum.data,
+                   date=form.date.data, status="pendingApproval",
+                   payment_amount=(10 * form.tableNum.data) + boothPrice, year=currYear)  # create vendor instance with form data
+
+        db.session.add(v)  # add vendor to database session
+        db.session.commit()  # commit changes to database
+        # save vendor data in session
         session['name'] = str(v.name)
         session['business'] = str(v.business)
         session['address'] = str(v.address)
@@ -73,8 +77,17 @@ def application():
         session['boothLoc'] = str(v.boothLoc)
         session['tableNum'] = str(v.tableNum)
         session['date'] = str(v.date)
-        return redirect('/confirmation')
-    return render_template('application.html', form=form, appText=appText, boothLoc_ = boothLoc_, vendor_dict = vendor_dict)
+        return redirect('/confirmation')  # redirect to confirmation page if successful submission
+
+    return render_template('application.html', form=form, appText=appText, boothLoc_=boothLoc_,
+                           vendor_dict=vendor_dict)  # render application template with form data and vendor info
+
+@app.route('/set_cutoff', methods=['POST'])
+def set_cutoff():
+    deadline_date = request.form['deadline_date']
+    session['deadline_date'] = deadline_date
+    return redirect(url_for('adminapp'))
+
 
 @app.route('/confirmation')
 def confirmation():

@@ -139,6 +139,16 @@
           </form>
         </div>
       </div>
+
+      <div class="col-md-6">
+        <form action="{{ url_for('set_cutoff') }}" method="POST">
+            <div class="form-group">
+                <label for="deadline_date">Pricing Cutoff Date:</label>
+                <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ session.get('deadline_date', '') }}">
+            </div>
+            <button type="submit" name="setDeadlineBtn" class="btn btn-primary">Set Cutoff</button>
+        </form>
+      </div>
     </div>
     
     
