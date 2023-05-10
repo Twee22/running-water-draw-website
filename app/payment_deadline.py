@@ -1,4 +1,5 @@
 from app import db
+from app.models import Vendor
 from flask import session
 import datetime
 
@@ -32,10 +33,12 @@ def save_initial_time():
 
 # Calculate booth price based on submission date and deadline date
 def get_booth_price(form_data, deadline_date):
-    one_booth_price = session.get('one_booth_price', 150)
-    two_booths_price = session.get('two_booths_price', 200)
-    one_booth_post_cutoff_price = session.get('one_booth_post_cutoff_price', 175)
-    two_booths_post_cutoff_price = session.get('two_booths_post_cutoff_price', 225)
+    # Retrieve booth prices from the database
+    pricing = Vendor.query.first()
+    one_booth_price = pricing.one_booth_price
+    two_booths_price = pricing.two_booths_price
+    one_booth_post_cutoff_price = pricing.one_booth_post_cutoff_price
+    two_booths_post_cutoff_price = pricing.twp_booths_post_cutoff_price
 
     if form_data.boothNum.data == 1:
         if is_before_deadline(form_data.date.data, deadline_date):
@@ -49,6 +52,7 @@ def get_booth_price(form_data, deadline_date):
             boothPrice = two_booths_post_cutoff_price
 
     return boothPrice
+
 
 
 # This function calculates the future date and time based on the current time and the deadline set

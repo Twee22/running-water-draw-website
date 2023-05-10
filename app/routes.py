@@ -94,19 +94,6 @@ def set_cutoff():
     session['deadline_date'] = deadline_date
     return redirect(url_for('adminapp'))
 
-@app.route('/update_pricing', methods=['POST'])
-def update_pricing():
-    one_booth_price = request.form['one_booth']
-    two_booths_price = request.form['two_booths']
-    one_booth_post_cutoff_price = request.form['one_booth_post_cutoff']
-    two_booths_post_cutoff_price = request.form['two_booths_post_cutoff']
-    session['one_booth_price'] = one_booth_price
-    session['two_booths_price'] = two_booths_price
-    session['one_booth_post_cutoff_price'] = one_booth_post_cutoff_price
-    session['two_booths_post_cutoff_price'] = two_booths_post_cutoff_price
-    return redirect(url_for('adminapp'))
-
-
 # Define a Flask route for the confirmation page
 @app.route('/confirmation')
 def confirmation():
@@ -161,6 +148,7 @@ def logout():
 def adminapp():
     form = AdminForm()
     data = Vendor.query.all()
+    vendor = Vendor.query.first()
     appData = AppText.query.first()
 
     if form.validate_on_submit():
@@ -168,11 +156,6 @@ def adminapp():
         db.session.commit()
 
     currYear = CurrentYear.query.first()
-
-    one_booth_price = session.get('one_booth_price', 150)
-    two_booths_price = session.get('two_booths_price', 200)
-    one_booth_post_cutoff_price = session.get('one_booth_post_cutoff_price', 175)
-    two_booths_post_cutoff_price = session.get('two_booths_post_cutoff_price', 225)
 
     # Check if the payment deadline is already set in the session
     deadline = session.get('deadline', get_deadline())
@@ -187,6 +170,29 @@ def adminapp():
                 db.session.commit()
             except:
                 pass
+
+        elif 'pricingBtn' in request.form:
+            try:
+                one_booth_price = request.form['one_booth']
+                two_booths_price = request.form['two_booths']
+                one_booth_post_cutoff_price = request.form['one_booth_post_cutoff']
+                two_booths_post_cutoff_price = request.form['two_booths_post_cutoff']
+
+                for vendor_ in data:
+                    vendor_.one_booth_price = one_booth_price
+                    vendor_.twp_booths_price = two_booths_price
+                    vendor_.one_booth_post_cutoff_price = one_booth_post_cutoff_price
+                    vendor_.two_booths_post_cutoff_price = two_booths_post_cutoff_price
+
+
+                # Handle pricing update
+                # Update the prices in the database or perform any necessary logic
+                # based on the updated values
+
+                db.session.commit()
+            except:
+                pass
+                
         elif 'paymentDeadlineBtn' in request.form:
             # Handle payment deadline update
             try:
@@ -197,17 +203,14 @@ def adminapp():
                 deadline = new_deadline
 
                 # Update payment_deadline for all vendors with new deadline
-                vendors = Vendor.query.all()
-                for vendor in vendors:
+                for vendor in data:
                     vendor.payment_deadline = future_times()
                 db.session.commit()
 
             except:
                 pass
 
-    return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, 
-                           deadline=deadline, one_booth_price = one_booth_price, two_booths_price = two_booths_price, 
-                           one_booth_post_cutoff_price = one_booth_post_cutoff_price, two_booths_post_cutoff_price = two_booths_post_cutoff_price )
+    return render_template('AdminApp.html', data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
 
 
 
