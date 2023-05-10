@@ -115,7 +115,7 @@
       </div>
     </div>
     
-
+    <!-- Admin buttons -->
     <div class="row paddingHere">
       <!-- Column 1 -->
       <div class="col-md-3">
@@ -225,8 +225,6 @@
         </div>
       </div>
       <div class="col-md-3">
-        <!-- Header section -->
-          <!-- Header section -->
           <div id="HeaderPhotos">
             <h3>Header</h3>
             <form action="/upload-header" method="post" enctype="multipart/form-data">
@@ -248,6 +246,25 @@
             {% endif %}
           </div>
         </div>
+        <div class="col-md-3">
+          <form action="{{ url_for('add_pdf') }}" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="fileInput" class="form-label">Add PDF</label>
+              <input type="file" name="file" id="fileInput" class="form-control" style="width:500px">
+            </div>
+            <input type="submit" value="Upload" class="btn btn-primary">
+          </form>
+        </div>
+        
+        <!-- List of PDF Files -->
+        <ul>
+          {% for filename in vendor_files %}
+          <li>
+            <a href="{{ url_for('static', filename='vendor_app/' + filename) }}" target="_blank">{{ filename }}</a>
+            <a href="{{ url_for('remove_pdf', filename=filename) }}" class="btn btn-danger">Remove</a>
+          </li>
+          {% endfor %}
+        </ul>
         
       
     </div>

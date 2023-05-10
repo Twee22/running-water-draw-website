@@ -29,11 +29,15 @@
             <div class="line"></div>
         </div>
         <ul>
+            <!-- Links of the navbar-->
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('application') }}">Online Application</a></li>
             {% if vendor_files %}
-            <li><a href="{{ url_for('static', filename='vendor_app/' + vendor_files[0]) }}" target="_blank">PDF Application</a></li>
-            {% endif %}            
+                <li><a href="{{ url_for('static', filename='vendor_app/' + vendor_files[0]) }}" target="_blank">PDF Application</a></li>
+            {% else %}
+                <li><a href="#" target="_blank">PDF Application</a></li></li>
+            {% endif %}
+          
             <li><a href="/index#FestivalPhotos">Photos</a></li>
             <li><a href="/index#footer">Contact Us</a></li>
             <!-- Link to for user login  

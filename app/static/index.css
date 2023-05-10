@@ -34,13 +34,12 @@ h1 {
 .photo-container {
     display: flex;
     flex-wrap: wrap;
-  }
-  
-  .photo-item {
+}
+
+.photo-item {
     margin-right: 10px;
     margin-bottom: 10px;
-  }
-  
+}
 
 /*
 class styling description of the event located above the list

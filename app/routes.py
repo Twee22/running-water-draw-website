@@ -92,7 +92,7 @@ def delete(filename):
 ALLOWED_EXTENSIONS = {'pdf'}
 
 # Define the path to the vendor_app folder
-VENDOR_APP_FOLDER = 'static/vendor_app'
+VENDOR_APP_FOLDER = os.path.join(app.static_folder, 'vendor_app')
 
 # Route to handle adding a new PDF file
 @app.route('/add_pdf', methods=['POST'])
@@ -250,6 +250,7 @@ def adminapp():
     photos = os.listdir(photos_directory)
     header_photos = os.listdir(header_directory)
     header_photo = header_photos[1] if len(header_photos) >= 2 else None
+    vendor_files = os.listdir(VENDOR_APP_FOLDER)
     form = AdminForm()
     data = Vendor.query.all()
     vendor = Vendor.query.first()
@@ -331,7 +332,7 @@ def adminapp():
             except:
                 pass
 
-    return render_template('AdminApp.html', photos = photos, header_photo=header_photo,  data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
+    return render_template('AdminApp.html', photos = photos, header_photo=header_photo,  data=data, appData = appData, form=form, vendor = vendor, vendor_files = vendor_files,  current_year=currYear.year, deadline=deadline)
 
 
 
