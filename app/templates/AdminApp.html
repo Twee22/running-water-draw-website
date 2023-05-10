@@ -188,7 +188,7 @@
             <div class="form-group">
               <label for="deadline_date">Pricing Cutoff Date:</label>
               <!-- Input field for pricing cutoff date with default value from the database -->
-              <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ vendor.deadline_date }}">
+              <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ vendor.deadline_date.strftime('%Y-%m-%d') if vendor.deadline_date else '' }}">
             </div>
             <!-- Button to submit form to update pricing cutoff date -->
             <button type="submit" name="setDeadlineBtn" class="btn btn-primary">Set Cutoff</button>
