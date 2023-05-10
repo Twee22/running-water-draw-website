@@ -113,34 +113,104 @@
       </div>
       </div>
     </div>
+    
 
     <div class="row paddingHere">
-      <div class="col-md-6">
+      <!-- Column 1 -->
+      <div class="col-md-3">
         <div id="UpdateCurrYear">
           <h3>Update Current Year</h3>
           <form method="POST">
             <div class="form-group">
               <label for="year">Current Year:</label>
+              <!-- Input field for current year with default value from Flask template variable -->
               <input type="number" id="year" name="year" min="1900" max="2100" value="{{ current_year }}" class="form-control" style="width: 150px;" required>
             </div>
+            <!-- Button to submit form to update current year -->
             <button type="submit" name="currYearBtn" class="btn btn-primary">Update</button>
           </form>
         </div>
       </div>
     
-      <div class="col-md-6">
+      <!-- Column 2 -->
+      <div class="col-md-4">
         <div id="UpdatePaymentDeadline">
-          <h3>Update Payment Deadline Length</h3>
+          <h3>Update Payment Deadline</h3>
           <form method="POST">
             <div class="form-group">
               <label for="day">Current Deadline:</label>
+              <!-- Input field for payment deadline with default value from Flask template variable -->
               <input type="number" id="day" name="day" min="7" max="30" value="{{ deadline }}" class="form-control" style="width: 150px;" required>
             </div>
+            <!-- Button to submit form to update payment deadline -->
             <button type="submit" name="paymentDeadlineBtn" class="btn btn-primary">Update</button>
           </form>
         </div>
       </div>
+      <!-- Column 2 -->
+      <div class="col-md-4">
+        <div id="UpdatePricing">
+          <h3>Update Pricing</h3>
+          <p>*do not include '$' only enter numerical value</p>
+          <form method="POST" action="{{ url_for('update_pricing') }}">
+            <div class="form-group row">
+              <div class="col-md-5">
+                <label for="one_booth">One Booth:</label>
+                <input type="number" id="one_booth" name="one_booth" min="100" max="1000" value="{{ one_booth_price }}" class="form-control" style="width: 100px;" required>
+              </div>
+              <div class="col-md-6">
+                <label for="two_booths">Two Booths:</label>
+                <input type="number" id="two_booths" name="two_booths" min="100" max="1000" value="{{ two_booths_price }}" class="form-control" style="width: 100px;" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-5">
+                  <label for="one_booth_post_cutoff">One Booth Post Cutoff:</label>
+                  <input type="number" id="one_booth_post_cutoff" name="one_booth_post_cutoff" min="100" max="1000" value="{{ one_booth_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="two_booths_post_cutoff">Two Booths Post Cutoff:</label>
+                  <input type="number" id="two_booths_post_cutoff" name="two_booths_post_cutoff" min="100" max="1000" value="{{ two_booths_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+                </div>
+              </div>
+            </div>
+            <!-- Button to submit form to update pricing -->
+            <button type="submit" name="pricingBtn" class="btn btn-primary">Update</button>
+          </form>
+        </div>
+      </div>
+      
+
+      <!-- Column 3 -->
+      <div class="col-md-3">
+        <div id="UpdatePricingCutoff">
+          <h3>Update Pricing Cutoff</h3>
+          <form action="{{ url_for('set_cutoff') }}" method="POST">
+            <div class="form-group">
+              <label for="deadline_date">Pricing Cutoff Date:</label>
+              <!-- Input field for pricing cutoff date with default value from Flask session variable -->
+              <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ session.get('deadline_date', '') }}">
+            </div>
+            <!-- Button to submit form to update pricing cutoff date -->
+            <button type="submit" name="setDeadlineBtn" class="btn btn-primary">Set Cutoff</button>
+          </form>
+        </div>
+      </div>
+    
+      <!-- Column 4 -->
+      <div class="col-md-4">
+        <div id="Photos">
+          <h3>Photos</h3>
+          <button type="button" id="open-header-folder-btn" class="btn btn-primary">Open Header</button>
+          <input type="file" id="header-file-input" style="display: none;" directory webkitdirectory mozdirectory>
+          <button type="button" id="open-carousel-folder-btn" class="btn btn-primary">Open Carousel</button>
+          <input type="file" id="carousel-file-input" style="display: none;" directory webkitdirectory mozdirectory>
+        </div>
+      </div>
     </div>
+    
+    
     
     
     
@@ -166,6 +236,20 @@
           button.style.backgroundColor = '';
         }, 1000);
       });
+
+          const openHeaderFolderBtn = document.getElementById('open-header-folder-btn');
+          const headerFileInput = document.getElementById('header-file-input');
+
+          openHeaderFolderBtn.addEventListener('click', () => {
+            headerFileInput.click();
+          });
+
+          const openCarouselFolderBtn = document.getElementById('open-carousel-folder-btn');
+          const carouselFileInput = document.getElementById('carousel-file-input');
+
+          openCarouselFolderBtn.addEventListener('click', () => {
+            carouselFileInput.click();
+          });
 
     </script>
 
