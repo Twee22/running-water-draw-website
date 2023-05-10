@@ -8,12 +8,15 @@ from app.payment_deadline import save_initial_time, check_db, future_times, set_
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email, application_recieved
 import csv, os, datetime
 from config import Config
+from datetime import datetime
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
+    header_folder = os.path.join(os.getcwd(), 'app', 'static', 'header')
+    header_files = os.listdir(header_folder)
     #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
     #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
@@ -32,7 +35,48 @@ def index():
     vendor_dict = update(vendors, current_year = currYear)
     appText = AppText.query.first() 
     
-    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, appText=appText)
+    return render_template('index.html', header_files = header_files, image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, appText = appText)
+
+def header_image():
+    header_folder = os.path.join('static', 'header')
+    if os.path.exists(header_folder):
+        header_files = os.listdir(header_folder)
+        if len(header_files) >= 2:
+            second_image_path = os.path.join(header_folder, header_files[1])
+            return second_image_path
+    return None
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    photos_directory = get_photos_directory()
+    file = request.files['photo']
+    file.save(os.path.join(photos_directory, file.filename))
+    return redirect(url_for('adminapp'))
+
+@app.route('/upload-header', methods=['POST'])
+def upload_header():
+    header_directory = get_header_directory()
+    file = request.files['headerPhoto']
+    file.save(os.path.join(header_directory, file.filename))
+    return redirect(url_for('adminapp'))
+
+# Route to handle header photo deletion
+@app.route('/delete-header/<filename>', methods=['GET', 'POST'])
+def delete_header(filename):
+    header_directory = get_header_directory()
+    file_path = os.path.join(header_directory, filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return redirect(url_for('adminapp'))
+
+# Route to handle photo deletion
+@app.route('/delete/<filename>', methods=['GET', 'POST'])
+def delete(filename):
+    photos_directory = get_photos_directory()
+    file_path = os.path.join(photos_directory, filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return redirect(url_for('adminapp'))
 
 @app.route('/info')
 def info():
@@ -45,6 +89,7 @@ def application():
     form = ApplicationForm()  # create instance of application form
     appText = AppText.query.first()  # get application text from database
     boothLoc_ = session.get('boothLoc_', None)  # get booth location from session
+    vendor = Vendor.query.first()
 
     currYear = CurrentYear.query.first().year  # get current year from database
     vendors = Vendor.query.order_by(Vendor.boothNum)  # get list of vendors from database
@@ -52,11 +97,8 @@ def application():
 
     if form.validate_on_submit():  
         # if form submitted and validated
-        deadline_date = session.get('deadline_date')
-        if deadline_date is None:
-            deadline_date = datetime.datetime(currYear, 8, 1).date()
-        else:
-            deadline_date = datetime.datetime.strptime(deadline_date.strftime('%Y-%m-%d'), '%Y-%m-%d').date()   # Convert date to string and then to datetime object
+        deadline_date = vendor.deadline_date
+        # Convert date to string and then to datetime object
         boothPrice = get_booth_price(form, deadline_date)
         # get booth price based on form data and deadline
 
@@ -94,19 +136,6 @@ def set_cutoff():
     deadline_date = request.form['deadline_date']
     session['deadline_date'] = deadline_date
     return redirect(url_for('adminapp'))
-
-@app.route('/update_pricing', methods=['POST'])
-def update_pricing():
-    one_booth_price = request.form['one_booth']
-    two_booths_price = request.form['two_booths']
-    one_booth_post_cutoff_price = request.form['one_booth_post_cutoff']
-    two_booths_post_cutoff_price = request.form['two_booths_post_cutoff']
-    session['one_booth_price'] = one_booth_price
-    session['two_booths_price'] = two_booths_price
-    session['one_booth_post_cutoff_price'] = one_booth_post_cutoff_price
-    session['two_booths_post_cutoff_price'] = two_booths_post_cutoff_price
-    return redirect(url_for('adminapp'))
-
 
 # Define a Flask route for the confirmation page
 @app.route('/confirmation')
@@ -158,10 +187,30 @@ def logout():
     # Render the index page
     return render_template('index.html')
 
+
+def get_photos_directory():
+    current_directory = os.getcwd()
+    folder_name = 'carousel'
+    photos_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    return photos_directory
+
+def get_header_directory():
+    current_directory = os.getcwd()
+    folder_name = 'header'
+    header_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    return header_directory
+
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
+    photos_directory = get_photos_directory()
+    header_directory = get_header_directory()
+
+    photos = os.listdir(photos_directory)
+    header_photos = os.listdir(header_directory)
+    header_photo = header_photos[1] if len(header_photos) >= 2 else None
     form = AdminForm()
     data = Vendor.query.all()
+    vendor = Vendor.query.first()
     appData = AppText.query.first()
 
     if form.validate_on_submit():
@@ -171,13 +220,8 @@ def adminapp():
 
     currYear = CurrentYear.query.first()
 
-    one_booth_price = session.get('one_booth_price', 150)
-    two_booths_price = session.get('two_booths_price', 200)
-    one_booth_post_cutoff_price = session.get('one_booth_post_cutoff_price', 175)
-    two_booths_post_cutoff_price = session.get('two_booths_post_cutoff_price', 225)
-
     # Check if the payment deadline is already set in the session
-    deadline = session.get('deadline', get_deadline())
+    deadline = (vendor.deadline_date, get_deadline())
 
     if request.method == 'POST':
         if 'currYearBtn' in request.form:
@@ -189,6 +233,45 @@ def adminapp():
                 db.session.commit()
             except:
                 pass
+
+        
+        elif 'setDeadlineBtn' in request.form:
+            try:
+                deadline_date_str = request.form['deadline_date']
+                deadline_date = datetime.strptime(deadline_date_str, '%Y-%m-%d')
+
+        # Update deadline_date for all vendors
+                for vendor_ in data:
+                    vendor_.deadline_date = deadline_date
+
+                db.session.commit()
+
+
+            except Exception as e:
+                print(f"Error occurred: {str(e)}")
+
+        elif 'pricingBtn' in request.form:
+            try:
+                one_booth_price = request.form['one_booth']
+                two_booths_price = request.form['two_booths']
+                one_booth_post_cutoff_price = request.form['one_booth_post_cutoff']
+                two_booths_post_cutoff_price = request.form['two_booths_post_cutoff']
+
+                for vendor_ in data:
+                    vendor_.one_booth_price = one_booth_price
+                    vendor_.twp_booths_price = two_booths_price
+                    vendor_.one_booth_post_cutoff_price = one_booth_post_cutoff_price
+                    vendor_.two_booths_post_cutoff_price = two_booths_post_cutoff_price
+
+
+                # Handle pricing update
+                # Update the prices in the database or perform any necessary logic
+                # based on the updated values
+
+                db.session.commit()
+            except:
+                pass
+                
         elif 'paymentDeadlineBtn' in request.form:
             # Handle payment deadline update
             try:
@@ -199,17 +282,14 @@ def adminapp():
                 deadline = new_deadline
 
                 # Update payment_deadline for all vendors with new deadline
-                vendors = Vendor.query.all()
-                for vendor in vendors:
+                for vendor in data:
                     vendor.payment_deadline = future_times()
                 db.session.commit()
 
             except:
                 pass
 
-    return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, 
-                           deadline=deadline, one_booth_price = one_booth_price, two_booths_price = two_booths_price, 
-                           one_booth_post_cutoff_price = one_booth_post_cutoff_price, two_booths_post_cutoff_price = two_booths_post_cutoff_price )
+    return render_template('AdminApp.html', photos = photos, header_photo=header_photo,  data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
 
 
 
