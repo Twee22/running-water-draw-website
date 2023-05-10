@@ -51,7 +51,7 @@ def validate_boothLoc(form, field):
             # Use the check_loc function to see if two booths are next to each other
             if check_loc(int(booth_list[i]), int(booth_list[i+1])) == False:
                 # If they're not next to each other, raise a validation error
-                raise ValidationError('Booths must be next to each other.')
+                raise ValidationError('The booths need to be positioned either horizontally adjacent or vertically adjacent if they are aligned along the walls.')
             
 def validate_boothLoc_admin(form, field):
     # Get a list of booth locations from the field data and remove any whitespace

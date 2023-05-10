@@ -6,7 +6,7 @@ from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, get_booth_price, payment_deadline_days
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email, application_recieved
-import csv, os
+import csv, os, datetime
 from config import Config
 
 @app.route('/', methods=['GET', 'POST'])
@@ -49,11 +49,18 @@ def application():
     vendors = Vendor.query.order_by(Vendor.boothNum)  # get list of vendors from database
     vendor_dict = update(vendors, current_year=currYear)  # create dictionary of vendors with booth info
 
-    if form.validate_on_submit():  # if form submitted and validated
+    if form.validate_on_submit():  
+        # if form submitted and validated
         deadline_date = session.get('deadline_date')
-        #deadline_date = datetime.datetime(currYear, 8, 1).date()  # get deadline date for payment
-        boothPrice = get_booth_price(form, deadline_date)  # get booth price based on form data and deadline
+        if deadline_date is None:
+            deadline_date = datetime.datetime(currYear, 8, 1).date()
+        else:
+            deadline_date = datetime.datetime.strptime(deadline_date.strftime('%Y-%m-%d'), '%Y-%m-%d').date()   # Convert date to string and then to datetime object
+        boothPrice = get_booth_price(form, deadline_date)
+        # get booth price based on form data and deadline
 
+        #deadline_date = datetime.datetime(currYear, 8, 1).date()  # get deadline date for payment
+        
         v = Vendor(name=form.name.data, business=form.business.data, address=form.address.data,
                    citystatezip=form.citystatezip.data, email=form.email.data, phoneNum=form.phoneNum.data,
                    desc=form.desc.data,

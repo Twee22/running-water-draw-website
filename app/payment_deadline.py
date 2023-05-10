@@ -21,10 +21,11 @@ def is_before_deadline(submission_date, deadline_date):
     # Convert submission_date to date object to compare with deadline_date
     if deadline_date is None:
         # handle the case where deadline_date is not set
-        return False
+        return True
     submission_date = submission_date.date()
-    deadline_date = datetime.datetime.strptime(deadline_date, '%Y-%m-%d').date()
+    deadline_date = datetime.datetime.strptime(deadline_date.strftime('%Y-%m-%d'), '%Y-%m-%d').date() # Convert date to string and then to datetime object
     return submission_date < deadline_date
+
 
 
 # Get the initial time of payment submission

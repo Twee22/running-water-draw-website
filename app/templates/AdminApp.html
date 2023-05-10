@@ -150,26 +150,27 @@
       <div class="col-md-4">
         <div id="UpdatePricing">
           <h3>Update Pricing</h3>
+          <p>*do not include '$' only enter numerical value</p>
           <form method="POST" action="{{ url_for('update_pricing') }}">
             <div class="form-group row">
               <div class="col-md-5">
                 <label for="one_booth">One Booth:</label>
-                <input type="number" id="one_booth" name="one_booth" min="0" value="{{ one_booth_price }}" class="form-control" style="width: 100px;" required>
+                <input type="number" id="one_booth" name="one_booth" min="100" max="1000" value="{{ one_booth_price }}" class="form-control" style="width: 100px;" required>
               </div>
               <div class="col-md-6">
                 <label for="two_booths">Two Booths:</label>
-                <input type="number" id="two_booths" name="two_booths" min="0" value="{{ two_booths_price }}" class="form-control" style="width: 100px;" required>
+                <input type="number" id="two_booths" name="two_booths" min="100" max="1000" value="{{ two_booths_price }}" class="form-control" style="width: 100px;" required>
               </div>
             </div>
             <div class="form-group">
               <div class="row">
                 <div class="col-md-5">
                   <label for="one_booth_post_cutoff">One Booth Post Cutoff:</label>
-                  <input type="number" id="one_booth_post_cutoff" name="one_booth_post_cutoff" min="0" value="{{ one_booth_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+                  <input type="number" id="one_booth_post_cutoff" name="one_booth_post_cutoff" min="100" max="1000" value="{{ one_booth_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
                 </div>
                 <div class="col-md-6">
                   <label for="two_booths_post_cutoff">Two Booths Post Cutoff:</label>
-                  <input type="number" id="two_booths_post_cutoff" name="two_booths_post_cutoff" min="0" value="{{ two_booths_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+                  <input type="number" id="two_booths_post_cutoff" name="two_booths_post_cutoff" min="100" max="1000" value="{{ two_booths_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
                 </div>
               </div>
             </div>
