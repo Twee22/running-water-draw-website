@@ -8,6 +8,7 @@ from app.payment_deadline import save_initial_time, check_db, future_times, set_
 from app.send_email import send_email, send_payment_confirmation_email, send_decline_email, application_recieved
 import csv, os, datetime
 from config import Config
+from datetime import datetime
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -44,6 +45,7 @@ def application():
     form = ApplicationForm()  # create instance of application form
     appText = AppText.query.first()  # get application text from database
     boothLoc_ = session.get('boothLoc_', None)  # get booth location from session
+    vendor = Vendor.query.first()
 
     currYear = CurrentYear.query.first().year  # get current year from database
     vendors = Vendor.query.order_by(Vendor.boothNum)  # get list of vendors from database
@@ -51,11 +53,8 @@ def application():
 
     if form.validate_on_submit():  
         # if form submitted and validated
-        deadline_date = session.get('deadline_date')
-        if deadline_date is None:
-            deadline_date = datetime.datetime(currYear, 8, 1).date()
-        else:
-            deadline_date = datetime.datetime.strptime(deadline_date.strftime('%Y-%m-%d'), '%Y-%m-%d').date()   # Convert date to string and then to datetime object
+        deadline_date = vendor.deadline_date
+        # Convert date to string and then to datetime object
         boothPrice = get_booth_price(form, deadline_date)
         # get booth price based on form data and deadline
 
@@ -158,7 +157,7 @@ def adminapp():
     currYear = CurrentYear.query.first()
 
     # Check if the payment deadline is already set in the session
-    deadline = session.get('deadline', get_deadline())
+    deadline = (vendor.deadline_date, get_deadline())
 
     if request.method == 'POST':
         if 'currYearBtn' in request.form:
@@ -170,6 +169,22 @@ def adminapp():
                 db.session.commit()
             except:
                 pass
+
+        
+        elif 'setDeadlineBtn' in request.form:
+            try:
+                deadline_date_str = request.form['deadline_date']
+                deadline_date = datetime.strptime(deadline_date_str, '%Y-%m-%d')
+
+        # Update deadline_date for all vendors
+                for vendor_ in data:
+                    vendor_.deadline_date = deadline_date
+
+                db.session.commit()
+
+
+            except Exception as e:
+                print(f"Error occurred: {str(e)}")
 
         elif 'pricingBtn' in request.form:
             try:

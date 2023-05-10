@@ -17,9 +17,6 @@ def get_deadline():
 
 def is_before_deadline(submission_date, deadline_date):
     # Convert submission_date to date object to compare with deadline_date
-    if deadline_date is None:
-        # handle the case where deadline_date is not set
-        return True
     submission_date = submission_date.date()
     deadline_date = datetime.datetime.strptime(deadline_date.strftime('%Y-%m-%d'), '%Y-%m-%d').date() # Convert date to string and then to datetime object
     return submission_date < deadline_date
@@ -36,9 +33,9 @@ def get_booth_price(form_data, deadline_date):
     # Retrieve booth prices from the database
     pricing = Vendor.query.first()
     one_booth_price = pricing.one_booth_price
-    two_booths_price = pricing.two_booths_price
+    two_booths_price = pricing.twp_booths_price
     one_booth_post_cutoff_price = pricing.one_booth_post_cutoff_price
-    two_booths_post_cutoff_price = pricing.twp_booths_post_cutoff_price
+    two_booths_post_cutoff_price = pricing.two_booths_post_cutoff_price
 
     if form_data.boothNum.data == 1:
         if is_before_deadline(form_data.date.data, deadline_date):

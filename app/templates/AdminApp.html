@@ -184,11 +184,11 @@
       <div class="col-md-3">
         <div id="UpdatePricingCutoff">
           <h3>Update Pricing Cutoff</h3>
-          <form action="{{ url_for('set_cutoff') }}" method="POST">
+          <form action="{{ url_for('adminapp') }}" method="POST">
             <div class="form-group">
               <label for="deadline_date">Pricing Cutoff Date:</label>
-              <!-- Input field for pricing cutoff date with default value from Flask session variable -->
-              <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ session.get('deadline_date', '') }}">
+              <!-- Input field for pricing cutoff date with default value from the database -->
+              <input type="date" id="deadline_date" name="deadline_date" class="form-control" style="width: 150px;" required value="{{ vendor.deadline_date }}">
             </div>
             <!-- Button to submit form to update pricing cutoff date -->
             <button type="submit" name="setDeadlineBtn" class="btn btn-primary">Set Cutoff</button>
