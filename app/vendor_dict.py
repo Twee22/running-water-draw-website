@@ -808,15 +808,24 @@ vendor_dict = {
 
 # links dictionary to database, dictionary is updated everytime the database is updated
 def update(vendors, current_year = 2023):
+    # loop through all the vendors
     for vendor in vendors: 
+        # check if the vendor's year matches the current year
         if vendor.year == current_year:
+            # extract booth numbers from the vendor's booth location
             booth_nums = [int(num.strip()) for num in vendor.boothLoc.split(',')]
+            # loop through all keys in vendor_dict
             for key in vendor_dict:
+                # check if the key's booth number is in the list of booth numbers
                 if vendor_dict[key]['booth_num'] in booth_nums:
+                    # if the vendor's status is pending approval or payment, mark the vendor as PENDING
                     if vendor.status == "pendingApproval" or vendor.status == "pendingPayment":
                         vendor_dict[key]['status'] = "PENDING"
+                    # if the vendor's status is finalized, update the vendor's business name and mark the vendor as APPROVED
                     elif vendor.status == "finalized": 
                         vendor_dict[key]['business_name'] = vendor.business
                         vendor_dict[key]['status'] = "APPROVED"
+    # return the updated vendor_dict
     return vendor_dict
+
 

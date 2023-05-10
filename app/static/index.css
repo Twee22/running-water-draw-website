@@ -300,6 +300,9 @@ grid inspired from https://www.w3schools.com/css/css_grid_item.asp
     padding: 20px 0;
     font-size: 17px;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 /*
 map on vendor application page
@@ -318,6 +321,9 @@ map on vendor application page
     padding: 10px 0;
     font-size: 17px;
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .item {
@@ -348,6 +354,7 @@ map on vendor application page
     background-color: white;
     transform: scale(2);
     font-size: 10px;
+    transition-duration: 0.5s;
     cursor: pointer;
 }
 
@@ -374,7 +381,6 @@ map on vendor application page
 .pend {
     grid-column: 4/6;
 }
-
 
 /*
 footer color and location
@@ -462,6 +468,7 @@ classes that style the carousel
     position: relative;
     padding: 50px 50px;
     justify-content: space-evenly;
+    overflow: hidden;
 }
 
 .form {
@@ -521,7 +528,7 @@ input, select {
 
   .appTitle{
     color:#091753;
-    margin-top: 5%;
+    margin-top: 10%;
   }
 
   #sign{
