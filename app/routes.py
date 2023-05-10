@@ -42,6 +42,22 @@ def upload():
     file.save(os.path.join(photos_directory, file.filename))
     return redirect(url_for('adminapp'))
 
+@app.route('/upload-header', methods=['POST'])
+def upload_header():
+    header_directory = get_header_directory()
+    file = request.files['headerPhoto']
+    file.save(os.path.join(header_directory, file.filename))
+    return redirect(url_for('adminapp'))
+
+# Route to handle header photo deletion
+@app.route('/delete-header/<filename>', methods=['GET', 'POST'])
+def delete_header(filename):
+    header_directory = get_header_directory()
+    file_path = os.path.join(header_directory, filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return redirect(url_for('adminapp'))
+
 # Route to handle photo deletion
 @app.route('/delete/<filename>', methods=['GET', 'POST'])
 def delete(filename):
@@ -167,10 +183,18 @@ def get_photos_directory():
     photos_directory = os.path.join(current_directory, 'app', 'static', folder_name)
     return photos_directory
 
+def get_header_directory():
+    current_directory = os.getcwd()
+    folder_name = 'header'
+    header_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    return header_directory
+
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
     photos_directory = get_photos_directory()
+    header_directory = get_header_directory()
     photos = os.listdir(photos_directory)
+    header_photo = os.listdir(header_directory)[0] if os.listdir(header_directory) else None
     form = AdminForm()
     data = Vendor.query.all()
     vendor = Vendor.query.first()
@@ -251,7 +275,7 @@ def adminapp():
             except:
                 pass
 
-    return render_template('AdminApp.html', photos = photos, data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
+    return render_template('AdminApp.html', photos = photos, data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline, header_photo = header_photo)
 
 
 
