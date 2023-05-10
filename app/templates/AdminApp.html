@@ -223,29 +223,32 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <!-- Header section -->
-        <div id="HeaderPhotos">
-          <h3>Header</h3>
-          <form action="/upload-header" method="post" enctype="multipart/form-data">
-            <div class="mb-3">
-              <div class="input-group">
-                <input type="file" name="headerPhoto" id="headerFileInput" class="form-control" style="display:none">
-                <label for="headerFileInput" class="input-group-text btn btn-primary">Browse</label>
+          <!-- Header section -->
+          <div id="HeaderPhotos">
+            <h3>Header</h3>
+            <form action="/upload-header" method="post" enctype="multipart/form-data">
+              <div class="mb-3">
+                <div class="input-group">
+                  <input type="file" name="headerPhoto" id="headerFileInput" class="form-control" style="display:none">
+                  <label for="headerFileInput" class="input-group-text btn btn-primary btn-sm">Browse</label>
+                </div>
               </div>
-            </div>
-            <div class="mb-3">
-              <input type="submit" value="Upload" class="btn btn-primary">
-            </div>
-          </form>
-          {% if header_photo %}
+              <div class="mb-3">
+                <input type="submit" value="Upload" class="btn btn-primary btn-sm">
+              </div>
+            </form>
+            {% if header_photo %}
             <div class="photo-container">
-                <img src="{{ url_for('static', filename='header/' + header_photo) }}" width="100" height="100">
-                <a href="{{ url_for('delete_header', filename=header_photo) }}">Delete</a>
+              <img src="{{ url_for('static', filename='header/' + header_photo) }}" width="100" height="100">
+              <a href="{{ url_for('delete_header', filename=header_photo) }}">Delete</a>
             </div>
-          {% endif %}
+            {% endif %}
+          </div>
         </div>
-      </div>
+        
+      
     </div>
     
     
