@@ -30,8 +30,9 @@ def index():
     check_db(vendors)
     currYear = CurrentYear.query.first().year
     vendor_dict = update(vendors, current_year = currYear)
+    appText = AppText.query.first() 
     
-    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
+    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, appText=appText)
 
 @app.route('/info')
 def info():
@@ -165,6 +166,7 @@ def adminapp():
 
     if form.validate_on_submit():
         appData.notes = form.notes.data
+        appData.festival = form.festival.data
         db.session.commit()
 
     currYear = CurrentYear.query.first()

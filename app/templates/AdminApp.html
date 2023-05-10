@@ -100,11 +100,12 @@
         </div>
       </div>
       <div class="col-md-12 mt-3">
-        <h3 class="mb-3">Application Notes</h3>
+        <h3 class="mb-3">Text Editing Area</h3>
         <div class="col-md-12">
         <form method="POST">
           {{ form.csrf_token }}
-          {{ form.notes.label }} {{ ckeditor.create(name='notes', value=appData.notes) }}  <!-- Set the value of CKEditor textarea -->
+          <strong>{{ form.notes.label }}</strong> {{ ckeditor.create(name='notes', value=appData.notes) }}  <!-- Set the value of CKEditor textarea -->
+          <strong>{{ form.festival.label }}</strong> {{ ckeditor.create(name='festival', value=appData.festival)}}
           {{ form.submit(class_='btn btn-primary') }}
         </form>
         {{ ckeditor.load() }}

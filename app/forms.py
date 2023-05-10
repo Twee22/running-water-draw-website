@@ -71,6 +71,7 @@ class AdminEditForm(FlaskForm):
 class AdminForm(FlaskForm):
     payment_deadline = DateTimeField('Date and Time', format='%Y/%m/%d %H:%M:%S')
     notes = CKEditorField('Note Editor', validators=[InputRequired()])
+    festival = CKEditorField('Festival Editor', validators=[InputRequired()])
     submit = SubmitField('Submit')
 
 class LoginForm(FlaskForm):
