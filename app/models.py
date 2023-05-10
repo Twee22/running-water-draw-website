@@ -61,6 +61,7 @@ class Vendor(db.Model):
 class AppText(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     notes = db.Column(db.String, nullable=False)
+    festival_number = db.Column(db.String, nullable=False, server_default='49th')
     
 class CurrentYear(db.Model):
     id = db.Column(db.Integer, primary_key=True)

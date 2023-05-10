@@ -30,8 +30,11 @@ def index():
     check_db(vendors)
     currYear = CurrentYear.query.first().year
     vendor_dict = update(vendors, current_year = currYear)
+    appText = AppText.query.filter_by(id=1).first()
+    festival_number = appText.festival_number
+
     
-    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
+    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, festival_number = festival_number)
 
 @app.route('/info')
 def info():
@@ -106,6 +109,15 @@ def update_pricing():
     session['two_booths_post_cutoff_price'] = two_booths_post_cutoff_price
     return redirect(url_for('adminapp'))
 
+@app.route('/update-festival', methods=['POST'])
+def update_festival():
+    festival_number = request.form['festival_number']
+    appText = AppText.query.filter_by(id=1).first()
+    appText.festival_number = festival_number
+    db.session.commit()
+    flash('Festival number updated successfully.')
+    return redirect(url_for('index'))
+
 
 # Define a Flask route for the confirmation page
 @app.route('/confirmation')
@@ -162,6 +174,7 @@ def adminapp():
     form = AdminForm()
     data = Vendor.query.all()
     appData = AppText.query.first()
+    appText = AppText.query.filter_by(id=1).first()
 
     if form.validate_on_submit():
         appData.notes = form.notes.data
@@ -207,7 +220,8 @@ def adminapp():
 
     return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, 
                            deadline=deadline, one_booth_price = one_booth_price, two_booths_price = two_booths_price, 
-                           one_booth_post_cutoff_price = one_booth_post_cutoff_price, two_booths_post_cutoff_price = two_booths_post_cutoff_price )
+                           one_booth_post_cutoff_price = one_booth_post_cutoff_price, two_booths_post_cutoff_price = two_booths_post_cutoff_price,
+                           appText = appText)
 
 
 
