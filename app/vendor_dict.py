@@ -807,7 +807,7 @@ vendor_dict = {
 }
 
 # links dictionary to database, dictionary is updated everytime the database is updated
-def update(vendors, current_year = 2023):
+def update(vendors, current_year):
     # loop through all the vendors
     for vendor in vendors: 
         # check if the vendor's year matches the current year

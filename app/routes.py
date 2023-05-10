@@ -244,24 +244,38 @@ def get_header_directory():
 
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
+    # Retrieve photos and header directories
     photos_directory = get_photos_directory()
     header_directory = get_header_directory()
 
+    # Retrieve lists of files in the directories
     photos = os.listdir(photos_directory)
     header_photos = os.listdir(header_directory)
+
+    # Select the second header photo if available
     header_photo = header_photos[1] if len(header_photos) >= 2 else None
+
+    # Retrieve vendor files
     vendor_files = os.listdir(VENDOR_APP_FOLDER)
+
+    # Create an instance of the AdminForm
     form = AdminForm()
+
+    # Retrieve data from the database
     data = Vendor.query.all()
     vendor = Vendor.query.first()
     appData = AppText.query.first()
+    vendors = Vendor.query.order_by(Vendor.boothNum)
 
+    # Handle form submission
     if form.validate_on_submit():
         appData.notes = form.notes.data
         appData.festival = form.festival.data
         db.session.commit()
 
+    # Retrieve the current year
     currYear = CurrentYear.query.first()
+
 
     # Check if the payment deadline is already set in the session
     deadline = (vendor.deadline_date, get_deadline())
@@ -273,6 +287,7 @@ def adminapp():
                 new_year = request.form['year']
                 current_year = CurrentYear.query.first()
                 current_year.year = new_year
+                update(vendors, current_year=currYear)
                 db.session.commit()
             except:
                 pass
