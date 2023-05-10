@@ -27,6 +27,14 @@ def send_email(user):
     # send email
     mail.send(msg)
 
+def application_recieved(user):
+    msg = Message('Vendor Application Recieved', sender='testemailschool@gmail.com', recipients=[user.email])
+
+    msg.body = f"Dear {user.name},\n\nYour application has been received.\n\nThank you for applying!"
+    # send email
+    mail.send(msg)
+
+
 # route to send email 
 def send_payment_confirmation_email(user):
     # create message object

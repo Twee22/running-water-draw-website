@@ -5,7 +5,7 @@ from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationFor
 from app.models import Vendor, User, AppText, CurrentYear
 from app.vendor_dict import update
 from app.payment_deadline import save_initial_time, check_db, future_times, set_deadline, get_deadline, get_booth_price, payment_deadline_days
-from app.send_email import send_email, send_payment_confirmation_email, send_decline_email
+from app.send_email import send_email, send_payment_confirmation_email, send_decline_email, application_recieved
 import csv, os
 from config import Config
 
@@ -75,6 +75,7 @@ def application():
         session['boothLoc'] = str(v.boothLoc)
         session['tableNum'] = str(v.tableNum)
         session['date'] = str(v.date)
+        application_recieved(v)
         return redirect('/confirmation')  # redirect to confirmation page if successful submission
 
     return render_template('application.html', form=form, appText=appText, boothLoc_=boothLoc_,
