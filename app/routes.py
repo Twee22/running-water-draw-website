@@ -15,6 +15,8 @@ from datetime import datetime
 def index():
     # gets directory of folder holding images and passes it to index
     image_names= os.listdir("./app/static/carousel")
+    header_folder = os.path.join(os.getcwd(), 'app', 'static', 'header')
+    header_files = os.listdir(header_folder)
     #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
     #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
     #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
@@ -32,8 +34,16 @@ def index():
     currYear = CurrentYear.query.first().year
     vendor_dict = update(vendors, current_year = currYear)
     
-    return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
+    return render_template('index.html', header_files = header_files, image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
 
+def header_image():
+    header_folder = os.path.join('static', 'header')
+    if os.path.exists(header_folder):
+        header_files = os.listdir(header_folder)
+        if len(header_files) >= 2:
+            second_image_path = os.path.join(header_folder, header_files[1])
+            return second_image_path
+    return None
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -193,8 +203,10 @@ def get_header_directory():
 def adminapp():
     photos_directory = get_photos_directory()
     header_directory = get_header_directory()
+
     photos = os.listdir(photos_directory)
-    header_photo = os.listdir(header_directory)[0] if os.listdir(header_directory) else None
+    header_photos = os.listdir(header_directory)
+    header_photo = header_photos[1] if len(header_photos) >= 2 else None
     form = AdminForm()
     data = Vendor.query.all()
     vendor = Vendor.query.first()
@@ -275,7 +287,7 @@ def adminapp():
             except:
                 pass
 
-    return render_template('AdminApp.html', photos = photos, data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline, header_photo = header_photo)
+    return render_template('AdminApp.html', photos = photos, header_photo=header_photo,  data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
 
 
 
