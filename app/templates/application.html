@@ -100,5 +100,10 @@
                 </fieldset>
             </div>
         </div>
+        <div class="note d-inline-block">
+            {{ appText.notes|safe }}
+        </div>
+        <div>{{form.terms.label}}{{form.terms()}}</div>
+        <div>{{form.submit()}}</div>
 </form>
 {% endblock %}

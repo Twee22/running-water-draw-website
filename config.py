@@ -11,3 +11,4 @@ class Config(object):
     admin_password = "downward-dentist-crisis"
     email = 'testemailschool50@gmail.com'
     email_password = 'zktfwkjnfxnnttfk'
+    paypal_id = 'AbXgRw_Izf-aLi7jzrJLNYpudep0ZUX69WotOgd4dMDUztgxxMq5QZdLcdMtdKJYnqhvDUNNb-E4qcG3'

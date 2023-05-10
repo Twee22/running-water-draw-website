@@ -162,6 +162,11 @@ def adminapp():
     form = AdminForm()
     data = Vendor.query.all()
     appData = AppText.query.first()
+
+    if form.validate_on_submit():
+        appData.notes = form.notes.data
+        db.session.commit()
+
     currYear = CurrentYear.query.first()
 
     one_booth_price = session.get('one_booth_price', 150)
@@ -327,8 +332,7 @@ def admin_download_data():
 def payment(id):
     # Get the vendor object from the database based on the ID
     vendor_status_update = Vendor.query.get_or_404(id)
-    # Render the PaymentConfirmation.html template and pass in the vendor object
-    return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+    return render_template('PaymentConfirmation.html', vendor=vendor_status_update, paypal_id=Config.paypal_id)
 
 # Payment capture route
 @app.route('/payments/<int:id>/capture', methods=['POST', 'GET'])
@@ -348,8 +352,6 @@ def payment_capture(id):
             except:
                 # If there is an error, return an error message
                 return "There was a problem updating the status of the vendor"
-        # Render the PaymentConfirmation.html template and pass in the vendor object
-        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update, paypal_id=Config.paypal_id)
     elif request.method == 'GET':
-        # If the request method is GET, simply render the PaymentConfirmation.html template and pass in the vendor object
-        return render_template('PaymentConfirmation.html', vendor=vendor_status_update)
+        return render_template('PaymentConfirmation.html', vendor=vendor_status_update, paypal_id=Config.paypal_id)
