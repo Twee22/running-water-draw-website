@@ -1,6 +1,7 @@
 from app import db, login
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.sql import func
+import datetime
 
 user_vendor = db.Table('user_vendor',
         db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -43,7 +44,11 @@ class Vendor(db.Model):
     payment_amount = db.Column(db.Float, nullable=False)   # Payment amount of the vendor, cannot be null
     status = db.Column(db.String, nullable=False)          # Status of the vendor, cannot be null
     year = db.Column(db.Integer, nullable=False)           # Year of the vendor, cannot be null
-
+    one_booth_price = db.Column(db.Float, nullable=False, server_default='150')
+    twp_booths_price = db.Column(db.Float, nullable=False, server_default='200')
+    one_booth_post_cutoff_price = db.Column(db.Float, nullable=False, server_default='175')
+    two_booths_post_cutoff_price = db.Column(db.Float, nullable=False, server_default='225')
+    deadline_date = db.Column(db.DateTime(timezone=True), server_default=datetime.datetime(2023, 7, 1).isoformat())
 
     def __repr__(self):
         return '<Vendor {}>'.format(self.business)
