@@ -87,13 +87,14 @@
                               {{form.boothLoc(class="form-control")}}
                             {% endif %}
                           </div>
-                          <div class="note">
-                            {{ appText.notes|safe }}
-                        </div>
-                        <div>{{form.terms.label}}{{form.terms()}}</div>
-                        <div>{{form.submit()}}</div>
+                          
                 </fieldset>
             </div>
         </div>
+        <div class="note d-inline-block">
+            {{ appText.notes|safe }}
+        </div>
+        <div>{{form.terms.label}}{{form.terms()}}</div>
+        <div>{{form.submit()}}</div>
 </form>
 {% endblock %}
