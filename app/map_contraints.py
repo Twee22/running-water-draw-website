@@ -112,6 +112,15 @@ def validate_no_digits(form, field):
     # Check if the name contains any digits
     if any(char.isdigit() for char in field.data):
         raise ValidationError('cannot contain any digits.')
+    
+# Define a function to validate that only contains digits   
+def validate_digits(form, field):
+    try:
+        value = float(field.data)
+        if value < 0:
+            raise ValueError
+    except (TypeError, ValueError):
+        raise ValidationError('Payment Amount must be a digit and a postive number')
 
 # Define a function to validate that the Booth Location field is not empty string or None
 def validate_not_empty(boothLoc):

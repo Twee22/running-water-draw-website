@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, EmailField, IntegerField, BooleanF
 from wtforms.validators import InputRequired, Length, NumberRange, DataRequired, ValidationError
 from flask_ckeditor import CKEditorField
 from datetime import datetime, timezone
-from app.map_contraints import validate_boothLoc, validate_boothLoc_admin, validate_boothNum_loc_match, validate_boothLoc_available,  validate_no_digits, validate_phoneNum, validate_no_special_chars
+from app.map_contraints import validate_boothLoc, validate_boothLoc_admin, validate_boothNum_loc_match, validate_boothLoc_available,  validate_no_digits, validate_digits, validate_phoneNum, validate_no_special_chars
 import pytz
 
 class ApplicationForm(FlaskForm):
@@ -49,7 +49,7 @@ class AdminApplicationForm(FlaskForm):
     boothLoc = StringField('Booth Location(s)', validators=[InputRequired(), validate_boothLoc_admin, validate_boothLoc_available], render_kw={"placeholder": "Booth Location(s) here"})
     tableNum = IntegerField('Number of Tables', validators=[InputRequired(), NumberRange(min=0, max=20)])
     date = DateTimeField('Date and Time', format='%H:%M:%S %m-%d-%Y', default=datetime.strptime(datetime.now(pytz.timezone('US/Central')).strftime('%H:%M:%S %m-%d-%Y'), '%H:%M:%S %m-%d-%Y'))
-    payment_amount = FloatField('Payment Amount', render_kw={"placeholder": "Payment Amount Here"})
+    payment_amount = FloatField('Payment Amount', validators=[InputRequired(), validate_digits], render_kw={"placeholder": "Payment Amount Here"})
     submit = SubmitField('Submit')
 
 class AdminEditForm(FlaskForm):
@@ -64,7 +64,7 @@ class AdminEditForm(FlaskForm):
     boothLoc = StringField('Booth Location(s)', validators=[InputRequired(), validate_boothLoc_admin], render_kw={"placeholder": "Booth Location(s) here"})
     tableNum = IntegerField('Number of Tables', validators=[InputRequired(), NumberRange(min=0, max=20)])
     date = DateTimeField('Date and Time', format='%H:%M:%S %m-%d-%Y', default=datetime.strptime(datetime.now(pytz.timezone('US/Central')).strftime('%H:%M:%S %m-%d-%Y'), '%H:%M:%S %m-%d-%Y'))
-    payment_amount = FloatField('Payment Amount', render_kw={"placeholder": "Payment Amount Here"})
+    payment_amount = FloatField('Payment Amount', validators=[InputRequired(), validate_digits], render_kw={"placeholder": "Payment Amount Here"})
     status = SelectField(u'Status', choices=[('pendingApproval', 'Pending Approval'), ('pendingPayment', 'Pending Payment'), ('denied', 'Denied'), ('finalized', 'Finalized')])
     submit = SubmitField('Save Changes')
 
