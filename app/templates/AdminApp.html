@@ -147,33 +147,35 @@
           </form>
         </div>
       </div>
-      <!-- Column 2 -->
-      <div id="UpdatePricing">
-        <h3>Update Pricing</h3>
-        <p>*do not include '$' only enter numerical value</p>
-        <form method="POST">
-          <div class="form-group row">
-            <div class="col-md-1">
-              <label for="one_booth">One Booth:</label>
-              <input type="number" id="one_booth" name="one_booth" min="100" max="1000" value="{{ vendor.one_booth_price }}" class="form-control" style="width: 100px;" required>
-            </div>
-            <div class="col-md-6">
-              <label for="two_booths">Two Booths:</label>
-              <input type="number" id="two_booths" name="two_booths" min="100" max="1000" value="{{ vendor.twp_booths_price }}" class="form-control" style="width: 100px;" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-md-1">
-                <label for="one_booth_post_cutoff">One Booth Post Cutoff:</label>
-                <input type="number" id="one_booth_post_cutoff" name="one_booth_post_cutoff" min="100" max="1000" value="{{ vendor.one_booth_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+      <!-- Column 3 -->
+      <div class="col-md-5">
+        <div id="UpdatePricing">
+          <h3>Update Pricing</h3>
+          <p>*do not include '$' only enter numerical value</p>
+          <form method="POST">
+            <div class="form-group row">
+              <div class="col-md-3">
+                <label for="one_booth">One Booth:</label>
+                <input type="number" id="one_booth" name="one_booth" min="100" max="1000" value="{{ vendor.one_booth_price }}" class="form-control" style="width: 100px;" required>
               </div>
               <div class="col-md-6">
-                <label for="two_booths_post_cutoff">Two Booths Post Cutoff:</label>
-                <input type="number" id="two_booths_post_cutoff" name="two_booths_post_cutoff" min="100" max="1000" value="{{ vendor.two_booths_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+                <label for="two_booths">Two Booths:</label>
+                <input type="number" id="two_booths" name="two_booths" min="100" max="1000" value="{{ vendor.twp_booths_price }}" class="form-control" style="width: 100px;" required>
               </div>
             </div>
-          </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label for="one_booth_post_cutoff">One Booth Post Cutoff:</label>
+                  <input type="number" id="one_booth_post_cutoff" name="one_booth_post_cutoff" min="100" max="1000" value="{{ vendor.one_booth_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="two_booths_post_cutoff">Two Booths Post Cutoff:</label>
+                  <input type="number" id="two_booths_post_cutoff" name="two_booths_post_cutoff" min="100" max="1000" value="{{ vendor.two_booths_post_cutoff_price }}" class="form-control" style="width: 100px;" required>
+                </div>
+              </div>
+            </div>
+        </div>
           <!-- Button to submit form to update pricing -->
           <button type="submit" name="pricingBtn" class="btn btn-primary">Update</button>
         </form>
@@ -197,13 +199,28 @@
       </div>
     
       <!-- Column 4 -->
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div id="Photos">
-          <h3>Photos</h3>
-          <button type="button" id="open-header-folder-btn" class="btn btn-primary">Open Header</button>
-          <input type="file" id="header-file-input" style="display: none;" directory webkitdirectory mozdirectory>
-          <button type="button" id="open-carousel-folder-btn" class="btn btn-primary">Open Carousel</button>
-          <input type="file" id="carousel-file-input" style="display: none;" directory webkitdirectory mozdirectory>
+          <h3>Carousel</h3>
+          <form action="/upload" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+              <div class="input-group">
+                <input type="file" name="photo" id="fileInput" class="form-control" style="display:none">
+                <label for="fileInput" class="input-group-text btn btn-primary">Browse</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <input type="submit" value="Upload" class="btn btn-primary">
+            </div>
+          </form>
+          <div class="photo-container">
+            {% for photo in photos %}
+              <div class="photo-item">
+                <img src="{{ url_for('static', filename='carousel/' + photo) }}" alt="{{ photo }}" width="100" height="100">
+                <a href="{{ url_for('delete', filename=photo) }}">Delete</a>
+              </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
@@ -235,19 +252,9 @@
         }, 1000);
       });
 
-          const openHeaderFolderBtn = document.getElementById('open-header-folder-btn');
-          const headerFileInput = document.getElementById('header-file-input');
-
-          openHeaderFolderBtn.addEventListener('click', () => {
-            headerFileInput.click();
-          });
-
-          const openCarouselFolderBtn = document.getElementById('open-carousel-folder-btn');
-          const carouselFileInput = document.getElementById('carousel-file-input');
-
-          openCarouselFolderBtn.addEventListener('click', () => {
-            carouselFileInput.click();
-          });
+      function chooseFile() {
+            document.getElementById('fileInput').click();
+        }
 
     </script>
 

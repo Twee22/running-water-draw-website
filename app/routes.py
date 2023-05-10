@@ -34,6 +34,23 @@ def index():
     
     return render_template('index.html', image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
 
+
+@app.route('/upload', methods=['POST'])
+def upload():
+    photos_directory = get_photos_directory()
+    file = request.files['photo']
+    file.save(os.path.join(photos_directory, file.filename))
+    return redirect(url_for('adminapp'))
+
+# Route to handle photo deletion
+@app.route('/delete/<filename>', methods=['GET', 'POST'])
+def delete(filename):
+    photos_directory = get_photos_directory()
+    file_path = os.path.join(photos_directory, filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return redirect(url_for('adminapp'))
+
 @app.route('/info')
 def info():
     boothLoc = request.args.get('booth_num')
@@ -143,8 +160,17 @@ def logout():
     # Render the index page
     return render_template('index.html')
 
+
+def get_photos_directory():
+    current_directory = os.getcwd()
+    folder_name = 'carousel'
+    photos_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    return photos_directory
+
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
+    photos_directory = get_photos_directory()
+    photos = os.listdir(photos_directory)
     form = AdminForm()
     data = Vendor.query.all()
     vendor = Vendor.query.first()
@@ -225,7 +251,7 @@ def adminapp():
             except:
                 pass
 
-    return render_template('AdminApp.html', data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
+    return render_template('AdminApp.html', photos = photos, data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
 
 
 

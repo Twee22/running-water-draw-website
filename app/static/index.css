@@ -31,6 +31,17 @@ h1 {
     text-align: center;
 }
 
+.photo-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .photo-item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+
 /*
 class styling description of the event located above the list
 */
