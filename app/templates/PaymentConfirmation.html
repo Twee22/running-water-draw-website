@@ -4,20 +4,22 @@
 <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
 
 <body id="vendor-information" class="background">
-    <h1 class="payComp">Payment Confirmation</h1>
-    <h2 class="text-center">Your Information</h2>
-    <p>Name: {{ vendor.name }}</p>
-    <p>Business Name: {{ vendor.business }}</p>
-    <p>Address: {{ vendor.address }}</p>
-    <p>City, State, Zip: {{ vendor.citystatezip }}</p>
-    <p>Email Address: {{ vendor.email }}</p>
-    <p>Phone Number: {{ vendor.phoneNum }}</p>
-    <p>Business Description: {{ vendor.desc }}</p>
-    <p>Booth Location: {{ vendor.boothLoc.replace(",", ", ") }}</p>
-    <p>Number of Tables Required: {{ vendor.tableNum }}</p>
-    <p>Numbers of Booths Required: {{ vendor.boothNum }}</p>
-    <p>Application submitted on {{ vendor.date }}</p>
-    <p>Cost: ${{ vendor.payment_amount }}</p>
+    <div style="text-align:center;">
+        <h1 class="payComp">Payment Confirmation</h1>
+        <h2 class="text-center">Your Information</h2>
+        <p>Name: {{ vendor.name }}</p>
+        <p>Business Name: {{ vendor.business }}</p>
+        <p>Address: {{ vendor.address }}</p>
+        <p>City, State, Zip: {{ vendor.citystatezip }}</p>
+        <p>Email Address: {{ vendor.email }}</p>
+        <p>Phone Number: {{ vendor.phoneNum }}</p>
+        <p>Business Description: {{ vendor.desc }}</p>
+        <p>Booth Location: {{ vendor.boothLoc.replace(",", ", ") }}</p>
+        <p>Number of Tables Required: {{ vendor.tableNum }}</p>
+        <p>Numbers of Booths Required: {{ vendor.boothNum }}</p>
+        <p>Application submitted on {{ vendor.date }}</p>
+        <p>Cost: ${{ vendor.payment_amount }}</p>
+    </div>
 
     <script src="https://www.paypal.com/sdk/js?client-id={{ paypal_id }}&currency=USD"></script>
         <div id="paypal-button-container"></div>

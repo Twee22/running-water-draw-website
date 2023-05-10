@@ -9,7 +9,8 @@
     <!-- Header -->
     <header>
     <!-- Header image -->
-    <img src="./static/header/Header.png" alt="RDWD Header" height="468" width="800" class="page_header"> <br><br>
+    <img src="{{ url_for('static', filename='header/' + header_files[1]) }}" alt="RDWD Header" height="468" width="800" class="page_header"> <br><br>
+
     <!-- Linkts to application, both PDF and online versions -->
     <a href ="{{ url_for('application') }}"><button class="top_button1">Online Application</button> </a>
     <a href ="./static/vendor_app/2023RWDApplication.pdf" target="blank"><button class="top_button1">PDF Application</button> </a>
