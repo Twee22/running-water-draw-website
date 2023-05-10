@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash, send_from_directory
 from flask_login import login_required, current_user, login_user, logout_user
+from werkzeug.utils import secure_filename
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm, AdminEditForm
 from app.models import Vendor, User, AppText, CurrentYear
@@ -9,6 +10,7 @@ from app.send_email import send_email, send_payment_confirmation_email, send_dec
 import csv, os, datetime
 from config import Config
 from datetime import datetime
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -36,6 +38,15 @@ def index():
     appText = AppText.query.first() 
     
     return render_template('index.html', header_files = header_files, image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, appText = appText)
+
+@app.context_processor
+def inject_vendor_files():
+    # Get the list of vendor files in the "vendor_app" folder
+    vendor_folder = os.path.join(app.static_folder, 'vendor_app')
+    vendor_files = os.listdir(vendor_folder)
+
+    # Return the vendor_files list to be added to the template context
+    return dict(vendor_files=vendor_files)
 
 def header_image():
     header_folder = os.path.join('static', 'header')
@@ -77,6 +88,37 @@ def delete(filename):
     if os.path.exists(file_path):
         os.remove(file_path)
     return redirect(url_for('adminapp'))
+
+ALLOWED_EXTENSIONS = {'pdf'}
+
+# Define the path to the vendor_app folder
+VENDOR_APP_FOLDER = 'static/vendor_app'
+
+# Route to handle adding a new PDF file
+@app.route('/add_pdf', methods=['POST'])
+def add_pdf():
+    if 'file' not in request.files:
+        # No file uploaded
+        return redirect(url_for('adminapp'))
+
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(VENDOR_APP_FOLDER, filename))
+    return redirect(url_for('adminapp'))
+
+# Route to handle removing a PDF file
+@app.route('/remove_pdf/<filename>', methods=['GET', 'POST'])
+def remove_pdf(filename):
+    file_path = os.path.join(VENDOR_APP_FOLDER, filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return redirect(url_for('adminapp'))
+
+# Function to check if the file extension is allowed
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/info')
 def info():
