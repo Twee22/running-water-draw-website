@@ -61,6 +61,7 @@ class Vendor(db.Model):
 class AppText(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     notes = db.Column(db.String, nullable=False)
+    festival = db.Column(db.String, nullable=False, server_default='The Plainview Rotary Club\'s 49th Annual Running Water Draw Festival will be held at the Ollie Liner Center (2000 S. Columbia St.) on Friday, Saturday and Sunday, October 20th, 21st & 22nd.')
     
 class CurrentYear(db.Model):
     id = db.Column(db.Integer, primary_key=True)

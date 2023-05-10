@@ -33,8 +33,9 @@ def index():
     check_db(vendors)
     currYear = CurrentYear.query.first().year
     vendor_dict = update(vendors, current_year = currYear)
+    appText = AppText.query.first() 
     
-    return render_template('index.html', header_files = header_files, image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear)
+    return render_template('index.html', header_files = header_files, image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, appText = appText)
 
 def header_image():
     header_folder = os.path.join('static', 'header')
@@ -214,6 +215,7 @@ def adminapp():
 
     if form.validate_on_submit():
         appData.notes = form.notes.data
+        appData.festival = form.festival.data
         db.session.commit()
 
     currYear = CurrentYear.query.first()
