@@ -164,6 +164,11 @@ def adminapp():
     appData = AppText.query.first()
     currYear = CurrentYear.query.first()
 
+    one_booth_price = session.get('one_booth_price', 150)
+    two_booths_price = session.get('two_booths_price', 200)
+    one_booth_post_cutoff_price = session.get('one_booth_post_cutoff_price', 175)
+    two_booths_post_cutoff_price = session.get('two_booths_post_cutoff_price', 225)
+
     # Check if the payment deadline is already set in the session
     deadline = session.get('deadline', get_deadline())
 
@@ -195,7 +200,9 @@ def adminapp():
             except:
                 pass
 
-    return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, deadline=deadline)
+    return render_template('AdminApp.html', data=data, form=form, appData=appData, current_year=currYear.year, 
+                           deadline=deadline, one_booth_price = one_booth_price, two_booths_price = two_booths_price, 
+                           one_booth_post_cutoff_price = one_booth_post_cutoff_price, two_booths_post_cutoff_price = two_booths_post_cutoff_price )
 
 
 

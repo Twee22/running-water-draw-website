@@ -14,9 +14,6 @@ def set_deadline(new_deadline):
 def get_deadline():
     return payment_deadline_days
 
-# Check if submission is before the deadline
-import datetime
-
 def is_before_deadline(submission_date, deadline_date):
     # Convert submission_date to date object to compare with deadline_date
     if deadline_date is None:
@@ -35,10 +32,10 @@ def save_initial_time():
 
 # Calculate booth price based on submission date and deadline date
 def get_booth_price(form_data, deadline_date):
-    one_booth_price = session.get('one_booth_price', 0)
-    two_booths_price = session.get('two_booths_price', 0)
-    one_booth_post_cutoff_price = session.get('one_booth_post_cutoff_price', 0)
-    two_booths_post_cutoff_price = session.get('two_booths_post_cutoff_price', 0)
+    one_booth_price = session.get('one_booth_price', 150)
+    two_booths_price = session.get('two_booths_price', 200)
+    one_booth_post_cutoff_price = session.get('one_booth_post_cutoff_price', 175)
+    two_booths_post_cutoff_price = session.get('two_booths_post_cutoff_price', 225)
 
     if form_data.boothNum.data == 1:
         if is_before_deadline(form_data.date.data, deadline_date):
