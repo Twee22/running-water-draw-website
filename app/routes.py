@@ -100,23 +100,26 @@ def update_pricing():
     return redirect(url_for('adminapp'))
 
 
+# Define a Flask route for the confirmation page
 @app.route('/confirmation')
 def confirmation():
-    # Retrieve the data stored in the session variable
-    name = session.get('name')
-    business = session.get('business')
-    address = session.get('address')
-    citystatezip = session.get('citystatezip')
-    email = session.get('email')
-    phoneNum = session.get('phoneNum')
-    desc = session.get('desc')
-    boothNum = session.get('boothNum')
-    boothLoc = session.get('boothLoc')
-    tableNum = session.get('tableNum')
-    date = session.get('date')
+    # Retrieve the data stored in the session variable for each variable
+    name = session.get('name')                      # Get the user's name
+    business = session.get('business')              # Get the user's business name
+    address = session.get('address')                # Get the user's address
+    citystatezip = session.get('citystatezip')      # Get the user's city, state, and ZIP code
+    email = session.get('email')                    # Get the user's email address
+    phoneNum = session.get('phoneNum')              # Get the user's phone number
+    desc = session.get('desc')                      # Get the user's description of their business
+    boothNum = session.get('boothNum')              # Get the user's booth number
+    boothLoc = session.get('boothLoc')              # Get the user's booth location
+    tableNum = session.get('tableNum')              # Get the user's table number
+    date = session.get('date')                      # Get the user's preferred date for the event
 
+    # Render the confirmation.html template with the retrieved data
     return render_template('confirmation.html', name=name, business=business, address=address, citystatezip=citystatezip, email=email, phoneNum=phoneNum,
                            desc=desc, boothNum=boothNum, boothLoc=boothLoc, tableNum=tableNum, date=date)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
