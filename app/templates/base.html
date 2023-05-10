@@ -10,18 +10,30 @@
     {% else %}
         <title>Running Water Draw Festival</title>
     {% endif %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.hamburger').click(function() {
+                $('.nav-bar ul').toggleClass('active');
+            });
+        });
+    </script>
 </head>
-    <body>
-      <!-- Nav bar with links to Home, PDF, Vendor, Photos, and Contact Us-->
-      <div class="nav-bar">
-        <nav>
-            <ul>
-                <li><a href="{{ url_for('index') }}">Home</a></li>
-                <li><a href="{{ url_for('application') }}">Online Application</a></li>
-                <li><a href="./static/vendor_app/2023RWDApplication.pdf" target="blank">PDF Application</a></li>
-                <li><a href="/index#FestivalPhotos">Photos</a></li>
-                <li><a href="/index#footer">Contact Us</a></li>
-            </ul>
+<body>
+  <!-- Nav bar with links to Home, PDF, Vendor, Photos, and Contact Us-->
+  <div class="nav-bar">
+    <nav>
+        <div class="hamburger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('application') }}">Online Application</a></li>
+            <li><a href="./static/vendor_app/2023RWDApplication.pdf" target="blank">PDF Application</a></li>
+            <li><a href="/index#FestivalPhotos">Photos</a></li>
+            <li><a href="/index#footer">Contact Us</a></li>
             <!-- Link to for user login  
             {% if current_user.is_anonymous %}
             <a class="login" href="{{ url_for('login') }}">Login</a>
@@ -29,8 +41,9 @@
             <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
             -->
-        </nav>
-      </div>
-        {% block content %}{% endblock %}
-    </body>
+        </ul>
+    </nav>
+  </div>
+    {% block content %}{% endblock %}
+</body>
 </html>

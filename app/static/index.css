@@ -121,6 +121,55 @@ nav ul li a {
     text-transform: uppercase;
     letter-spacing: 2px;
 }
+
+/*
+Nav-bar mobile formatting
+*/
+/* Media queries */
+@media (max-width: 900px) {
+    .nav-bar ul {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #002147;
+        width: 100%;
+        margin-top: 50px
+    }
+
+    .nav-bar ul.active {
+        display: flex;
+    }
+    
+    .nav-bar .hamburger {
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        cursor: pointer;
+    }
+    
+    .nav-bar .hamburger .line {
+        background-color: #3700ff;
+        height: 2px;
+        margin-bottom: 5px;
+        transition: all 0.3s ease-in-out;
+        width: 25px;
+    }
+    
+    .nav-bar .hamburger.active .line:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .nav-bar .hamburger.active .line:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-bar .hamburger.active .line:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+}
+        
+
 /*
 header color and alignment
 */
