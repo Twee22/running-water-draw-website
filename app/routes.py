@@ -34,7 +34,7 @@ def index():
     vendors = Vendor.query.order_by(Vendor.boothNum)
     check_db(vendors)
     currYear = CurrentYear.query.first().year
-    vendor_dict = update(vendors, current_year = currYear)
+    vendor_dict = update(vendors, currYear)
     appText = AppText.query.first() 
     
     return render_template('index.html', header_files = header_files, image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, appText = appText)
