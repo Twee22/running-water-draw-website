@@ -95,7 +95,7 @@
               </svg>
               Add
             </a>
-            <p>To add a vendor manually, click Add</p>
+            <p>Click Add to add a vendor manually, or to view administrator notes</p>
           </div>
           
         </div>
@@ -115,6 +115,7 @@
       </div>
       </div>
     </div>
+    <div style="padding-left:25px ;">For Admin Control Instructions, Click Add located above</div>
     
     <!-- Admin buttons -->
     <div class="row paddingHere">
@@ -247,10 +248,11 @@
             {% endif %}
           </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
+          <h3>Change PDF</h3>
           <form action="{{ url_for('add_pdf') }}" method="POST" enctype="multipart/form-data">
             <div class="mb-3">
-              <label for="fileInput" class="form-label">Add PDF</label>
+              <label for="fileInput" class="form-label"></label>
               <input type="file" name="file" id="fileInput" class="form-control" style="width:500px">
             </div>
             <input type="submit" value="Upload" class="btn btn-primary">
@@ -266,13 +268,9 @@
           </li>
           {% endfor %}
         </ul>
-        
-      
     </div>
-    
-    
-    
-    
+
+
     
     <!-- Make sure jQuery and DataTables are included -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
