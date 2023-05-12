@@ -1,5 +1,6 @@
 from flask import render_template, request, redirect, url_for, session, send_file, flash, send_from_directory
 from flask_login import login_required, current_user, login_user, logout_user
+from werkzeug.utils import secure_filename
 from app import app, db, ckeditor
 from app.forms import ApplicationForm, LoginForm, AdminForm, AdminApplicationForm, AdminEditForm
 from app.models import Vendor, User, AppText, CurrentYear
@@ -11,6 +12,7 @@ from config import Config
 from datetime import datetime
 import hashlib
 
+
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
 def index():
@@ -18,47 +20,63 @@ def index():
     image_names= os.listdir("./app/static/carousel")
     header_folder = os.path.join(os.getcwd(), 'app', 'static', 'header')
     header_files = os.listdir(header_folder)
-    #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
-    #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
-    #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
-    #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
 
-    # Adds a hi to notes in the database so that it can be edited
-    #a = AppText(notes = 'hi')
-    #b = CurrentYear(year = 2023)
-    #db.session.add(a)
-    #db.session.add(b)
-    #db.session.commit()
 
     vendors = Vendor.query.order_by(Vendor.boothNum)
+    # check if any vendors are past deadline
     check_db(vendors)
     currYear = CurrentYear.query.first().year
-    vendor_dict = update(vendors, current_year = currYear)
+    # update vendor map with current data
+    vendor_dict = update(vendors, currYear)
     appText = AppText.query.first() 
     
     return render_template('index.html', header_files = header_files, image_name = image_names, vendors = vendors, vendor_dict = vendor_dict, current_year=currYear, appText = appText)
 
+@app.context_processor
+def inject_vendor_files():
+    # Get the list of vendor files in the "vendor_app" folder
+    vendor_folder = os.path.join(app.static_folder, 'vendor_app')
+    vendor_files = os.listdir(vendor_folder)
+
+    # Return the vendor_files list to be added to the template context
+    return dict(vendor_files=vendor_files)
+
 def header_image():
+    # Define the header image folder path
     header_folder = os.path.join('static', 'header')
+    # Check if the header folder exists
     if os.path.exists(header_folder):
+        # Get the list of files in the header folder
         header_files = os.listdir(header_folder)
+        # Check if there are at least 2 header images
         if len(header_files) >= 2:
+            # Get the path of the second header image
             second_image_path = os.path.join(header_folder, header_files[1])
             return second_image_path
+    
+    # Return None if there are not enough header images
     return None
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    # Get the directory for storing photos
     photos_directory = get_photos_directory()
+    # Get the uploaded file from the request
     file = request.files['photo']
+    # Save the file to the photos directory
     file.save(os.path.join(photos_directory, file.filename))
+    # Redirect to the adminapp route
     return redirect(url_for('adminapp'))
 
 @app.route('/upload-header', methods=['POST'])
 def upload_header():
+    # Get the directory for storing header images
     header_directory = get_header_directory()
+    # Get the uploaded header image file from the request
     file = request.files['headerPhoto']
+    # Save the header image file to the header directory
     file.save(os.path.join(header_directory, file.filename))
+    # Redirect to the adminapp route
     return redirect(url_for('adminapp'))
 
 # Route to handle header photo deletion
@@ -78,6 +96,37 @@ def delete(filename):
     if os.path.exists(file_path):
         os.remove(file_path)
     return redirect(url_for('adminapp'))
+
+ALLOWED_EXTENSIONS = {'pdf'}
+
+# Define the path to the vendor_app folder
+VENDOR_APP_FOLDER = os.path.join(app.static_folder, 'vendor_app')
+
+# Route to handle adding a new PDF file
+@app.route('/add_pdf', methods=['POST'])
+def add_pdf():
+    if 'file' not in request.files:
+        # No file uploaded
+        return redirect(url_for('adminapp'))
+
+    file = request.files['file']
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(VENDOR_APP_FOLDER, filename))
+    return redirect(url_for('adminapp'))
+
+# Route to handle removing a PDF file
+@app.route('/remove_pdf/<filename>', methods=['GET', 'POST'])
+def remove_pdf(filename):
+    file_path = os.path.join(VENDOR_APP_FOLDER, filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+    return redirect(url_for('adminapp'))
+
+# Function to check if the file extension is allowed
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/info')
 def info():
@@ -189,21 +238,30 @@ def logout():
     # Render the index page
     return render_template('index.html')
 
-
 def get_photos_directory():
+    # Get the current working directory
     current_directory = os.getcwd()
+    # Define the folder name for photos
     folder_name = 'carousel'
+    # Create the full path for the photos directory
     photos_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    # Return the photos directory path
     return photos_directory
 
 def get_header_directory():
+    # Get the current working directory
     current_directory = os.getcwd()
+    # Define the folder name for header images
     folder_name = 'header'
+    # Create the full path for the header directory
     header_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    # Return the header directory path
     return header_directory
+
 
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
+    # Retrieve photos and header directories
 
     if not session.get('authenticated'):
         return redirect(url_for('login'))
@@ -211,20 +269,34 @@ def adminapp():
     photos_directory = get_photos_directory()
     header_directory = get_header_directory()
 
+    # Retrieve lists of files in the directories
     photos = os.listdir(photos_directory)
     header_photos = os.listdir(header_directory)
+
+    # Select the second header photo if available
     header_photo = header_photos[1] if len(header_photos) >= 2 else None
+
+    # Retrieve vendor files
+    vendor_files = os.listdir(VENDOR_APP_FOLDER)
+
+    # Create an instance of the AdminForm
     form = AdminForm()
+
+    # Retrieve data from the database
     data = Vendor.query.all()
     vendor = Vendor.query.first()
     appData = AppText.query.first()
+    vendors = Vendor.query.order_by(Vendor.boothNum)
 
+    # Handle form submission
     if form.validate_on_submit():
         appData.notes = form.notes.data
         appData.festival = form.festival.data
         db.session.commit()
 
+    # Retrieve the current year
     currYear = CurrentYear.query.first()
+
 
     # Check if the payment deadline is already set in the session
     deadline = (vendor.deadline_date, get_deadline())
@@ -236,6 +308,7 @@ def adminapp():
                 new_year = request.form['year']
                 current_year = CurrentYear.query.first()
                 current_year.year = new_year
+                update(vendors, current_year=currYear)
                 db.session.commit()
             except:
                 pass
@@ -295,7 +368,7 @@ def adminapp():
             except:
                 pass
 
-    return render_template('AdminApp.html', photos = photos, header_photo=header_photo,  data=data, appData = appData, form=form, vendor = vendor,  current_year=currYear.year, deadline=deadline)
+    return render_template('AdminApp.html', photos = photos, header_photo=header_photo,  data=data, appData = appData, form=form, vendor = vendor, vendor_files = vendor_files,  current_year=currYear.year, deadline=deadline)
 
 
 

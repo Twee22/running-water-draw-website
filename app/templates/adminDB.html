@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
-
 {% block content %}
+
+<!-- Admin manual vendor creation -->
 <div class="container-fluid">
   <h1 class="appTitle">Admin Vendor Application</h1>
   <div class="col-12 col-md-6 application">
@@ -16,31 +17,131 @@
         </ul>
       {% endif %}
       <fieldset>
-        <div class="form-group">
-          {{form.name.label}}{{form.name(class="form-control")}}
-          {{form.business.label}}{{form.business(class="form-control")}}
-          {{form.address.label}}{{form.address(class="form-control")}}
-          {{form.citystatezip.label}}{{form.citystatezip(class="form-control")}}
-          {{form.email.label}}{{form.email(class="form-control")}}
-          {{form.phoneNum.label}}{{form.phoneNum(class="form-control")}}
-          {{form.desc.label}}{{form.desc(class="form-control")}}
-          {{form.boothNum.label}}{{form.boothNum(class="form-control")}}
-          {{form.tableNum.label}}{{form.tableNum(class="form-control")}}
-          {{form.payment_amount.label}}{{form.payment_amount(class="form-control")}}
+        <div class="container">
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                {{form.name.label}}{{form.name(class="form-control")}}
+                <small class="text-muted">Enter the name of the vendor.</small>
+              </div>
+              <div class="form-group">
+                {{form.business.label}}{{form.business(class="form-control")}}
+                <small class="text-muted">Provide the business name of the vendor. Try avoid having apostrophes, it conflicts with the map hovering ex. "Joe's Business" should be "Joes Business".</small>
+              </div>
+              <div class="form-group">
+                {{form.address.label}}{{form.address(class="form-control")}}
+                <small class="text-muted">Enter the address of the vendor. No formatting enforced.</small>
+              </div>
+              <div class="form-group">
+                {{form.citystatezip.label}}{{form.citystatezip(class="form-control")}}
+                <small class="text-muted">Enter the city, state, and zip code of the vendor's location. No formatting enforced.</small>
+              </div>
+              <div class="form-group">
+                {{form.email.label}}{{form.email(class="form-control")}}
+                <small class="text-muted">Enter the email address of the vendor. If they do not have an email, enter NA@NA.com</small>
+              </div>
+              <div class="form-group">
+                {{form.phoneNum.label}}{{form.phoneNum(class="form-control")}}
+                <small class="text-muted">Enter the phone number of the vendor.</small>
+              </div>
+              <div class="form-group">
+                {{form.desc.label}}{{form.desc(class="form-control")}}
+                <small class="text-muted">Provide a description of the vendor or their products/services.</small>
+              </div>
+              <div class="form-group">
+                {{form.boothNum.label}}{{form.boothNum(class="form-control")}}
+                <small class="text-muted">Enter the number of booths assigned to the vendor. Must match number of Booth Locations.</small>
+              </div>
+              <div class="form-group">
+                {{form.tableNum.label}}{{form.tableNum(class="form-control")}}
+                <small class="text-muted">Enter the table count desired by the vendor, enter 0 if none.</small>
+              </div>
+              <div class="form-group">
+                {{form.payment_amount.label}}{{form.payment_amount(class="form-control")}}
+                <small class="text-muted">Specify the payment amount for the vendor. Do not include a $.</small>
+              </div>
+            </div>
+          </div>
         </div>
+
         <div class="form-group mb-3">
           {{form.boothLoc.label}}
+          
           {% if boothLoc_ is not none %}
             {{form.boothLoc(value=boothLoc_, class="form-control")}}
           {% else %}
             {{form.boothLoc(class="form-control")}}
           {% endif %}
+          <small class="text-muted">Specify the location of the vendor's booth. Enter values seperated by a comma, no spaces Ex. 1,2,3</small>
         </div>
         <div class="form-group">
           {{form.submit(class="btn btn-primary")}}
         </div>
       </fieldset>
+      <!-- Admin Instructions and Notes written by Sean F-->
+      <div class="disclaimer mt-3">
+        <p class="text-muted"><strong>If you are adding a PDF vendor who paid with a check, please follow these steps:</strong></p>
+        <ol class="text-muted">
+          <li>Fill out all the vendor information in the form, including their name, business name, address, city, state, zip code, email, phone number, description, number of booths, table count, and payment amount.</li>
+          <li>In the Payment Amount section, enter either 0 or the amount they owe.</li>
+          <li>Click the Submit button to save the vendor details.</li>
+          <li>Find the vendor's name in the database table.</li>
+          <li>Click the Edit button (located underneath Actions) for that vendor.</li>
+          <li>Change the vendor's status to "Finalized".</li>
+          <li>Confirm by checking map located on the Home page</li>
+        </ol>
+        <p class="text-muted">This process ensures accurate recording of the payment and finalizes the vendor's status. They will not recieve an email or an invoice. </p>
+      </div>
+      <div class="disclaimer2 mt-3">
+        <p class="text-muted"><strong>If you are adding a PDF vendor who sent in a mail application but would like to pay online, please follow these steps:</strong></p>
+        <ol class="text-muted">
+          <li>Fill out all the vendor information in the form, including their name, business name, address, city, state, zip code, email, phone number, description, number of booths, table count, and payment amount.</li>
+          <li>In the Payment Amount section, enter the amount owed.</li>
+          <li>Click the Submit button to save the vendor details.</li>
+          <li>Find the vendor's name in the database table.</li>
+          <li>Click the Confirm button (located underneath Actions). They will recieve an email with the payment amount you specified and a link to the PayPal page.</li>
+          <li>Following their payment, they will automatically be set to "Finalized" and thus appear on the map and table</li>
+          <li>Confirm by checking map located on the Home page</li>
+        </ol>
+        <p class="text-muted">This process ensures accurate recording of the payment and finalizes the vendor's status. They will recieve one invoice and two emails. </p>
+      </div>
+      <div class="disclaimer3 mt-3">
+        <p class="text-muted"><strong>If you are wanting to remove a vendor for any reason, please follow these steps:</strong></p>
+        <ol class="text-muted">
+          <li>Find the vendor's name in the database table.</li>
+          <li>Click the Edit button (located underneath Actions) for that vendor.</li>
+          <li>Change the vendor's status to "Denied". They wil remain in the database, but no longer will be displayed on the map.</li>
+          <li>To refund money, you have to write a check or go through PayPal.</li>
+          <li>To revert any changes, change the vendor's status back to "Finalized".</li>
+        </ol>
+        <p class="text-muted">This process removes the vendor from the Home page table and map. They will not recieve an email or be notified in any form.</p>
+      </div>
+      <div class="disclaimer4 mt-3">
+        <p class="text-muted"><strong>If you are wanting to alter how much money a vendor owes, please follow these steps:</strong></p>
+        <ol class="text-muted">
+          <li>Find the vendor's name in the database table.</li>
+          <li>Click the Edit button (located underneath Actions) for that vendor.</li>
+          <li>In the Payment Amount section, enter the new amount owed.</li>
+          <li>Return back to the database table, and find their name again.</li>
+          <li>Now click the Send Email button (located underneath Actions). This will resend an email with a payment link that has been updated with new amount.</li>
+        </ol>
+        <p class="text-muted">This process changes the amount of money a vendor is charged. They will recieve one email that is an invoice and another confirming payment.</p>
+      </div>
+      <div class="disclaimer4 mt-3">
+        <p class="text-muted"><strong>How to Use Admin Controls:</strong></p>
+        <ol class="text-muted">
+          <li><strong>Update Current Year:</strong> To switch to the next year of the Running Water Draw Festival, enter the desired year and click "Update". This action will reset the table and map on the home page. The data will still be accessible by switching back to a prior year.</li>
+          <li><strong>Update Payment Deadline:</strong> To change the payment deadline for all vendors, enter the desired number of days in the field and click "Update". This will only affect vendors who have already been confirmed and are pending payment. Vendors in the "Finalized" or pending admin confirmation status will not be affected. For example, if the payment deadline is set to 15 days, approved vendors will have 15 days to pay. After 15 days, they will automatically be set to "Denied" if payment is not received. This can be reverted using the "Edit" button. Please note that if you update the deadline, it will not be displayed in the form. Please remember it.</li>
+          <li><strong>Update Pricing:</strong> To change the price of one or two booths, enter the new values in the respective form fields and click "Update".</li>
+          <li><strong>Update Pricing Cutoff:</strong> To change the date when the booth price increases, click the calendar and select the new desired date. Once complete, click "Set Cutoff". Any applications received after this date will cost the amounts displayed under "Update Pricing Post Cutoff".</li>
+          <li><strong>Carousel:</strong> To remove photos from the carousel, locate the photo you want to remove and click "Delete". To add photos to the carousel, click "Browse" and select your new photo. After selecting the new photo, click "Upload". The new photo will not be displayed unless you click "Upload".</li>
+          <li><strong>Header:</strong> To update the header image on the home page, first delete the current one by clicking "Delete" located next to the image. Then click "Browse" and select the new header image. After selecting the new header image, click "Upload". The update will not take effect unless you click "Upload".</li>
+          <li><strong>Change PDF:</strong> To replace the PDF application, click the "Remove" button located next to the current PDF link at the bottom of the admin page. To add the new PDF file, click the "Choose File" button and select the new PDF. After selecting the updated PDF, click "Upload". Verify that the new PDF has been uploaded by clicking the "PDF Application" link in the navigation bar.</li>
+        </ol>
+        <p class="text-muted">If there are further questions, please contact Dr. F.</p>
+      </div>
     </form>
   </div>
 </div>
 {% endblock %}
+

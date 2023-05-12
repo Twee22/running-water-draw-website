@@ -49,7 +49,7 @@ def send_decline_email(user):
     # create message object
     msg = Message('Vendor Application Declined', sender='testemailschool@gmail.com', recipients=[user.email])
 
-    msg.body = f"Dear {user.name},\n\nWe're sorry to inform you that your vendor booth application has been declined. If you have any questions or would like more information, please don't hesitate to reach out to us.\n\nThank you for your interest in our event.\n\nBest regards,\n[Your Name]"
+    msg.body = f"Dear {user.name},\n\nWe're sorry to inform you that your vendor booth application has been declined. If you have any questions or would like more information, please don't hesitate to reach out to us.\n\nThank you for your interest in our event.\n\nBest regards"
     # send declination of payment email
     mail.send(msg)
 
