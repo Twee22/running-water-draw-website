@@ -19,21 +19,13 @@ def index():
     image_names= os.listdir("./app/static/carousel")
     header_folder = os.path.join(os.getcwd(), 'app', 'static', 'header')
     header_files = os.listdir(header_folder)
-    #test_vendors = [{'name': 'Melanie Kohn', 'business': 'Celebrity', 
-    #               'desc': 'Voice of Lucy Van Pelt', 'boothNum': '41'},
-    #               {'name': 'Duncan Watson', 'business': 'Celebrity', 
-    #               'desc': 'Voice of Charlie Brown', 'boothNum': '42'}]
 
-    # Adds a hi to notes in the database so that it can be edited
-    #a = AppText(notes = 'hi')
-    #b = CurrentYear(year = 2023)
-    #db.session.add(a)
-    #db.session.add(b)
-    #db.session.commit()
 
     vendors = Vendor.query.order_by(Vendor.boothNum)
+    # check if any vendors are past deadline
     check_db(vendors)
     currYear = CurrentYear.query.first().year
+    # update vendor map with current data
     vendor_dict = update(vendors, currYear)
     appText = AppText.query.first() 
     
@@ -49,26 +41,41 @@ def inject_vendor_files():
     return dict(vendor_files=vendor_files)
 
 def header_image():
+    # Define the header image folder path
     header_folder = os.path.join('static', 'header')
+    # Check if the header folder exists
     if os.path.exists(header_folder):
+        # Get the list of files in the header folder
         header_files = os.listdir(header_folder)
+        # Check if there are at least 2 header images
         if len(header_files) >= 2:
+            # Get the path of the second header image
             second_image_path = os.path.join(header_folder, header_files[1])
             return second_image_path
+    
+    # Return None if there are not enough header images
     return None
 
 @app.route('/upload', methods=['POST'])
 def upload():
+    # Get the directory for storing photos
     photos_directory = get_photos_directory()
+    # Get the uploaded file from the request
     file = request.files['photo']
+    # Save the file to the photos directory
     file.save(os.path.join(photos_directory, file.filename))
+    # Redirect to the adminapp route
     return redirect(url_for('adminapp'))
 
 @app.route('/upload-header', methods=['POST'])
 def upload_header():
+    # Get the directory for storing header images
     header_directory = get_header_directory()
+    # Get the uploaded header image file from the request
     file = request.files['headerPhoto']
+    # Save the header image file to the header directory
     file.save(os.path.join(header_directory, file.filename))
+    # Redirect to the adminapp route
     return redirect(url_for('adminapp'))
 
 # Route to handle header photo deletion
@@ -229,18 +236,26 @@ def logout():
     # Render the index page
     return render_template('index.html')
 
-
 def get_photos_directory():
+    # Get the current working directory
     current_directory = os.getcwd()
+    # Define the folder name for photos
     folder_name = 'carousel'
+    # Create the full path for the photos directory
     photos_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    # Return the photos directory path
     return photos_directory
 
 def get_header_directory():
+    # Get the current working directory
     current_directory = os.getcwd()
+    # Define the folder name for header images
     folder_name = 'header'
+    # Create the full path for the header directory
     header_directory = os.path.join(current_directory, 'app', 'static', folder_name)
+    # Return the header directory path
     return header_directory
+
 
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
