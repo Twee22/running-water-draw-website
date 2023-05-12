@@ -10,6 +10,7 @@ from app.send_email import send_email, send_payment_confirmation_email, send_dec
 import csv, os, datetime
 from config import Config
 from datetime import datetime
+import hashlib
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -215,7 +216,8 @@ def login():
     # If the form is submitted and valid
     if form.validate_on_submit():
         # Check if the user is the admin and redirect to adminapp if true
-        if (form.username.data == Config.admin_username and form.password.data == Config.admin_password):
+        if (form.username.data == Config.admin_username and hashlib.md5(form.password.data.encode()).hexdigest() == Config.admin_password_hash):
+            session['authenticated'] = True
             return redirect(url_for('adminapp'))
         # Otherwise, try to find the user in the database and authenticate them
         user = User.query.filter_by(username=form.username.data).first()
@@ -260,6 +262,10 @@ def get_header_directory():
 @app.route('/adminapp', methods=['GET', 'POST'])
 def adminapp():
     # Retrieve photos and header directories
+
+    if not session.get('authenticated'):
+        return redirect(url_for('login'))
+
     photos_directory = get_photos_directory()
     header_directory = get_header_directory()
 
@@ -418,6 +424,10 @@ def adminappupdate(id):
 @login_required # This decorator ensures that only logged-in users can access this page
 @app.route('/adminDB', methods=['GET', 'POST'])
 def adminDB():
+
+    if not session.get('authenticated'):
+        return redirect(url_for('login'))
+
     form = AdminApplicationForm()
     if form.validate_on_submit():
         currYear = CurrentYear.query.first().year # Get the current year from the database
@@ -433,6 +443,10 @@ def adminDB():
 
 @app.route('/DBEdit/<int:id>', methods=['GET', 'POST'])
 def DBEdit(id):
+
+    if not session.get('authenticated'):
+        return redirect(url_for('login'))
+
     # Get the vendor object with the specified ID or return a 404 error if not found
     vendor = Vendor.query.get_or_404(id)
     # Create a new AdminEditForm and pre-populate it with the data from the vendor object
