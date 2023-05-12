@@ -19,21 +19,65 @@
                     {% endfor %}
                 </ul>
             {% endif %}    
-            <div class="form-group">
-                {{form.name.label}}{{form.name(value=vendor.name,class="form-control")}}
-                {{form.business.label}}{{form.business(value=vendor.business,class="form-control")}}
-                {{form.address.label}}{{form.address(value=vendor.address,class="form-control")}}
-                {{form.citystatezip.label}}{{form.citystatezip(value=vendor.citystatezip,class="form-control")}}
-                {{form.email.label}}{{form.email(value=vendor.email,class="form-control")}}
-                {{form.phoneNum.label}}{{form.phoneNum(value=vendor.phoneNum,class="form-control")}}
-                {{form.desc.label}}{{form.desc(value=vendor.desc,class="form-control")}}
-                {{form.boothLoc.label}}{{form.boothLoc(value=vendor.boothLoc,class="form-control")}}
-                {{form.boothNum.label}}{{form.boothNum(value=vendor.boothNum,class="form-control")}}
-                {{form.tableNum.label}}{{form.tableNum(value=vendor.tableNum,class="form-control")}}
-                {{form.payment_amount.label}}{{form.payment_amount(value=vendor.payment_amount,class="form-control")}}
-                {{form.status.label}}{{form.status(value=vendor.status,class="form-control")}}
-                {{form.submit}}
+            <div class="container">
+              <div class="row">
+                <div class="col-12 col-md-8">
+                  <div class="form-group">
+                    {{form.name.label}}{{form.name(value=vendor.name,class="form-control")}}
+                    <small class="text-muted">Enter the name of the vendor.</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.business.label}}{{form.business(value=vendor.business,class="form-control")}}
+                    <small class="text-muted">Provide the business name of the vendor. Try avoid having apostrophes, it conflicts with the map hovering ex. "Joe's Business" should be "Joes Business"</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.address.label}}{{form.address(value=vendor.address,class="form-control")}}
+                    <small class="text-muted">Enter the address of the vendor. No formatting enforced.</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.citystatezip.label}}{{form.citystatezip(value=vendor.citystatezip,class="form-control")}}
+                    <small class="text-muted">Enter the city, state, and zip code of the vendor's location. No formatting enforced. </small>
+                  </div>
+                  <div class="form-group">
+                    {{form.email.label}}{{form.email(value=vendor.email,class="form-control")}}
+                    <small class="text-muted">Enter the email address of the vendor. If they do not have an email, enter NA@NA.com</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.phoneNum.label}}{{form.phoneNum(value=vendor.phoneNum,class="form-control")}}
+                    <small class="text-muted">Enter the phone number of the vendor.</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.desc.label}}{{form.desc(value=vendor.desc,class="form-control")}}
+                    <small class="text-muted">Provide a description of the vendor or their products/services.</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.boothLoc.label}}{{form.boothLoc(value=vendor.boothLoc,class="form-control")}}
+                    <small class="text-muted">Specify the location of the vendor's booth. Enter values seperated by a comma, no spaces Ex. 1,2,3</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.boothNum.label}}{{form.boothNum(value=vendor.boothNum,class="form-control")}}
+                    <small class="text-muted">Enter the number of booths assigned to the vendor. Must match number of Booth Locations.</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.tableNum.label}}{{form.tableNum(value=vendor.tableNum,class="form-control")}}
+                    <small class="text-muted">Enter the table count desired by the vendor, enter 0 if none.</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.payment_amount.label}}{{form.payment_amount(value=vendor.payment_amount,class="form-control")}}
+                    <small class="text-muted">Specify the payment amount for the vendor. Do not include a $.</small>
+                  </div>
+                  <div class="form-group">
+                    {{form.status.label}}{{form.status(value=vendor.status,class="form-control")}}
+                    <small class="text-muted">Provide the status or current state of the vendor. </small>
+                  </div>
+                  <div class="form-group">
+                    {{form.submit}}
+                  </div>
+                </div>
               </div>
+            </div>
+            
+            
         </form>
       </div>
     </div>
